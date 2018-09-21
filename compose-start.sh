@@ -6,7 +6,7 @@ PROJECT="greenbone"
 COMPOSE="docker-compose"
 
 _START() {
-  "${COMPOSE}" -p "${PROJECT}" up --build -d
+  "${COMPOSE}" -p "${PROJECT}" up --build -d --remove-orphans
 }
 
 _START

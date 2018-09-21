@@ -1,0 +1,41 @@
+---
+
+# COMPOSE TEST
+
+version: '3'
+services:
+
+  openvas-master:
+    build: 
+      context: .
+      dockerfile: Dockerfile-openvas-master.debian
+    hostname: "openvas-master"
+    restart: always
+    ports:
+      - "9390-9393:9390-9393"
+      - "9000:443"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "openvas-stack:/usr/local/var/lib/openvas"
+      - "gvm-stack:/usr/local/var/lib/gvm"
+    
+    
+  openvas-slave:
+    build: 
+      context: .
+      dockerfile: Dockerfile-openvas-slave.debian
+    hostname: "openvas-slave"
+    restart: always
+    ports:
+      - "19391:9391"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "openvas-stack:/usr/local/var/lib/openvas"
+      - "gvm-stack:/usr/local/var/lib/gvm"
+    links:
+      - openvas-master
+      
+volumes:
+  gvm-stack:
+  openvas-stack:
+  openvas-scanner:

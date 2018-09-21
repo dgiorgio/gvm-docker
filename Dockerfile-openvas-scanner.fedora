@@ -1,0 +1,43 @@
+FROM dgiorgio/openvas-gvm-libs:fedora-1.0
+
+ENV SO fedora
+
+ENV OPENVAS_SRC /root/openvas-src
+RUN mkdir -p ${OPENVAS_SRC}
+WORKDIR ${OPENVAS_SRC}
+
+# pre
+COPY ./pre/${OS}-pre.sh .
+RUN chmod +x ./${OS}-pre.sh && ./${OS}-pre.sh
+
+# gvm-libs
+ENV APP="gvm-libs"
+COPY ./src/${APP}/deps/${OS}-deps.sh .
+RUN chmod +x ./${OS}-deps.sh && ./${OS}-deps.sh
+COPY ./src/${APP}/build.sh .
+RUN chmod +x ./build.sh && ./build.sh
+
+# openvas-smb
+ENV APP="openvas-smb"
+COPY ./src/${APP}/deps/${OS}-deps.sh .
+RUN chmod +x ./${OS}-deps.sh && ./${OS}-deps.sh
+COPY ./src/${APP}/build.sh .
+RUN chmod +x ./build.sh && ./build.sh
+
+# openvas-scanner
+ENV APP="openvas-scanner"
+COPY ./src/${APP}/deps/${OS}-deps.sh .
+RUN chmod +x ./${OS}-deps.sh && ./${OS}-deps.sh
+COPY ./src/${APP}/build.sh .
+RUN chmod +x ./build.sh && ./build.sh
+COPY ./src/${APP}/config/openvassd.conf /usr/local/etc/openvas/openvassd.conf
+COPY ./src/${APP}/config/redis.conf /etc/redis.conf
+
+RUN rm -rf ${OPENVAS_SRC}
+
+COPY ./config/docker-entrypoint.sh /usr/local/bin
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+
+VOLUME ["/usr/local/var/lib/openvas/"]
+EXPOSE 9390

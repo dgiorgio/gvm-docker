@@ -46,10 +46,10 @@ RUN chmod +x ./build.sh && ./build.sh
 WORKDIR /
 RUN rm -rf ${OPENVAS_SRC}
 
-ENV APP stack
-
 COPY ./scripts/bin/greenbone-setup.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/greenbone-setup.sh
+
+ENV APP master
 COPY ./scripts/entrypoint/${APP}/docker-entrypoint.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]

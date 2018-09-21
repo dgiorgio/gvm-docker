@@ -13,7 +13,7 @@ make
 pkg-config
 "
 # nodejs
-BASE="${BASE} curl"
+BASE="${BASE} curl apt-transport-https"
 
 # deps
 DEPS="

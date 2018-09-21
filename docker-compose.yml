@@ -34,8 +34,9 @@ services:
       - "gvm-stack:/usr/local/var/lib/gvm"
     links:
       - openvas-master
+    depends_on:
+      - openvas-master
       
 volumes:
   gvm-stack:
   openvas-stack:
-  openvas-scanner:

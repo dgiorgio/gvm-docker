@@ -18,7 +18,7 @@ while [ "${REDIS_RESULT}" != "PONG" ]; do
 done
 echo "Redis ready."
 
-/usr/local/bin/greenbone-setup.sh
+/usr/local/bin/openvas-setup.sh
 
 >> /usr/local/var/log/gvm/openvassd.log
 echo "openvas-scanner - creating cache..."

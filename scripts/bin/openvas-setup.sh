@@ -8,7 +8,9 @@ _SYNC() {
   else
     /usr/local/sbin/greenbone-nvt-sync --wget
   fi
+  sleep 5
   greenbone-certdata-sync
+  sleep 5
   greenbone-scapdata-sync
 }
 

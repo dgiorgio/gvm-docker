@@ -39,8 +39,8 @@ COPY ./src/${APP}/config/redis.conf /etc/redis.conf
 WORKDIR /
 #RUN rm -rf ${OPENVAS_SRC}
 
-COPY ./scripts/bin/greenbone-setup.sh /usr/local/bin
-RUN chmod +x /usr/local/bin/greenbone-setup.sh
+COPY ./scripts/bin/openvas-setup.sh /usr/local/bin
+RUN chmod +x /usr/local/bin/openvas-setup.sh
 
 ENV APP slave
 COPY ./scripts/entrypoint/${APP}/docker-entrypoint.sh /usr/local/bin

@@ -7,7 +7,7 @@ PROJECT="openvas"
 COMPOSE="docker-compose"
 
 _START() {
-  "${COMPOSE}" -p "${PROJECT}" up --build -d --remove-orphans -f "${FILE}"
+  "${COMPOSE}" -f "${FILE}" -p "${PROJECT}" up --build -d --remove-orphans
 }
 
 _START

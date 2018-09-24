@@ -1,0 +1,20 @@
+---
+
+version: '3'
+
+services:
+
+  openvas-slave:
+    image: dgiorgio/openvas-source:slave-1.0
+    hostname: "openvas-slave"
+    restart: always
+    ports:
+      - "9391:9391"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "openvas-data:/usr/local/var/lib/openvas"
+      - "gvm-data:/usr/local/var/lib/gvm"
+      
+volumes:
+  gvm-data:
+  openvas-data:

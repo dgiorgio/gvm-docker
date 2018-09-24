@@ -1,0 +1,21 @@
+---
+
+version: '3'
+
+services:
+
+  openvas-master:
+    image: dgiorgio/openvas-source:master-1.0
+    hostname: "openvas-master"
+    restart: always
+    ports:
+      - "9390-9393:9390-9393"
+      - "443:443"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "openvas-data:/usr/local/var/lib/openvas"
+      - "gvm-data:/usr/local/var/lib/gvm"
+
+volumes:
+  gvm-data:
+  openvas-data:

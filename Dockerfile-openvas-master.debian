@@ -43,6 +43,13 @@ RUN chmod +x ./${OS}-deps.sh && ./${OS}-deps.sh
 COPY ./src/${APP}/build.sh .
 RUN chmod +x ./build.sh && ./build.sh
 
+# sendmail
+ENV APP sendmail
+COPY ./src/${APP}/deps/${OS}-deps.sh .
+RUN chmod +x ./${OS}-deps.sh && ./${OS}-deps.sh
+COPY ./src/${APP}/config/ssmtp.conf /etc/ssmtp/ssmtp.conf
+COPY ./src/${APP}/config/revaliases /etc/ssmtp/revaliases
+
 WORKDIR /
 RUN rm -rf ${OPENVAS_SRC}
 

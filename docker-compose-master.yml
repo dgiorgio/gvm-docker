@@ -9,12 +9,13 @@ services:
     hostname: "openvas-master"
     restart: always
     ports:
-      - "9390-9393:9390-9393"
+      - "80:80"
       - "443:443"
+      - "9390-9393:9390-9393"
     volumes:
-      - "/etc/localtime:/etc/localtime:ro"
       - "openvas-data:/usr/local/var/lib/openvas"
       - "gvm-data:/usr/local/var/lib/gvm"
+      - "/etc/localtime:/etc/localtime:ro"
 
 volumes:
   gvm-data:

@@ -21,6 +21,7 @@ echo "Redis ready."
 /usr/local/bin/openvas-setup.sh
 
 >> /usr/local/var/log/gvm/openvassd.log
+
 echo "openvas-scanner - creating cache..."
 /usr/local/sbin/openvassd -C >/dev/null 2>&1
 echo "openvas-scanner - starting..."

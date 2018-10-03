@@ -2,7 +2,7 @@
 
 # DEBIAN - BUILD
 
-# gvm-libs
+# gvm
 
 # base
 BASE="

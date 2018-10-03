@@ -2,7 +2,7 @@
 
 # DEBIAN - BUILD
 
-# gvm-libs
+# gsa
 
 # base
 BASE="
@@ -29,6 +29,7 @@ libxml2-dev
 OPT="
 doxygen
 xmltoman
+ssh
 "
 
 apt update -y && \

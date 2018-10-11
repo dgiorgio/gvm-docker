@@ -7,11 +7,11 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile-openvas-master.debian
-    image: dgiorgio/openvas-source:master-1.0
+    image: "${DOMAIN}/openvas-source:master-1.0"
     
   openvas-slave:
     build: 
       context: .
       dockerfile: Dockerfile-openvas-slave.debian
-    image: dgiorgio/openvas-source:slave-1.0
+    image: "${DOMAIN}/openvas-source:slave-1.0"
   

@@ -30,6 +30,24 @@ sqlfairy
 libsqlite3-dev
 libpq-dev
 postgresql-server-dev-9.6
+texlive-latex-base
+xsltproc
+xmlstarlet
+zip
+rpm
+dpkg
+fakeroot
+nsis
+gnupg
+wget
+sshpass
+ssh-client
+socat
+snmp
+smbclient
+python3
+python3-lxml
+haveged
 "
 
 apt update -y && \

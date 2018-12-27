@@ -5,7 +5,7 @@ version: '3'
 services:
 
   openvas-master:
-    image: dgiorgio/openvas-source:master-1.0
+    image: "${DOMAIN}/openvas-source:master-${VERSION}"
     hostname: "openvas-master"
     restart: always
     ports:
@@ -16,6 +16,7 @@ services:
       - "openvas-data:/usr/local/var/lib/openvas"
       - "gvm-data:/usr/local/var/lib/gvm"
       - "/etc/localtime:/etc/localtime:ro"
+      - "${SMTP_CONFIG_PATH}:/etc/ssmtp/"
 
 volumes:
   gvm-data:

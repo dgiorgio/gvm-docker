@@ -3,18 +3,17 @@
 version: '3'
 
 services:
-
   openvas-slave:
-    image: dgiorgio/openvas-source:slave-1.0
+    image: "${DOMAIN}/openvas-source:slave-${VERSION}"
     hostname: "openvas-slave"
     restart: always
     ports:
-      - "9391:9391"
+      - "19390:9390"
     volumes:
-      - "/etc/localtime:/etc/localtime:ro"
       - "openvas-data:/usr/local/var/lib/openvas"
       - "gvm-data:/usr/local/var/lib/gvm"
-      
+      - "/etc/localtime:/etc/localtime:ro"
+
 volumes:
   gvm-data:
   openvas-data:

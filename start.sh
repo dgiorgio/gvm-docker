@@ -2,12 +2,18 @@
 
 set -euo pipefail
 
-FILE="docker-compose.yml"
+FILES=""
+PARAMETER="${@}"
+
+if [ "${PARAMETER}" == "" ]; then
+  FILES="-f docker-compose.yml"
+else
+  for i in ${PARAMETER}; do
+    FILES="${FILES} -f ${i}"
+  done
+fi
+
 PROJECT="openvas"
 COMPOSE="docker-compose"
 
-_START() {
-  "${COMPOSE}" -f "${FILE}" -p "${PROJECT}" up --build -d --remove-orphans
-}
-
-_START
+"${COMPOSE}" ${FILES} -p "${PROJECT}" up --build -d

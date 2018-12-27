@@ -19,7 +19,7 @@ libglib2.0-dev
 libgnutls28-dev
 uuid-dev
 libssh-gcrypt-dev
-libgpgme-dev
+libgpgme11-dev
 libhiredis-dev
 "
 

@@ -2,18 +2,6 @@
 
 GVM_PATH="/usr/local/var/lib/gvm"
 
-_SYNC() {
-  if [ -d "/usr/local/var/lib/openvas/plugins" ]; then
-    /usr/local/sbin/greenbone-nvt-sync --rsync
-  else
-    /usr/local/sbin/greenbone-nvt-sync --wget
-  fi
-  sleep 15
-  greenbone-certdata-sync
-  sleep 15
-  greenbone-scapdata-sync
-}
-
 _CERT() {
   if [ ! -f "${GVM_PATH}/CA/clientcert.pem" ] || \
   [ ! -f "${GVM_PATH}/CA/cacert.pem" ] || \
@@ -33,8 +21,18 @@ _ADMIN() {
   fi
 }
 
+_SYNC() {
+  if [ "$(ls -A /usr/local/var/lib/openvas/plugins)" ]; then
+    /usr/local/sbin/greenbone-nvt-sync --rsync
+  else
+    /usr/local/sbin/greenbone-nvt-sync --wget
+  fi
+  sleep 15
+  greenbone-certdata-sync
+  sleep 15
+  greenbone-scapdata-sync
+}
 
-_SYNC
-_CERT
-_ADMIN
-
+# _CERT
+# _ADMIN
+# _SYNC

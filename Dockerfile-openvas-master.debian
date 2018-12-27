@@ -1,4 +1,4 @@
-FROM debian:9
+FROM debian:stretch-20181112
 
 ENV OS debian
 
@@ -15,8 +15,8 @@ RUN chmod +x ./${OS}-deps.sh && ./${OS}-deps.sh
 COPY ./src/${APP}/build.sh .
 RUN chmod +x ./build.sh && ./build.sh
 
-# gvm
-ENV APP gvm
+# gvmd
+ENV APP gvmd
 RUN mkdir -p ${OPENVAS_SRC}/${APP}
 WORKDIR ${OPENVAS_SRC}/${APP}
 COPY ./src/${APP}/deps/${OS}-deps.sh .
@@ -65,10 +65,10 @@ COPY ./src/${APP}/config/revaliases /etc/ssmtp/revaliases
 WORKDIR /
 RUN rm -rf ${OPENVAS_SRC}
 
-COPY ./scripts/bin/openvas-setup.sh /usr/local/bin
-RUN chmod +x /usr/local/bin/openvas-setup.sh
-
 ENV APP master
+COPY ./scripts/bin/${APP}/greenbone-setup.sh /usr/local/bin
+RUN chmod +x /usr/local/bin/greenbone-setup.sh
+
 COPY ./scripts/entrypoint/${APP}/docker-entrypoint.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]

@@ -47,7 +47,7 @@ COPY ./src/${APP}/config/redis.conf /etc/redis.conf
 WORKDIR /
 RUN rm -rf ${OPENVAS_SRC}
 
-ENV APP slave
+ENV APP sshvpn
 COPY ./scripts/bin/${APP}/greenbone-setup.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/greenbone-setup.sh
 

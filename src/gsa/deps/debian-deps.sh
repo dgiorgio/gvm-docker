@@ -30,6 +30,8 @@ OPT="
 doxygen
 xmltoman
 ssh
+texlive-latex-extra
+texlive-fonts-recommended
 "
 
 apt update -y && \

@@ -1,6 +1,6 @@
 # Install openvas-scanner
 APP="openvas-scanner"
-CHECKOUT="b1d4ca672f2ecb7c494789c60ba8fdeed1d6823c"
+CHECKOUT="3e87367e6994da94530ef28baee88ca87ef885c6"
 
 git clone https://github.com/greenbone/${APP}.git \
 && cd ${APP} \

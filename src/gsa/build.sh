@@ -1,6 +1,6 @@
 # Install gsa
 APP="gsa"
-CHECKOUT="99123d7639852bf1c078f0d3522b854cb389d0c3"
+CHECKOUT="4d71cc1898c49c386f7c74f2661587f358a36236"
 
 git clone https://github.com/greenbone/${APP}.git \
 && cd ${APP} \

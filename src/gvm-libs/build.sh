@@ -1,6 +1,6 @@
 # Install gvm-libs
 APP="gvm-libs"
-CHECKOUT="b271a6cf76c938b938574a4fc7d862efe88c3239"
+CHECKOUT="7fecb224078e01cd091e3afb4e071bcf77ae43b7"
 
 git clone https://github.com/greenbone/${APP}.git \
 && cd ${APP} \

@@ -13,6 +13,10 @@ _CERT() {
   fi
 }
 
+_GVM_MIGRATION() {
+  gvmd -m
+}
+
 _ADMIN() {
   GVM_ADMIN="$(gvmd --get-users | grep -w admin)"
   if [ -z "${GVM_ADMIN}" ]; then
@@ -34,5 +38,6 @@ _SYNC() {
 }
 
 _CERT
+_GVM_MIGRATION
 _ADMIN
 _SYNC

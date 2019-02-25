@@ -1,0 +1,3 @@
+[submodule "extra/sshvpn"]
+	path = extra/sshvpn
+	url = https://github.com/dgiorgio/sshvpn.git

@@ -20,9 +20,3 @@ services:
       context: .
       dockerfile: Dockerfile-openvas-sshvpn.debian
     image: "${DOMAIN}/openvas-source:sshvpn-${VERSION}"
-
-  sshvpn:
-    build:
-      context: ./extra/sshvpn
-      dockerfile: Dockerfile
-    image: "${DOMAIN}/sshvpn:${SSHVPN_VERSION}"

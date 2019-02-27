@@ -1,7 +1,7 @@
 FROM debian:stretch-20190204
 
 ENV OS debian
-ENV VERSION release
+ENV STAGE stable
 
 ENV OPENVAS_SRC /root/openvas-src
 RUN mkdir -p ${OPENVAS_SRC}
@@ -14,7 +14,7 @@ WORKDIR ${OPENVAS_SRC}/${APP}
 COPY ./src/${APP}/deps/${OS}-deps.sh .
 RUN chmod +x ./${OS}-deps.sh && ./${OS}-deps.sh
 COPY ./src/${APP}/build.sh .
-RUN chmod +x ./build.sh && ./build.sh ${VERSION}
+RUN chmod +x ./build.sh && ./build.sh ${STAGE}
 
 # gvmd
 ENV APP gvmd
@@ -23,7 +23,7 @@ WORKDIR ${OPENVAS_SRC}/${APP}
 COPY ./src/${APP}/deps/${OS}-deps.sh .
 RUN chmod +x ./${OS}-deps.sh && ./${OS}-deps.sh
 COPY ./src/${APP}/build.sh .
-RUN chmod +x ./build.sh && ./build.sh ${VERSION}
+RUN chmod +x ./build.sh && ./build.sh ${STAGE}
 
 # openvas-smb
 ENV APP openvas-smb
@@ -32,7 +32,7 @@ WORKDIR ${OPENVAS_SRC}/${APP}
 COPY ./src/${APP}/deps/${OS}-deps.sh .
 RUN chmod +x ./${OS}-deps.sh && ./${OS}-deps.sh
 COPY ./src/${APP}/build.sh .
-RUN chmod +x ./build.sh && ./build.sh ${VERSION}
+RUN chmod +x ./build.sh && ./build.sh ${STAGE}
 
 # openvas-scanner
 ENV APP openvas-scanner
@@ -48,7 +48,7 @@ COPY ./src/${APP}/config/redis.conf /etc/redis.conf
 WORKDIR /
 RUN rm -rf ${OPENVAS_SRC}
 
-ENV APP slave
+ENV APP sshvpn
 COPY ./scripts/bin/${APP}/greenbone-setup.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/greenbone-setup.sh
 

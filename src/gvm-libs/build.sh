@@ -1,10 +1,10 @@
 # Install gvm-libs
 APP="gvm-libs"
 
-VERSION="${1}"
+STAGE="${1}"
 
-[ "${VERSION}" == "release" ] && CHECKOUT="gvm-libs-1.0"
-[ "${VERSION}" == "dev" ] && CHECKOUT="61ae9c01880fe120ad6f49c73c588a6c3927858f"
+[ "${STAGE}" == "stable" ] && CHECKOUT="gvm-libs-1.0"
+[ "${STAGE}" == "dev" ] && CHECKOUT="61ae9c01880fe120ad6f49c73c588a6c3927858f"
 
 git clone https://github.com/greenbone/${APP}.git \
 && cd ${APP} \

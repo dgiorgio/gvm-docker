@@ -31,7 +31,6 @@ doxygen
 "
 
 apt update -y && \
-DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends apt-utils && \
 apt install -y --no-install-recommends --fix-missing ${BASE} ${DEPS} ${OPT} && \
 rm -rf /var/lib/apt/lists/*
 

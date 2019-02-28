@@ -35,7 +35,6 @@ texlive-fonts-recommended
 "
 
 apt update -y && \
-DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends apt-utils && \
 apt install -y --no-install-recommends --fix-missing ${BASE} ${DEPS} ${OPT}
 
 # nodejs
@@ -43,8 +42,8 @@ curl --silent --show-error https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key ad
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 curl --silent --show-error https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 echo "deb https://deb.nodesource.com/node_8.x stretch main" | tee /etc/apt/sources.list.d/nodesource.list
-apt-get update -y
-apt-get install -y nodejs yarn
+apt update -y
+apt install -y nodejs yarn
 
 # Remove packages
 #apt remove -y ${BASE} ${DEPS} ${OPT}

@@ -4,7 +4,7 @@ version: '3'
 
 services:
   openvas-slave:
-    image: "${DOMAIN}/openvas-source:slave-${VERSION}"
+    image: "${DOMAIN}/openvas-source:slave-${STAGE}-${VERSION}"
     hostname: "openvas-slave"
     restart: always
     ports:

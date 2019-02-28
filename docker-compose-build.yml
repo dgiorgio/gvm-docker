@@ -6,17 +6,17 @@ services:
   openvas-master:
     build:
       context: .
-      dockerfile: Dockerfile-openvas-master.debian
-    image: "${DOMAIN}/openvas-source:master-${VERSION}"
+      dockerfile: Dockerfile-openvas-master.${STAGE}
+    image: "${DOMAIN}/openvas-source:master-${STAGE}-${VERSION}"
 
   openvas-slave:
     build:
       context: .
-      dockerfile: Dockerfile-openvas-slave.debian
-    image: "${DOMAIN}/openvas-source:slave-${VERSION}"
+      dockerfile: Dockerfile-openvas-slave.${STAGE}
+    image: "${DOMAIN}/openvas-source:slave-${STAGE}-${VERSION}"
 
   openvas-sshvpn:
     build:
       context: .
-      dockerfile: Dockerfile-openvas-sshvpn.debian
-    image: "${DOMAIN}/openvas-source:sshvpn-${VERSION}"
+      dockerfile: Dockerfile-openvas-sshvpn.${STAGE}
+    image: "${DOMAIN}/openvas-source:sshvpn-${STAGE}-${VERSION}"

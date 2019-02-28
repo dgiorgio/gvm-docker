@@ -8,8 +8,8 @@ services:
   openvas-master:
     build:
       context: .
-      dockerfile: Dockerfile-openvas-master.debian
-    image: "${DOMAIN}/openvas-source:master-${VERSION}"
+      dockerfile: Dockerfile-openvas-master.${STAGE}
+    image: "${DOMAIN}/openvas-source:master-${STAGE}-${VERSION}"
     hostname: "openvas-master"
     restart: always
     ports:
@@ -24,8 +24,8 @@ services:
   openvas-slave:
     build:
       context: .
-      dockerfile: Dockerfile-openvas-slave.debian
-    image: "${DOMAIN}/openvas-source:slave-${VERSION}"
+      dockerfile: Dockerfile-openvas-slave.${STAGE}
+    image: "${DOMAIN}/openvas-source:slave-${STAGE}-${VERSION}"
     hostname: "openvas-slave"
     restart: always
     ports:
@@ -42,8 +42,8 @@ services:
   openvas-sshvpn:
     build:
       context: .
-      dockerfile: Dockerfile-openvas-sshvpn.debian
-    image: "${DOMAIN}/openvas-source:sshvpn-${VERSION}"
+      dockerfile: Dockerfile-openvas-sshvpn.${STAGE}
+    image: "${DOMAIN}/openvas-source:sshvpn-${STAGE}-${VERSION}"
     hostname: "openvas-sshvpn"
     restart: always
     privileged: true

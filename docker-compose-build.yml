@@ -3,20 +3,53 @@
 version: '3'
 
 services:
+# openvas-master
   openvas-master:
     build:
       context: .
-      dockerfile: Dockerfile-openvas-master.${STAGE}
-    image: "${DOMAIN}/openvas-source:master-${STAGE}-${VERSION}"
+      dockerfile: Dockerfile-openvas-master.stable
+    image: "${DOMAIN}/openvas-source:master-${VERSION}"
+  openvas-master-stable:
+    build:
+      context: .
+      dockerfile: Dockerfile-openvas-master.stable
+    image: "${DOMAIN}/openvas-source:master-${VERSION}-stable"
+  openvas-master-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile-openvas-master.dev
+    image: "${DOMAIN}/openvas-source:master-${VERSION_DEV}-dev"
 
+# openvas-slave
   openvas-slave:
     build:
       context: .
-      dockerfile: Dockerfile-openvas-slave.${STAGE}
-    image: "${DOMAIN}/openvas-source:slave-${STAGE}-${VERSION}"
+      dockerfile: Dockerfile-openvas-slave.stable
+    image: "${DOMAIN}/openvas-source:slave-${VERSION}"
+  openvas-slave-stable:
+    build:
+      context: .
+      dockerfile: Dockerfile-openvas-slave.stable
+    image: "${DOMAIN}/openvas-source:slave-${VERSION}-stable"
+  openvas-slave-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile-openvas-slave.dev
+    image: "${DOMAIN}/openvas-source:slave-${VERSION_DEV}-dev"
 
+# openvas-slave
   openvas-sshvpn:
     build:
       context: .
-      dockerfile: Dockerfile-openvas-sshvpn.${STAGE}
-    image: "${DOMAIN}/openvas-source:sshvpn-${STAGE}-${VERSION}"
+      dockerfile: Dockerfile-openvas-sshvpn.stable
+    image: "${DOMAIN}/openvas-source:sshvpn-${VERSION}"
+  openvas-sshvpn-stable:
+    build:
+      context: .
+      dockerfile: Dockerfile-openvas-sshvpn.stable
+    image: "${DOMAIN}/openvas-source:sshvpn-${VERSION}-stable"
+  openvas-sshvpn-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile-openvas-sshvpn.dev
+    image: "${DOMAIN}/openvas-source:sshvpn-${VERSION_DEV}-dev"

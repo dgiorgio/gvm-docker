@@ -13,6 +13,7 @@ RUN mkdir -p ${OPENVAS_SRC}/${APP}
 WORKDIR ${OPENVAS_SRC}/${APP}
 COPY ./src/${APP}/deps/${OS}-deps.sh .
 RUN chmod +x ./${OS}-deps.sh && ./${OS}-deps.sh
+COPY ./src/${APP}/checkout/${STAGE} .
 COPY ./src/${APP}/build.sh .
 RUN chmod +x ./build.sh && ./build.sh ${STAGE}
 
@@ -22,6 +23,7 @@ RUN mkdir -p ${OPENVAS_SRC}/${APP}
 WORKDIR ${OPENVAS_SRC}/${APP}
 COPY ./src/${APP}/deps/${OS}-deps.sh .
 RUN chmod +x ./${OS}-deps.sh && ./${OS}-deps.sh
+COPY ./src/${APP}/checkout/${STAGE} .
 COPY ./src/${APP}/build.sh .
 RUN chmod +x ./build.sh && ./build.sh ${STAGE}
 
@@ -31,6 +33,7 @@ RUN mkdir -p ${OPENVAS_SRC}/${APP}
 WORKDIR ${OPENVAS_SRC}/${APP}
 COPY ./src/${APP}/deps/${OS}-deps.sh .
 RUN chmod +x ./${OS}-deps.sh && ./${OS}-deps.sh
+COPY ./src/${APP}/checkout/${STAGE} .
 COPY ./src/${APP}/build.sh .
 RUN chmod +x ./build.sh && ./build.sh ${STAGE}
 
@@ -40,8 +43,9 @@ RUN mkdir -p ${OPENVAS_SRC}/${APP}
 WORKDIR ${OPENVAS_SRC}/${APP}
 COPY ./src/${APP}/deps/${OS}-deps.sh .
 RUN chmod +x ./${OS}-deps.sh && ./${OS}-deps.sh
+COPY ./src/${APP}/checkout/${STAGE} .
 COPY ./src/${APP}/build.sh .
-RUN chmod +x ./build.sh && ./build.sh
+RUN chmod +x ./build.sh && ./build.sh ${STAGE}
 COPY ./src/${APP}/config/openvassd.conf /usr/local/etc/openvas/openvassd.conf
 COPY ./src/${APP}/config/redis.conf /etc/redis.conf
 

@@ -4,9 +4,9 @@
 APP="gvm-libs"
 
 STAGE="${1}"
+[[ "${STAGE}" == "" ]] && STAGE="stable"
 
-[[ ("${STAGE}" == "") || ("${STAGE}" == "stable") ]] && CHECKOUT="5370a7d60e2adc4d65f94ad00e6cf4b572e3aa23" # branch: gvm-libs-1.0
-[[ "${STAGE}" == "dev" ]] && CHECKOUT="61ae9c01880fe120ad6f49c73c588a6c3927858f" # branch: master
+source "./${STAGE}"
 
 git clone https://github.com/greenbone/${APP}.git \
 && cd ${APP} \

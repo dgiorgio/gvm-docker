@@ -1,15 +1,13 @@
 ---
 
-# COMPOSE DEV
-
 version: '3'
-services:
 
+services:
   openvas-master:
     build:
       context: .
       dockerfile: Dockerfile-openvas-master.${STAGE}
-    image: "${DOMAIN}/openvas-source:master-${STAGE}-${VERSION}"
+    image: "${DOMAIN}/openvas-source:master-${VERSION}-${STAGE}"
     hostname: "openvas-master"
     restart: always
     ports:
@@ -25,7 +23,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-openvas-slave.${STAGE}
-    image: "${DOMAIN}/openvas-source:slave-${STAGE}-${VERSION}"
+    image: "${DOMAIN}/openvas-source:slave-${VERSION}-${STAGE}"
     hostname: "openvas-slave"
     restart: always
     ports:
@@ -43,7 +41,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-openvas-sshvpn.${STAGE}
-    image: "${DOMAIN}/openvas-source:sshvpn-${STAGE}-${VERSION}"
+    image: "${DOMAIN}/openvas-source:sshvpn-${VERSION}-${STAGE}"
     hostname: "openvas-sshvpn"
     restart: always
     privileged: true

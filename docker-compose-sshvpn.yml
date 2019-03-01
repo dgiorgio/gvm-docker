@@ -4,7 +4,7 @@ version: '3'
 
 services:
   openvas-sshvpn:
-    image: "${DOMAIN}/openvas-source:sshvpn-${STAGE}-${VERSION}"
+    image: "${DOMAIN}/openvas-source:sshvpn-${VERSION}-${STAGE}"
     hostname: "openvas-sshvpn"
     restart: always
     privileged: true

@@ -3,9 +3,8 @@
 version: '3'
 
 services:
-
   openvas-master:
-    image: "${DOMAIN}/openvas-source:master-${STAGE}-${VERSION}"
+    image: "${DOMAIN}/openvas-source:master-${VERSION}-${STAGE}"
     hostname: "openvas-master"
     restart: always
     ports:

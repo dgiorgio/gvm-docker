@@ -1,4 +1,4 @@
-FROM debian:stretch-201900326
+FROM debian:stretch-20190326
 
 ENV OS debian
 ENV STAGE dev

@@ -10,6 +10,7 @@ git
 cmake
 gcc
 make
+clang-format
 "
 
 # deps

@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+ENABLE_CRON_DEFAULT="true"
+[ "${ENABLE_CRON}" != "true" ] && ENABLE_CRON="${ENABLE_CRON_DEFAULT}"
+
 ldconfig
 
 /usr/bin/redis-server /etc/redis.conf --daemonize yes
@@ -19,6 +22,8 @@ done
 echo "Redis ready."
 
 /usr/local/bin/greenbone-setup.sh
+/usr/local/bin/greenbone-sync.sh
+/usr/local/bin/greenbone-cron.sh "${ENABLE_CRON}"
 
 >> /usr/local/var/log/gvm/openvassd.log
 

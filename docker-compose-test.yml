@@ -18,6 +18,8 @@ services:
       - "gvm-dev:/usr/local/var/lib/gvm"
       - "/etc/localtime:/etc/localtime:ro"
       - "${SMTP_CONFIG_PATH}:/etc/ssmtp/"
+    environment:
+      - GREENBONE_UPDATE_CRON=${GREENBONE_UPDATE_CRON}
 
   openvas-slave:
     build:
@@ -36,6 +38,8 @@ services:
       - openvas-master
     depends_on:
       - openvas-master
+    environment:
+      - ENABLE_CRON=false
 
   openvas-sshvpn:
     build:

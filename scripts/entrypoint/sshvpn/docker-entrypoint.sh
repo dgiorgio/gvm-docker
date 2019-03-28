@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+ENABLE_CRON_DEFAULT="false"
+[ "${ENABLE_CRON}" != "true" ] && ENABLE_CRON="${ENABLE_CRON_DEFAULT}"
+
 [ "${SSHVPN_ROOT_DOCKER}" == "" ] && SSHVPN_ROOT_DOCKER="/root/sshvpn-files"
 [ "${SSHVPN_INTERFACE_IP}" == "" ] && SSHVPN_INTERFACE_IP="172.66.66.66"
 [ "${SSHVPN_ROUTE_RANGE}" == "" ] && SSHVPN_ROUTE_RANGE="10.166.0.0/16"
@@ -24,6 +27,7 @@ done
 echo "Redis ready."
 
 /usr/local/bin/greenbone-setup.sh
+/usr/local/bin/greenbone-cron.sh "${ENABLE_CRON}"
 
 >> /usr/local/var/log/gvm/openvassd.log
 

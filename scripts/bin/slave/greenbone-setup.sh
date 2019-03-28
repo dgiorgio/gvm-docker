@@ -25,19 +25,6 @@ _ADMIN() {
   fi
 }
 
-_SYNC() {
-  if [ "$(ls -A /usr/local/var/lib/openvas/plugins)" ]; then
-    /usr/local/sbin/greenbone-nvt-sync --rsync
-  else
-    /usr/local/sbin/greenbone-nvt-sync --wget
-  fi
-  sleep 15
-  greenbone-certdata-sync
-  sleep 15
-  greenbone-scapdata-sync
-}
-
 _CERT
 _GVM_MIGRATION
 _ADMIN
-_SYNC

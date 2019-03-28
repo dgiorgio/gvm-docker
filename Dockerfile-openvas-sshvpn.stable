@@ -49,12 +49,19 @@ RUN chmod +x ./build.sh && ./build.sh ${STAGE}
 COPY ./src/${APP}/config/openvassd.conf /usr/local/etc/openvas/openvassd.conf
 COPY ./src/${APP}/config/redis.conf /etc/redis.conf
 
+# cron
+ENV APP cron
+RUN mkdir -p ${OPENVAS_SRC}/${APP}
+WORKDIR ${OPENVAS_SRC}/${APP}
+COPY ./src/${APP}/deps/${OS}-deps.sh .
+RUN chmod +x ./${OS}-deps.sh && ./${OS}-deps.sh
+
 WORKDIR /
 RUN rm -rf ${OPENVAS_SRC}
 
 ENV APP sshvpn
-COPY ./scripts/bin/${APP}/greenbone-setup.sh /usr/local/bin
-RUN chmod +x /usr/local/bin/greenbone-setup.sh
+COPY ./scripts/bin/${APP}/greenbone-setup.sh ./scripts/bin/greenbone-*.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/greenbone-*.sh
 
 COPY ./scripts/entrypoint/${APP}/docker-entrypoint.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh

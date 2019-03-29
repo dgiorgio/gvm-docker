@@ -1,0 +1,55 @@
+---
+
+version: '3'
+
+services:
+# openvas-master
+  openvas-master:
+    build:
+      context: ../dockerfile
+      dockerfile: Dockerfile-openvas-master-postgres.stable
+    image: "${DOMAIN}/openvas-source:master-${VERSION}-postgres"
+  openvas-master-stable:
+    build:
+      context: ../dockerfile
+      dockerfile: Dockerfile-openvas-master-postgres.stable
+    image: "${DOMAIN}/openvas-source:master-${VERSION}-postgres-stable"
+  openvas-master-dev:
+    build:
+      context: ../dockerfile
+      dockerfile: Dockerfile-openvas-master-postgres.dev
+    image: "${DOMAIN}/openvas-source:master-${VERSION_DEV}-postgres-dev"
+
+# openvas-slave
+  openvas-slave:
+    build:
+      context: ../dockerfile
+      dockerfile: Dockerfile-openvas-slave-postgres.stable
+    image: "${DOMAIN}/openvas-source:slave-${VERSION}-postgres"
+  openvas-slave-stable:
+    build:
+      context: ../dockerfile
+      dockerfile: Dockerfile-openvas-slave-postgres.stable
+    image: "${DOMAIN}/openvas-source:slave-${VERSION}-postgres-stable"
+  openvas-slave-dev:
+    build:
+      context: ../dockerfile
+      dockerfile: Dockerfile-openvas-slave-postgres.dev
+    image: "${DOMAIN}/openvas-source:slave-${VERSION_DEV}-postgres-dev"
+
+# openvas-slave
+  openvas-sshvpn:
+    build:
+      context: ../dockerfile
+      dockerfile: Dockerfile-openvas-sshvpn-postgres.stable
+    image: "${DOMAIN}/openvas-source:sshvpn-${VERSION}-postgres"
+  openvas-sshvpn-stable:
+    build:
+      context: ../dockerfile
+      dockerfile: Dockerfile-openvas-sshvpn-postgres.stable
+    image: "${DOMAIN}/openvas-source:sshvpn-${VERSION}-postgres-stable"
+  openvas-sshvpn-dev:
+    build:
+      context: ../dockerfile
+      dockerfile: Dockerfile-openvas-sshvpn-postgres.dev
+    image: "${DOMAIN}/openvas-source:sshvpn-${VERSION_DEV}-postgres-dev"

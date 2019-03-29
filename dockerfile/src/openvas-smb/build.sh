@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Install gvm
-APP="gvmd"
+# Install openvas-smb
+APP="openvas-smb"
 
 STAGE="${1}"
 [[ "${STAGE}" == "" ]] && STAGE="stable"
@@ -14,5 +14,5 @@ git clone https://github.com/greenbone/${APP}.git \
 && mkdir -p build \
 && cd build \
 && cmake .. \
-&& make \
+&& make -j$(($(nproc) + 1)) \
 && make install

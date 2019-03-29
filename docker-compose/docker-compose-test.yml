@@ -5,7 +5,7 @@ version: '3'
 services:
   openvas-master:
     build:
-      context: .
+      context: ../dockerfile
       dockerfile: Dockerfile-openvas-master.${STAGE}
     image: "${DOMAIN}/openvas-source:master-${VERSION}-${STAGE}"
     hostname: "openvas-master"
@@ -23,7 +23,7 @@ services:
 
   openvas-slave:
     build:
-      context: .
+      context: ../dockerfile
       dockerfile: Dockerfile-openvas-slave.${STAGE}
     image: "${DOMAIN}/openvas-source:slave-${VERSION}-${STAGE}"
     hostname: "openvas-slave"
@@ -43,7 +43,7 @@ services:
 
   openvas-sshvpn:
     build:
-      context: .
+      context: ../dockerfile
       dockerfile: Dockerfile-openvas-sshvpn.${STAGE}
     image: "${DOMAIN}/openvas-source:sshvpn-${VERSION}-${STAGE}"
     hostname: "openvas-sshvpn"
@@ -70,7 +70,7 @@ services:
 
   sshvpn:
     build:
-      context: ./extra/sshvpn
+      context: ../extra/sshvpn
       dockerfile: Dockerfile
     hostname: "sshvpn"
     restart: always

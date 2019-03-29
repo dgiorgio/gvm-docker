@@ -32,6 +32,7 @@ xmltoman
 libfreeradius-dev
 "
 
+_install() {
 apt update -y && \
 apt install -y --no-install-recommends --fix-missing ${BASE} ${DEPS} ${OPT} && \
 rm -rf /var/lib/apt/lists/*
@@ -39,3 +40,12 @@ rm -rf /var/lib/apt/lists/*
 # Remove packages
 #apt remove -y ${BASE} ${DEPS} ${OPT}
 apt autoremove -y
+}
+
+_remove() {
+# Remove packages
+apt remove -y ${BASE} ${DEPS} ${OPT}
+apt autoremove -y
+}
+
+[ "${1}" == "" ] && _install || _remove

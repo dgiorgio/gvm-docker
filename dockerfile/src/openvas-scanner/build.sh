@@ -14,5 +14,5 @@ git clone https://github.com/greenbone/${APP}.git \
 && mkdir -p build \
 && cd build \
 && cmake .. \
-&& make \
+&& make -j$(($(nproc) + 1)) \
 && make install

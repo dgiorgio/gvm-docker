@@ -13,6 +13,6 @@ git clone https://github.com/greenbone/${APP}.git \
 && git checkout ${CHECKOUT} \
 && mkdir -p build \
 && cd build \
-&& cmake -DBACKEND=POSTGRESQL .. \
+&& cmake .. \
 && make \
 && make install

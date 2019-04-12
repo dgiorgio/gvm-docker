@@ -2,7 +2,7 @@ FROM debian:stretch-20190326
 
 ENV OS debian
 ENV STAGE stable
-ENV DATABASE sqlite
+ENV DATABASE postgres
 
 ENV OPENVAS_SRC /root/openvas-src
 RUN mkdir -p ${OPENVAS_SRC}

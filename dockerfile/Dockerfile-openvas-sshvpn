@@ -1,8 +1,13 @@
-FROM debian:stretch-20190326
+ARG OS
+ARG OS_VERSION
+FROM ${OS}:${OS_VERSION}
 
-ENV OS debian
-ENV STAGE dev
-ENV DATABASE postgres
+ARG OS
+ARG STAGE
+ARG DATABASE
+ENV OS ${OS}
+ENV STAGE ${STAGE}
+ENV DATABASE ${DATABASE}
 
 ENV OPENVAS_SRC /root/openvas-src
 RUN mkdir -p ${OPENVAS_SRC}
@@ -56,7 +61,7 @@ RUN chmod +x ./${OS}-deps.sh && ./${OS}-deps.sh
 WORKDIR /
 RUN rm -rf ${OPENVAS_SRC}
 
-ENV APP slave
+ENV APP sshvpn
 COPY ./scripts/bin/${APP}/greenbone-setup.sh ./scripts/bin/greenbone-*.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/greenbone-*.sh
 

@@ -7,19 +7,34 @@ services:
   openvas-master-dev:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-master.dev
-    image: "${DOMAIN}/openvas-source:master-${VERSION_DEV}-dev"
+      dockerfile: Dockerfile-openvas-master
+      args:
+        OS: ${OS}
+        OS_VERSION: ${OS_VERSION}
+        STAGE: ${STAGE}
+        DATABASE: sqlite
+    image: "${DOMAIN}/openvas-source:master-${VERSION}-${STAGE}"
 
 # openvas-slave
   openvas-slave-dev:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-slave.dev
-    image: "${DOMAIN}/openvas-source:slave-${VERSION_DEV}-dev"
+      dockerfile: Dockerfile-openvas-slave
+      args:
+        OS: ${OS}
+        OS_VERSION: ${OS_VERSION}
+        STAGE: ${STAGE}
+        DATABASE: sqlite
+    image: "${DOMAIN}/openvas-source:slave-${VERSION}-${STAGE}"
 
 # openvas-slave
   openvas-sshvpn-dev:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-sshvpn.dev
-    image: "${DOMAIN}/openvas-source:sshvpn-${VERSION_DEV}-dev"
+      dockerfile: Dockerfile-openvas-sshvpn
+      args:
+        OS: ${OS}
+        OS_VERSION: ${OS_VERSION}
+        STAGE: ${STAGE}
+        DATABASE: sqlite
+    image: "${DOMAIN}/openvas-source:sshvpn-${VERSION}-${STAGE}"

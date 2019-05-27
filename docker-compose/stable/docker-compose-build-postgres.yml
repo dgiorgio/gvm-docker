@@ -7,34 +7,64 @@ services:
   openvas-master:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-master-postgres.stable
+      dockerfile: Dockerfile-openvas-master
+      args:
+        OS: ${OS}
+        OS_VERSION: ${OS_VERSION}
+        STAGE: ${STAGE}
+        DATABASE: postgres
     image: "${DOMAIN}/openvas-source:master-${VERSION}-postgres"
   openvas-master-stable:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-master-postgres.stable
-    image: "${DOMAIN}/openvas-source:master-${VERSION}-postgres-stable"
+      dockerfile: Dockerfile-openvas-master
+      args:
+        OS: ${OS}
+        OS_VERSION: ${OS_VERSION}
+        STAGE: ${STAGE}
+        DATABASE: postgres
+    image: "${DOMAIN}/openvas-source:master-${VERSION}-postgres-${STAGE}"
 
 # openvas-slave
   openvas-slave:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-slave-postgres.stable
+      dockerfile: Dockerfile-openvas-slave
+      args:
+        OS: ${OS}
+        OS_VERSION: ${OS_VERSION}
+        STAGE: ${STAGE}
+        DATABASE: postgres
     image: "${DOMAIN}/openvas-source:slave-${VERSION}-postgres"
   openvas-slave-stable:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-slave-postgres.stable
-    image: "${DOMAIN}/openvas-source:slave-${VERSION}-postgres-stable"
+      dockerfile: Dockerfile-openvas-slave
+      args:
+        OS: ${OS}
+        OS_VERSION: ${OS_VERSION}
+        STAGE: ${STAGE}
+        DATABASE: postgres
+    image: "${DOMAIN}/openvas-source:slave-${VERSION}-postgres-${STAGE}"
 
 # openvas-slave
   openvas-sshvpn:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-sshvpn-postgres.stable
+      dockerfile: Dockerfile-openvas-sshvpn
+      args:
+        OS: ${OS}
+        OS_VERSION: ${OS_VERSION}
+        STAGE: ${STAGE}
+        DATABASE: postgres
     image: "${DOMAIN}/openvas-source:sshvpn-${VERSION}-postgres"
   openvas-sshvpn-stable:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-sshvpn-postgres.stable
-    image: "${DOMAIN}/openvas-source:sshvpn-${VERSION}-postgres-stable"
+      dockerfile: Dockerfile-openvas-sshvpn
+      args:
+        OS: ${OS}
+        OS_VERSION: ${OS_VERSION}
+        STAGE: ${STAGE}
+        DATABASE: postgres
+    image: "${DOMAIN}/openvas-source:sshvpn-${VERSION}-postgres-${STAGE}"

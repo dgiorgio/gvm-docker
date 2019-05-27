@@ -6,7 +6,12 @@ services:
   openvas-master:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-master.${STAGE}
+      dockerfile: Dockerfile-openvas-master
+      args:
+        OS: ${OS}
+        OS_VERSION: ${OS_VERSION}
+        STAGE: ${STAGE}
+        DATABASE: sqlite
     image: "${DOMAIN}/openvas-source:master-${VERSION}-${STAGE}"
     hostname: "openvas-master"
     restart: always
@@ -24,7 +29,12 @@ services:
   openvas-slave:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-slave.${STAGE}
+      dockerfile: Dockerfile-openvas-slave
+      args:
+        OS: ${OS}
+        OS_VERSION: ${OS_VERSION}
+        STAGE: ${STAGE}
+        DATABASE: sqlite
     image: "${DOMAIN}/openvas-source:slave-${VERSION}-${STAGE}"
     hostname: "openvas-slave"
     restart: always
@@ -44,7 +54,12 @@ services:
   openvas-sshvpn:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-sshvpn.${STAGE}
+      dockerfile: Dockerfile-openvas-sshvpn
+      args:
+        OS: ${OS}
+        OS_VERSION: ${OS_VERSION}
+        STAGE: ${STAGE}
+        DATABASE: sqlite
     image: "${DOMAIN}/openvas-source:sshvpn-${VERSION}-${STAGE}"
     hostname: "openvas-sshvpn"
     restart: always

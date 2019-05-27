@@ -7,19 +7,34 @@ services:
   openvas-master-dev:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-master-postgres.dev
-    image: "${DOMAIN}/openvas-source:master-${VERSION_DEV}-postgres-dev"
+      dockerfile: Dockerfile-openvas-master
+      args:
+        OS: ${OS}
+        OS_VERSION: ${OS_VERSION}
+        STAGE: ${STAGE}
+        DATABASE: postgres
+    image: "${DOMAIN}/openvas-source:master-${VERSION}-postgres-${STAGE}"
 
 # openvas-slave
   openvas-slave-dev:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-slave-postgres.dev
-    image: "${DOMAIN}/openvas-source:slave-${VERSION_DEV}-postgres-dev"
+      dockerfile: Dockerfile-openvas-slave
+      args:
+        OS: ${OS}
+        OS_VERSION: ${OS_VERSION}
+        STAGE: ${STAGE}
+        DATABASE: postgres
+    image: "${DOMAIN}/openvas-source:slave-${VERSION}-postgres-${STAGE}"
 
 # openvas-slave
   openvas-sshvpn-dev:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-sshvpn-postgres.dev
-    image: "${DOMAIN}/openvas-source:sshvpn-${VERSION_DEV}-postgres-dev"
+      dockerfile: Dockerfile-openvas-sshvpn
+      args:
+        OS: ${OS}
+        OS_VERSION: ${OS_VERSION}
+        STAGE: ${STAGE}
+        DATABASE: postgres
+    image: "${DOMAIN}/openvas-source:sshvpn-${VERSION}-postgres-${STAGE}"

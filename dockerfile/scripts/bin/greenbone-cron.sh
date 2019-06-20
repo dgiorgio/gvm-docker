@@ -2,7 +2,7 @@
 
 CRON_FILE="/etc/cron.d/crontab"
 GREENBONE_SYNC="/usr/local/bin/greenbone-sync.sh"
-GREENBONE_UPDATE_CRON_DEFAULT="* 23 * * *"
+GREENBONE_UPDATE_CRON_DEFAULT="0 23 * * *"
 
 touch "${CRON_FILE}"
 chmod 0644 "${CRON_FILE}"

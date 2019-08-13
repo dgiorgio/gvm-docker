@@ -1,0 +1,16 @@
+---
+
+- name: "Start GVM Project"
+  hosts: localhost
+  gather_facts: no
+  tasks:
+
+    - name: "Run GVM docker-compose"
+      docker_compose:
+        project_name: gvm
+        project_src: ../docker-compose/stable
+        files: docker-compose-master.yml
+      register: output
+
+    - debug:
+        var: output

@@ -3,7 +3,7 @@
 
 # base
 BASE="git"
-# openvas-scanner - deps
+# openvas - deps
 DEPS="
 cmake \
 make \
@@ -19,7 +19,7 @@ libksba-dev \
 bison
 "
 
-# openvas-scanner - opt
+# openvas - opt
 OPT="
 openldap-dev \
 doxygen \

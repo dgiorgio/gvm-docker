@@ -4,7 +4,7 @@ echo "fastestmirror=true" >> /etc/dnf/dnf.conf
 
 # base
 BASE="git"
-# openvas-scanner - deps
+# openvas - deps
 DEPS="
 cmake \
 gcc \
@@ -18,7 +18,7 @@ libgcrypt-devel \
 bison \
 gpgme-devel
 "
-# openvas-scanner - opt
+# openvas - opt
 OPT="
 openldap-devel \
 doxygen \

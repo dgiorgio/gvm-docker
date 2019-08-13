@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Install openvas-scanner
-APP="openvas-scanner"
+# Install openvas
+APP="openvas"
 
 STAGE="${1}"
 [[ "${STAGE}" == "" ]] && STAGE="stable"

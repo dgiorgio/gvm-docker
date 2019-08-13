@@ -2,7 +2,7 @@
 
 # DEBIAN - BUILD
 
-# openvas-scanner
+# openvas
 
 # base
 BASE="

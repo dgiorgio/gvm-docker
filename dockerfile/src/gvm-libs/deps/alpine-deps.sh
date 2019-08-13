@@ -3,7 +3,7 @@
 
 # base
 BASE="git"
-# openvas-scanner - deps
+# openvas - deps
 DEPS="
 cmake \
 make \
@@ -17,7 +17,7 @@ hiredis-dev \
 libgcrypt-dev
 "
 
-# openvas-scanner - opt
+# openvas - opt
 OPT="
 openldap-dev \
 doxygen \

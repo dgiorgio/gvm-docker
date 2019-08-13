@@ -3,9 +3,9 @@
 version: '3'
 
 services:
-  openvas-sshvpn:
-    image: "${DOMAIN}/openvas-source:sshvpn-${VERSION}-${STAGE}"
-    hostname: "openvas-sshvpn"
+  gvm-sshvpn:
+    image: "${DOMAIN}/gvm-source:sshvpn-${VERSION}-${STAGE}"
+    hostname: "gvm-sshvpn"
     restart: always
     privileged: true
     networks:
@@ -21,9 +21,9 @@ services:
       - "${SMTP_CONFIG_PATH}:/etc/ssmtp/"
       - "${SSHVPN_ROOT}/hosts/:${SSHVPN_ROOT_DOCKER}/hosts/:ro"
     links:
-      - openvas-master
+      - gvm-master
     depends_on:
-      - openvas-master
+      - gvm-master
     environment:
       - SSHVPN_ROOT_DOCKER=${SSHVPN_ROOT_DOCKER}
       - SSHVPN_INTERFACE=${SSHVPN_INTERFACE}
@@ -43,8 +43,8 @@ services:
       - "/etc/localtime:/etc/localtime:ro"
       - "${SSHVPN_ROOT}:${SSHVPN_ROOT_DOCKER}"
     links:
-      - openvas-master
-      - openvas-sshvpn
+      - gvm-master
+      - gvm-sshvpn
     environment:
       - SSHVPN_ROOT_DOCKER=${SSHVPN_ROOT_DOCKER}
 

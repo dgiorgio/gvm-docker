@@ -3,68 +3,68 @@
 version: '3'
 
 services:
-# openvas-master
-  openvas-master:
+# gvm-master
+  gvm-master:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-master
+      dockerfile: Dockerfile-gvm-master
       args:
         OS: ${OS}
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/openvas-source:master-${VERSION}-postgres"
-  openvas-master-stable:
+    image: "${DOMAIN}/gvm-source:master-${VERSION}-postgres"
+  gvm-master-stable:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-master
+      dockerfile: Dockerfile-gvm-master
       args:
         OS: ${OS}
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/openvas-source:master-${VERSION}-postgres-${STAGE}"
+    image: "${DOMAIN}/gvm-source:master-${VERSION}-postgres-${STAGE}"
 
-# openvas-slave
-  openvas-slave:
+# gvm-slave
+  gvm-slave:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-slave
+      dockerfile: Dockerfile-gvm-slave
       args:
         OS: ${OS}
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/openvas-source:slave-${VERSION}-postgres"
-  openvas-slave-stable:
+    image: "${DOMAIN}/gvm-source:slave-${VERSION}-postgres"
+  gvm-slave-stable:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-slave
+      dockerfile: Dockerfile-gvm-slave
       args:
         OS: ${OS}
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/openvas-source:slave-${VERSION}-postgres-${STAGE}"
+    image: "${DOMAIN}/gvm-source:slave-${VERSION}-postgres-${STAGE}"
 
-# openvas-slave
-  openvas-sshvpn:
+# gvm-slave
+  gvm-sshvpn:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-sshvpn
+      dockerfile: Dockerfile-gvm-sshvpn
       args:
         OS: ${OS}
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/openvas-source:sshvpn-${VERSION}-postgres"
-  openvas-sshvpn-stable:
+    image: "${DOMAIN}/gvm-source:sshvpn-${VERSION}-postgres"
+  gvm-sshvpn-stable:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-sshvpn
+      dockerfile: Dockerfile-gvm-sshvpn
       args:
         OS: ${OS}
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/openvas-source:sshvpn-${VERSION}-postgres-${STAGE}"
+    image: "${DOMAIN}/gvm-source:sshvpn-${VERSION}-postgres-${STAGE}"

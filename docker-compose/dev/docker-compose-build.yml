@@ -3,38 +3,38 @@
 version: '3'
 
 services:
-# openvas-master
-  openvas-master-dev:
+# gvm-master
+  gvm-master-dev:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-master
+      dockerfile: Dockerfile-gvm-master
       args:
         OS: ${OS}
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/openvas-source:master-${VERSION}-${STAGE}"
+    image: "${DOMAIN}/gvm-source:master-${VERSION}-${STAGE}"
 
-# openvas-slave
-  openvas-slave-dev:
+# gvm-slave
+  gvm-slave-dev:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-slave
+      dockerfile: Dockerfile-gvm-slave
       args:
         OS: ${OS}
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/openvas-source:slave-${VERSION}-${STAGE}"
+    image: "${DOMAIN}/gvm-source:slave-${VERSION}-${STAGE}"
 
-# openvas-slave
-  openvas-sshvpn-dev:
+# gvm-slave
+  gvm-sshvpn-dev:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-sshvpn
+      dockerfile: Dockerfile-gvm-sshvpn
       args:
         OS: ${OS}
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/openvas-source:sshvpn-${VERSION}-${STAGE}"
+    image: "${DOMAIN}/gvm-source:sshvpn-${VERSION}-${STAGE}"

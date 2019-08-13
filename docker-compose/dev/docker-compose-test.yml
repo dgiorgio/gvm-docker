@@ -3,17 +3,17 @@
 version: '3'
 
 services:
-  openvas-master:
+  gvm-master:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-master
+      dockerfile: Dockerfile-gvm-master
       args:
         OS: ${OS}
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/openvas-source:master-${VERSION}-${STAGE}"
-    hostname: "openvas-master"
+    image: "${DOMAIN}/gvm-source:master-${VERSION}-${STAGE}"
+    hostname: "gvm-master"
     restart: always
     ports:
       - "9390-9393:9390-9393"
@@ -24,19 +24,19 @@ services:
       - "/etc/localtime:/etc/localtime:ro"
       - "${SMTP_CONFIG_PATH}:/etc/ssmtp/"
     environment:
-      - GREENBONE_UPDATE_CRON=${GREENBONE_UPDATE_CRON}
+      - GVM_UPDATE_CRON=${GVM_UPDATE_CRON}
 
-  openvas-slave:
+  gvm-slave:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-slave
+      dockerfile: Dockerfile-gvm-slave
       args:
         OS: ${OS}
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/openvas-source:slave-${VERSION}-${STAGE}"
-    hostname: "openvas-slave"
+    image: "${DOMAIN}/gvm-source:slave-${VERSION}-${STAGE}"
+    hostname: "gvm-slave"
     restart: always
     ports:
       - "19301:9390"
@@ -45,23 +45,23 @@ services:
       - "gvm-dev:/usr/local/var/lib/gvm"
       - "/etc/localtime:/etc/localtime:ro"
     links:
-      - openvas-master
+      - gvm-master
     depends_on:
-      - openvas-master
+      - gvm-master
     environment:
       - ENABLE_CRON=false
 
-  openvas-sshvpn:
+  gvm-sshvpn:
     build:
       context: ../../dockerfile
-      dockerfile: Dockerfile-openvas-sshvpn
+      dockerfile: Dockerfile-gvm-sshvpn
       args:
         OS: ${OS}
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/openvas-source:sshvpn-${VERSION}-${STAGE}"
-    hostname: "openvas-sshvpn"
+    image: "${DOMAIN}/gvm-source:sshvpn-${VERSION}-${STAGE}"
+    hostname: "gvm-sshvpn"
     restart: always
     privileged: true
     networks:
@@ -76,9 +76,9 @@ services:
       - "/etc/localtime:/etc/localtime:ro"
       - "${SSHVPN_ROOT}/hosts/:${SSHVPN_ROOT_DOCKER}/hosts/:ro"
     links:
-      - openvas-master
+      - gvm-master
     depends_on:
-      - openvas-master
+      - gvm-master
     environment:
       - SSHVPN_ROOT_DOCKER=${SSHVPN_ROOT_DOCKER}
       - SSHVPN_INTERFACE=${SSHVPN_INTERFACE}
@@ -100,7 +100,7 @@ services:
       - "/etc/localtime:/etc/localtime:ro"
       - "${SSHVPN_ROOT}:${SSHVPN_ROOT_DOCKER}"
     links:
-      - openvas-sshvpn
+      - gvm-sshvpn
     environment:
       - SSHVPN_ROOT_DOCKER=${SSHVPN_ROOT_DOCKER}
 

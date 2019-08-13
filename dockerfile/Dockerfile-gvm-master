@@ -80,8 +80,8 @@ WORKDIR /
 RUN rm -rf ${OPENVAS_SRC}
 
 ENV APP master
-COPY ./scripts/bin/${APP}/greenbone-setup.sh ./scripts/bin/greenbone-*.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/greenbone-*.sh
+COPY ./scripts/bin/${APP}/gvm-setup.sh ./scripts/bin/gvm-*.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/gvm-*.sh
 
 COPY ./scripts/entrypoint/${APP}/docker-entrypoint.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh

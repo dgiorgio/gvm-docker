@@ -3,9 +3,9 @@
 version: '3'
 
 services:
-  openvas-master:
-    image: "${DOMAIN}/openvas-source:master-${VERSION}-${STAGE}"
-    hostname: "openvas-master"
+  gvm-master:
+    image: "${DOMAIN}/gvm-source:master-${VERSION}-${STAGE}"
+    hostname: "gvm-master"
     restart: always
     ports:
       - "80:80"
@@ -17,7 +17,7 @@ services:
       - "/etc/localtime:/etc/localtime:ro"
       - "${SMTP_CONFIG_PATH}:/etc/ssmtp/"
     environment:
-      - GREENBONE_UPDATE_CRON=${GREENBONE_UPDATE_CRON}
+      - GVM_UPDATE_CRON=${GVM_UPDATE_CRON}
 
 volumes:
   gvm-data:

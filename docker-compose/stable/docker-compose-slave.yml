@@ -3,9 +3,9 @@
 version: '3'
 
 services:
-  openvas-slave:
-    image: "${DOMAIN}/openvas-source:slave-${VERSION}-${STAGE}"
-    hostname: "openvas-slave"
+  gvm-slave:
+    image: "${DOMAIN}/gvm-source:slave-${VERSION}-${STAGE}"
+    hostname: "gvm-slave"
     restart: always
     ports:
       - "19390:9390"
@@ -14,7 +14,7 @@ services:
       - "gvm-data:/usr/local/var/lib/gvm"
       - "/etc/localtime:/etc/localtime:ro"
     environment:
-      - GREENBONE_UPDATE_CRON=${GREENBONE_UPDATE_CRON}
+      - GVM_UPDATE_CRON=${GVM_UPDATE_CRON}
 
 volumes:
   gvm-data:

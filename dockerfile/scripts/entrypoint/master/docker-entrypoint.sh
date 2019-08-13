@@ -21,9 +21,9 @@ while [ "${REDIS_RESULT}" != "PONG" ]; do
 done
 echo "Redis ready."
 
-/usr/local/bin/greenbone-setup.sh
-/usr/local/bin/greenbone-sync.sh
-/usr/local/bin/greenbone-cron.sh "${ENABLE_CRON}"
+/usr/local/bin/gvm-setup.sh
+/usr/local/bin/gvm-sync.sh
+/usr/local/bin/gvm-cron.sh "${ENABLE_CRON}"
 
 >> /usr/local/var/log/gvm/openvassd.log
 >> /usr/local/var/log/gvm/gsad.log

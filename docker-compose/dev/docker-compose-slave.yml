@@ -4,7 +4,7 @@ version: '3'
 
 services:
   gvm-slave:
-    image: "${DOMAIN}/gvm-source:slave-${VERSION}-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:slave-${VERSION}-${STAGE}"
     hostname: "gvm-slave"
     restart: always
     ports:

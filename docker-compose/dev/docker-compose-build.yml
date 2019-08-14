@@ -13,7 +13,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/gvm-source:master-${VERSION}-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:master-${VERSION}-${STAGE}"
   gvm-master-latest-dev:
     build:
       context: ../../dockerfile
@@ -23,7 +23,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/gvm-source:master-latest-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:master-latest-${STAGE}"
   gvm-latest-dev:
     build:
       context: ../../dockerfile
@@ -33,7 +33,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/gvm-source:latest-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:latest-${STAGE}"
 
 # gvm-slave
   gvm-slave-dev:
@@ -45,7 +45,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/gvm-source:slave-${VERSION}-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:slave-${VERSION}-${STAGE}"
   gvm-slave-latest-dev:
     build:
       context: ../../dockerfile
@@ -55,7 +55,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/gvm-source:slave-latest-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:slave-latest-${STAGE}"
 
 # gvm-slave
   gvm-sshvpn-dev:
@@ -67,7 +67,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/gvm-source:sshvpn-${VERSION}-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:sshvpn-${VERSION}-${STAGE}"
   gvm-sshvpn-latest-dev:
     build:
       context: ../../dockerfile
@@ -77,4 +77,4 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/gvm-source:sshvpn-latest-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:sshvpn-latest-${STAGE}"

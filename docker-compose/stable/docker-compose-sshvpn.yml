@@ -4,7 +4,7 @@ version: '3'
 
 services:
   gvm-sshvpn:
-    image: "${DOMAIN}/gvm-source:sshvpn-${VERSION}-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:sshvpn-${VERSION}-${STAGE}"
     hostname: "gvm-sshvpn"
     restart: always
     privileged: true

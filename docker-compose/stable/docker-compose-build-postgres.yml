@@ -13,7 +13,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/gvm-source:master-${VERSION}-postgres-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:master-${VERSION}-postgres-${STAGE}"
   gvm-master-postgres:
     build:
       context: ../../dockerfile
@@ -23,7 +23,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/gvm-source:master-${VERSION}-postgres"
+    image: "${DOMAIN}/gvm-docker:master-${VERSION}-postgres"
   gvm-master-latest-postgres:
     build:
       context: ../../dockerfile
@@ -33,7 +33,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/gvm-source:master-latest-postgres"
+    image: "${DOMAIN}/gvm-docker:master-latest-postgres"
   gvm-latest-postgres:
     build:
       context: ../../dockerfile
@@ -43,7 +43,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/gvm-source:latest-postgres"
+    image: "${DOMAIN}/gvm-docker:latest-postgres"
 
 # gvm-slave
   gvm-slave-stable-postgres:
@@ -55,7 +55,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/gvm-source:slave-${VERSION}-postgres-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:slave-${VERSION}-postgres-${STAGE}"
   gvm-slave-postgres:
     build:
       context: ../../dockerfile
@@ -65,7 +65,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/gvm-source:slave-${VERSION}-postgres"
+    image: "${DOMAIN}/gvm-docker:slave-${VERSION}-postgres"
   gvm-slave-latest-postgres:
     build:
       context: ../../dockerfile
@@ -75,7 +75,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/gvm-source:slave-latest-postgres"
+    image: "${DOMAIN}/gvm-docker:slave-latest-postgres"
 
 # gvm-slave
   gvm-sshvpn-stable-postgres:
@@ -87,7 +87,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/gvm-source:sshvpn-${VERSION}-postgres-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:sshvpn-${VERSION}-postgres-${STAGE}"
   gvm-sshvpn-postgres:
     build:
       context: ../../dockerfile
@@ -97,7 +97,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/gvm-source:sshvpn-${VERSION}-postgres"
+    image: "${DOMAIN}/gvm-docker:sshvpn-${VERSION}-postgres"
   gvm-sshvpn-latest-postgres:
     build:
       context: ../../dockerfile
@@ -107,4 +107,4 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/gvm-source:sshvpn-latest-postgres"
+    image: "${DOMAIN}/gvm-docker:sshvpn-latest-postgres"

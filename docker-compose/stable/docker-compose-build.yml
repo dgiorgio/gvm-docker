@@ -13,7 +13,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/gvm-source:master-${VERSION}-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:master-${VERSION}-${STAGE}"
   gvm-master:
     build:
       context: ../../dockerfile
@@ -23,7 +23,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/gvm-source:master-${VERSION}"
+    image: "${DOMAIN}/gvm-docker:master-${VERSION}"
   gvm-master-latest:
     build:
       context: ../../dockerfile
@@ -33,7 +33,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/gvm-source:master-latest"
+    image: "${DOMAIN}/gvm-docker:master-latest"
   gvm-latest:
     build:
       context: ../../dockerfile
@@ -43,7 +43,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/gvm-source:latest"
+    image: "${DOMAIN}/gvm-docker:latest"
 
 # gvm-slave
   gvm-slave-stable:
@@ -55,7 +55,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/gvm-source:slave-${VERSION}-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:slave-${VERSION}-${STAGE}"
   gvm-slave:
     build:
       context: ../../dockerfile
@@ -65,7 +65,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/gvm-source:slave-${VERSION}"
+    image: "${DOMAIN}/gvm-docker:slave-${VERSION}"
   gvm-slave-latest:
     build:
       context: ../../dockerfile
@@ -75,7 +75,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/gvm-source:slave-latest"
+    image: "${DOMAIN}/gvm-docker:slave-latest"
 
 # gvm-slave
   gvm-sshvpn-stable:
@@ -87,7 +87,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/gvm-source:sshvpn-${VERSION}-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:sshvpn-${VERSION}-${STAGE}"
   gvm-sshvpn:
     build:
       context: ../../dockerfile
@@ -97,7 +97,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/gvm-source:sshvpn-${VERSION}"
+    image: "${DOMAIN}/gvm-docker:sshvpn-${VERSION}"
   gvm-sshvpn-latest:
     build:
       context: ../../dockerfile
@@ -107,4 +107,4 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/gvm-source:sshvpn-latest"
+    image: "${DOMAIN}/gvm-docker:sshvpn-latest"

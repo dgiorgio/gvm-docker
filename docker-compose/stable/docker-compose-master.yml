@@ -4,7 +4,7 @@ version: '3'
 
 services:
   gvm-master:
-    image: "${DOMAIN}/gvm-source:master-${VERSION}-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:master-${VERSION}-${STAGE}"
     hostname: "gvm-master"
     restart: always
     ports:

@@ -12,7 +12,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/gvm-source:master-${VERSION}-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:master-${VERSION}-${STAGE}"
     hostname: "gvm-master"
     restart: always
     ports:
@@ -35,7 +35,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/gvm-source:slave-${VERSION}-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:slave-${VERSION}-${STAGE}"
     hostname: "gvm-slave"
     restart: always
     ports:
@@ -60,7 +60,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: sqlite
-    image: "${DOMAIN}/gvm-source:sshvpn-${VERSION}-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:sshvpn-${VERSION}-${STAGE}"
     hostname: "gvm-sshvpn"
     restart: always
     privileged: true

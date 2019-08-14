@@ -13,7 +13,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/gvm-source:master-${VERSION}-postgres-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:master-${VERSION}-postgres-${STAGE}"
   gvm-master-latest-postgres-dev:
     build:
       context: ../../dockerfile
@@ -23,7 +23,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/gvm-source:master-latest-postgres-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:master-latest-postgres-${STAGE}"
   gvm-latest-postgres-dev:
     build:
       context: ../../dockerfile
@@ -33,7 +33,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/gvm-source:master-latest-postgres-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:master-latest-postgres-${STAGE}"
 
 # gvm-slave
   gvm-slave-postgres-dev:
@@ -45,7 +45,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/gvm-source:slave-${VERSION}-postgres-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:slave-${VERSION}-postgres-${STAGE}"
   gvm-slave-latest-postgres-dev:
     build:
       context: ../../dockerfile
@@ -55,7 +55,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/gvm-source:slave-latest-postgres-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:slave-latest-postgres-${STAGE}"
 
 # gvm-slave
   gvm-sshvpn-postgres-dev:
@@ -67,7 +67,7 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/gvm-source:sshvpn-${VERSION}-postgres-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:sshvpn-${VERSION}-postgres-${STAGE}"
   gvm-sshvpn-latest-postgres-dev:
     build:
       context: ../../dockerfile
@@ -77,4 +77,4 @@ services:
         OS_VERSION: ${OS_VERSION}
         STAGE: ${STAGE}
         DATABASE: postgres
-    image: "${DOMAIN}/gvm-source:sshvpn-latest-postgres-${STAGE}"
+    image: "${DOMAIN}/gvm-docker:sshvpn-latest-postgres-${STAGE}"

@@ -43,3 +43,7 @@ dgiorgio/gvm-docker: **master-20190813-postgres-stable**
 | ssmtp | x |  |  |
 | cron | x | x | x |
 | sshvpn |  |  | x |
+
+## License
+
+This Docker image is licensed under the BSD, see [LICENSE](LICENSE.md).

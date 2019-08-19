@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ENABLE_CRON_DEFAULT="true"
-[ "${ENABLE_CRON}" != "true" ] && ENABLE_CRON="${ENABLE_CRON_DEFAULT}"
+[ "${ENABLE_CRON}" == "" ] && ENABLE_CRON="${ENABLE_CRON_DEFAULT}"
 
 ldconfig
 

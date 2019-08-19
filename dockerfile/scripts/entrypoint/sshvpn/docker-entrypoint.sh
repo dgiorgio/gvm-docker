@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ENABLE_CRON_DEFAULT="false"
-[ "${ENABLE_CRON}" != "true" ] && ENABLE_CRON="${ENABLE_CRON_DEFAULT}"
+[ "${ENABLE_CRON}" != "" ] && ENABLE_CRON="${ENABLE_CRON_DEFAULT}"
 
 [ "${SSHVPN_ROOT_DOCKER}" == "" ] && SSHVPN_ROOT_DOCKER="/root/sshvpn-files"
 [ "${SSHVPN_INTERFACE_IP}" == "" ] && SSHVPN_INTERFACE_IP="172.66.66.66"

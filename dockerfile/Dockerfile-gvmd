@@ -1,0 +1,38 @@
+FROM dgiorgio/gvmlibs:20190819-stable
+
+RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
+  git cmake gcc make clang-format pkg-config libglib2.0-dev libgnutls28-dev \
+  libical-dev gnutls-bin doxygen xmltoman xsltproc sqlfairy libsqlite3-dev \
+  libpq-dev postgresql-server-dev-9.6 texlive-latex-base xmlstarlet zip \
+  rpm dpkg fakeroot nsis gnupg wget sshpass ssh-client socat snmp smbclient \
+  python3 python3-lxml haveged cron ssmtp \
+  && rm -rf /var/lib/apt/lists/*
+
+ARG STAGE
+ENV STAGE ${STAGE}
+
+ARG DATABASE
+ENV DATABASE ${DATABASE}
+
+# gvmd
+RUN mkdir -p /root/gvm-src/gvmd
+WORKDIR /root/gvm-src/gvmd
+COPY ./src/gvmd/checkout/${STAGE} ./src/gvmd/build.sh ./
+RUN chmod +x ./build.sh && ./build.sh ${STAGE} ${DATABASE} \
+  && apt remove -y git cmake gcc make clang-format pkg-config \
+  && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /
+RUN rm -rf /root/gvm-src
+
+# config smtp
+COPY ./src/gvmd/config/ssmtp.conf ./src/gvmd/config/revaliases /etc/ssmtp/
+
+COPY ./entrypoint/gvmd/docker-entrypoint.sh /usr/local/bin
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+
+CMD ["gvmd", "-f", "-v", "--listen=0.0.0.0", "--port=9390"]
+
+VOLUME ["/usr/local/var/lib/gvm"]
+EXPOSE 9390

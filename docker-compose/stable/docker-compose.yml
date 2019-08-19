@@ -1,0 +1,56 @@
+---
+
+version: '3'
+
+services:
+  gvm-openvas:
+    image: "dgiorgio/openvas"
+    hostname: "openvas"
+    restart: always
+    ports:
+      - "9391-9392:9391-9392"
+    volumes:
+      - "gvm-connect:/usr/local/var/run"
+      - "openvas-data:/usr/local/var/lib/openvas"
+      - "gvm-data:/usr/local/var/lib/gvm"
+      - "/etc/localtime:/etc/localtime:ro"
+
+  gvm-gvmd:
+    image: "dgiorgio/gvmd"
+    hostname: "gvmd"
+    restart: always
+    ports:
+      - "9390:9390"
+    volumes:
+      - "gvm-connect:/usr/local/var/run"
+      - "openvas-data:/usr/local/var/lib/openvas"
+      - "gvm-data:/usr/local/var/lib/gvm"
+      # - "/tmp/ssmtp=/etc/ssmtp" # optional - ssmtp config path
+      - "/etc/localtime:/etc/localtime:ro"
+    links:
+      - gvm-openvas
+    depends_on:
+      - gvm-openvas
+
+  gvm-gsa:
+    image: "dgiorgio/gsa"
+    hostname: "gsa"
+    restart: always
+    ports:
+      - "9000:443"
+    volumes:
+      - "gvm-data:/usr/local/var/lib/gvm"
+      - "/etc/localtime:/etc/localtime:ro"
+    links:
+      - gvm-gvmd
+    depends_on:
+      - gvm-gvmd
+    environment:
+      - GVMD_ADDRESS=gvm-gvmd
+      - GVMD_PORT=9390
+      - ENABLE_CRON=false
+
+volumes:
+  gvm-connect:
+  gvm-data:
+  openvas-data:

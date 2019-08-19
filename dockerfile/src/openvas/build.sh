@@ -1,15 +1,12 @@
 #!/usr/bin/env bash
 
-# Install openvas
-APP="openvas"
-
 STAGE="${1}"
 [[ "${STAGE}" == "" ]] && STAGE="stable"
 
 source "./${STAGE}"
 
-git clone https://github.com/greenbone/${APP}.git \
-&& cd ${APP} \
+git clone https://github.com/greenbone/openvas.git \
+&& cd openvas \
 && git checkout ${CHECKOUT} \
 && mkdir -p build \
 && cd build \

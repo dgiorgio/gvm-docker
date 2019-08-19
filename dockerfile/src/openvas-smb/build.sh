@@ -1,15 +1,12 @@
 #!/usr/bin/env bash
 
-# Install openvas-smb
-APP="openvas-smb"
-
 STAGE="${1}"
 [[ "${STAGE}" == "" ]] && STAGE="stable"
 
 source "./${STAGE}"
 
-git clone https://github.com/greenbone/${APP}.git \
-&& cd ${APP} \
+git clone https://github.com/greenbone/openvas-smb.git \
+&& cd openvas-smb \
 && git checkout ${CHECKOUT} \
 && mkdir -p build \
 && cd build \

@@ -1,0 +1,47 @@
+FROM dgiorgio/gvmlibs:20190819-stable
+
+# openvas-smb deps: git cmake gcc make pkg-config gcc-mingw-w64
+#                   perl-base heimdal-dev libpopt-dev libglib2.0-dev
+#                   libgnutls28-dev xmltoman doxygen
+# openvas deps: git cmake gcc make pkg-config libglib2.0-dev libgnutls28-dev
+#               uuid-dev libssh-gcrypt-dev libpcap-dev libksba-dev bison
+#               libsnmp-dev libgpgme-dev libhiredis-dev bzip2 wget rsync nmap
+#               libldap2-dev doxygen xmltoman libfreeradius-dev cron redis-server
+
+RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
+  git cmake gcc make pkg-config bison bzip2 cron doxygen gcc-mingw-w64 \
+  heimdal-dev libfreeradius-dev libglib2.0-dev libgnutls28-dev libgpgme-dev \
+  libhiredis-dev libksba-dev libldap2-dev libpcap-dev libpopt-dev libsnmp-dev \
+  libssh-gcrypt-dev nmap perl-base redis-server rsync uuid-dev wget xmltoman \
+  && rm -rf /var/lib/apt/lists/*
+
+ARG STAGE
+ENV STAGE ${STAGE}
+
+# openvas-smb
+RUN mkdir -p /root/gvm-src/openvas-smb
+WORKDIR /root/gvm-src/openvas-smb
+COPY ./src/openvas-smb/checkout/${STAGE} ./src/openvas-smb/build.sh ./
+RUN chmod +x ./build.sh && ./build.sh ${STAGE}
+
+# openvas
+RUN mkdir -p /root/gvm-src/openvas
+WORKDIR /root/gvm-src/openvas
+COPY ./src/openvas/checkout/${STAGE} ./src/openvas/build.sh ./
+RUN chmod +x ./build.sh && ./build.sh ${STAGE} \
+  && apt remove -y git cmake gcc make pkg-config \
+  && rm -rf /var/lib/apt/lists/*
+COPY ./src/openvas/config/openvassd.conf /usr/local/etc/openvas/openvassd.conf
+COPY ./src/openvas/config/redis.conf /etc/redis.conf
+
+WORKDIR /
+RUN rm -rf /root/gvm-src
+
+COPY ./entrypoint/openvas/docker-entrypoint.sh ./src/openvas/scripts/gvm-nvt-sync.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh /usr/local/bin/gvm-nvt-sync.sh
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+
+CMD ["openvassd", "-f"]
+
+VOLUME ["/usr/local/var/lib/openvas"]
+EXPOSE 9391 9392

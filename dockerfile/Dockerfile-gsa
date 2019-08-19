@@ -1,0 +1,34 @@
+FROM dgiorgio/gvmlibs:20190819-stable
+
+# yarn nodejs
+RUN apt update -y && apt install -y curl apt-transport-https \
+  && curl --silent --show-error https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+  && curl --silent --show-error https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
+  && echo "deb https://deb.nodesource.com/node_8.x stretch main" | tee /etc/apt/sources.list.d/nodesource.list \
+  && apt update -y && apt install -y nodejs yarn \
+  && apt install -y --no-install-recommends --fix-missing \
+  git cmake gcc make pkg-config curl libglib2.0-dev \
+  libgnutls28-dev libmicrohttpd-dev gettext python-polib libxml2-dev \
+  doxygen xmltoman ssh texlive-latex-extra texlive-fonts-recommended \
+  && rm -rf /var/lib/apt/lists/*
+
+ARG STAGE
+ENV STAGE ${STAGE}
+
+# gsa
+RUN mkdir -p /root/gvm-src/gsa
+WORKDIR /root/gvm-src/gsa
+COPY ./src/gsa/checkout/${STAGE} ./src/gsa/build.sh ./
+RUN chmod +x ./build.sh && ./build.sh ${STAGE} \
+  && apt remove -y git cmake gcc make pkg-config \
+  && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /
+RUN rm -rf /root/gvm-src
+
+COPY ./entrypoint/gsa/docker-entrypoint.sh /usr/local/bin
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+
+EXPOSE 80 443

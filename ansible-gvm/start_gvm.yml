@@ -9,7 +9,7 @@
       docker_compose:
         project_name: gvm
         project_src: ../docker-compose/stable
-        files: docker-compose-master.yml
+        files: docker-compose.yml
       register: output
 
     - debug:

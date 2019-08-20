@@ -11,7 +11,7 @@ DATABASE="${2}"
 
 git clone https://github.com/greenbone/gvmd.git \
 && cd gvmd \
-&& git checkout ${CHECKOUT} \
+&& git reset --hard ${COMMIT} \
 && mkdir -p build \
 && cd build \
 && cmake ${CMAKE_OPT} .. \

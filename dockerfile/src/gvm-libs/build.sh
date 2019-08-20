@@ -7,7 +7,7 @@ source "./${STAGE}"
 
 git clone https://github.com/greenbone/gvm-libs.git \
 && cd gvm-libs \
-&& git checkout ${CHECKOUT} \
+&& git reset --hard ${COMMIT} \
 && mkdir -p build \
 && cd build \
 && cmake .. \

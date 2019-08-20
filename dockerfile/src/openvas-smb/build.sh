@@ -7,7 +7,7 @@ source "./${STAGE}"
 
 git clone https://github.com/greenbone/openvas-smb.git \
 && cd openvas-smb \
-&& git checkout ${CHECKOUT} \
+&& git reset --hard ${COMMIT} \
 && mkdir -p build \
 && cd build \
 && cmake .. \

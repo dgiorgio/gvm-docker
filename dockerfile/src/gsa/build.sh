@@ -7,7 +7,7 @@ source "./${STAGE}"
 
 git clone https://github.com/greenbone/gsa.git \
 && cd gsa \
-&& git checkout ${CHECKOUT} \
+&& git reset --hard ${COMMIT} \
 && mkdir -p build \
 && cd build \
 && cmake .. \

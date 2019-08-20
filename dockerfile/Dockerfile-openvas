@@ -1,4 +1,4 @@
-FROM dgiorgio/gvmlibs:20190819-stable
+FROM dgiorgio/gvmlibs:20190819
 
 # openvas-smb deps: git cmake gcc make pkg-config gcc-mingw-w64
 #                   perl-base heimdal-dev libpopt-dev libglib2.0-dev
@@ -21,13 +21,13 @@ ENV STAGE ${STAGE}
 # openvas-smb
 RUN mkdir -p /root/gvm-src/openvas-smb
 WORKDIR /root/gvm-src/openvas-smb
-COPY ./src/openvas-smb/checkout/${STAGE} ./src/openvas-smb/build.sh ./
+COPY ./src/openvas-smb/commit/${STAGE} ./src/openvas-smb/build.sh ./
 RUN chmod +x ./build.sh && ./build.sh ${STAGE}
 
 # openvas
 RUN mkdir -p /root/gvm-src/openvas
 WORKDIR /root/gvm-src/openvas
-COPY ./src/openvas/checkout/${STAGE} ./src/openvas/build.sh ./
+COPY ./src/openvas/commit/${STAGE} ./src/openvas/build.sh ./
 RUN chmod +x ./build.sh && ./build.sh ${STAGE} \
   && apt remove -y git cmake gcc make pkg-config \
   && rm -rf /var/lib/apt/lists/*

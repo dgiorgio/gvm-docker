@@ -1,4 +1,4 @@
-FROM dgiorgio/gvmlibs:20190819-stable
+FROM dgiorgio/gvmlibs:20190819
 
 RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   git cmake gcc make clang-format pkg-config libglib2.0-dev libgnutls28-dev \
@@ -17,7 +17,7 @@ ENV DATABASE ${DATABASE}
 # gvmd
 RUN mkdir -p /root/gvm-src/gvmd
 WORKDIR /root/gvm-src/gvmd
-COPY ./src/gvmd/checkout/${STAGE} ./src/gvmd/build.sh ./
+COPY ./src/gvmd/commit/${STAGE} ./src/gvmd/build.sh ./
 RUN chmod +x ./build.sh && ./build.sh ${STAGE} ${DATABASE} \
   && apt remove -y git cmake gcc make clang-format pkg-config \
   && rm -rf /var/lib/apt/lists/*

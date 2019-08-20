@@ -37,7 +37,8 @@ services:
     hostname: "gsa"
     restart: always
     ports:
-      - "9000:443"
+      - "80:80"
+      - "443:443"
     volumes:
       - "gvm-data:/usr/local/var/lib/gvm"
       - "/etc/localtime:/etc/localtime:ro"

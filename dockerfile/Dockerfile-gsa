@@ -1,4 +1,4 @@
-FROM dgiorgio/gvmlibs:20190819-stable
+FROM dgiorgio/gvmlibs:20190819
 
 # yarn nodejs
 RUN apt update -y && apt install -y curl apt-transport-https \
@@ -19,7 +19,7 @@ ENV STAGE ${STAGE}
 # gsa
 RUN mkdir -p /root/gvm-src/gsa
 WORKDIR /root/gvm-src/gsa
-COPY ./src/gsa/checkout/${STAGE} ./src/gsa/build.sh ./
+COPY ./src/gsa/commit/${STAGE} ./src/gsa/build.sh ./
 RUN chmod +x ./build.sh && ./build.sh ${STAGE} \
   && apt remove -y git cmake gcc make pkg-config \
   && rm -rf /var/lib/apt/lists/*

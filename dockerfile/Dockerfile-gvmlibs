@@ -12,7 +12,7 @@ ENV STAGE ${STAGE}
 # gvm-libs
 RUN mkdir -p /root/gvm-src/gvm-libs
 WORKDIR /root/gvm-src/gvm-libs
-COPY ./src/gvm-libs/build.sh ./src/gvm-libs/checkout/${STAGE} ./
+COPY ./src/gvm-libs/build.sh ./src/gvm-libs/commit/${STAGE} ./
 RUN chmod +x ./build.sh && ./build.sh ${STAGE} \
   && apt remove -y git cmake gcc make clang-format pkg-config \
   && rm -rf /var/lib/apt/lists/*

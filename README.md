@@ -1,5 +1,6 @@
 # Greenbone Vulnerability Management in Docker
 
+https://github.com/dgiorgio/gvm-docker/tree/legacy
 ### How to use this image
 ```console
 $ docker run -p 80:80 -p 443:443 -p 9390-9393:9390-9393 dgiorgio/gvm-docker

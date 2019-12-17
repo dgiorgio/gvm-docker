@@ -5,15 +5,11 @@ STAGE="${1}"
 
 source "./${STAGE}"
 
-DATABASE="${2}"
-[[ "${DATABASE}" == "sqlite" ]] || [[ "${DATABASE}" == "" ]] && CMAKE_OPT=""
-[[ "${DATABASE}" == "postgres" ]] && CMAKE_OPT="-DBACKEND=POSTGRESQL"
-
 git clone https://github.com/greenbone/gvmd.git \
 && cd gvmd \
 && git reset --hard ${COMMIT} \
 && mkdir -p build \
 && cd build \
-&& cmake ${CMAKE_OPT} .. \
+&& cmake .. \
 && make \
 && make install

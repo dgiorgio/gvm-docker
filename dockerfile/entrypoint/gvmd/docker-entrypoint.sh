@@ -2,42 +2,54 @@
 
 GVM_PATH="/usr/local/var/lib/gvm"
 
+sudo mkdir -p "${GVM_PATH}"
+sudo chown -R gvm. "/usr/local/var"
+
+ln -sf /run/ospd/ospd.sock /tmp/ospd.sock
+
 if [ ! -f "${GVM_PATH}/CA/clientcert.pem" ] || \
-[ ! -f "${GVM_PATH}/CA/cacert.pem" ] || \
-[ ! -f "${GVM_PATH}/private/CA/serverkey.pem" ] || \
-[ ! -f "${GVM_PATH}/CA/servercert.pem" ] || \
-[ ! -f "${GVM_PATH}/private/CA/clientkey.pem" ] || \
-[ ! -f "${GVM_PATH}/CA/clientcert.pem" ] ; then
+  [ ! -f "${GVM_PATH}/CA/cacert.pem" ] || \
+  [ ! -f "${GVM_PATH}/private/CA/serverkey.pem" ] || \
+  [ ! -f "${GVM_PATH}/CA/servercert.pem" ] || \
+  [ ! -f "${GVM_PATH}/private/CA/clientkey.pem" ] || \
+  [ ! -f "${GVM_PATH}/CA/clientcert.pem" ] ; then
   gvm-manage-certs -af
 fi
 
-gvmd -m
-
-GVM_ADMIN="$(gvmd --get-users | grep -w admin)"
-if [ -z "${GVM_ADMIN}" ]; then
-  gvmd --create-user=admin --role=Admin \
-  && gvmd --user=admin --new-password=admin
-  echo '
-Create default user
-  login: admin
-  password: admin
-  role: Admin
-'
-fi
-
-while [ -f '/usr/local/var/run/openvassd.sock' ]; do
-  echo "'/usr/local/var/run/openvassd.sock' not found, openvas not yet ready..."
-  sleep 1
+while [ ! -S "/var/run/postgresql/.s.PGSQL.5432" ]; do
+  echo "File '/var/run/postgresql/.s.PGSQL.5432' not exist - Waiting for PostgreSQL to start"
+  sleep 2
 done
 
-sleep 15
+/usr/local/sbin/gvmd -m
+
+sudo su - postgres -c "createuser -DRS gvm && createdb -O gvm -e gvmd"
+sudo su - postgres -c "psql -d gvmd" << EOF
+create role dba with superuser noinherit;
+grant dba to gvm;
+create extension "uuid-ossp";
+EOF
+
+GVM_ADMIN="$(/usr/local/sbin/gvmd --get-users | grep -w admin)"
+if [ -z "${GVM_ADMIN}" ]; then
+  echo "Creating the 'admin' user."
+  /usr/local/sbin/gvmd --create-user=admin --role=Admin
+  echo "Setting password for 'admin' user."
+  /usr/local/sbin/gvmd --user=admin --new-password=admin
+fi
+
+# while [ ! -S "/var/run/ospd/ospd.sock" ]; do
+#   echo "File '/var/run/ospd/ospd.sock' not exist - Waiting for ospd to start"
+#   sleep 2
+# done
+
 echo "run greenbone-certdata-sync"
 greenbone-certdata-sync
-sleep 15
 echo "run greenbone-scapdata-sync"
 greenbone-scapdata-sync
 
 # cron - sync certdata/scapdata
+function _cron(){
 if [ "${ENABLE_CRON}" == "true" ] || [ "${ENABLE_CRON}" == "" ]; then
   CRON_FILE="/etc/cron.d/crontab"
   # Set default cron
@@ -49,6 +61,9 @@ if [ "${ENABLE_CRON}" == "true" ] || [ "${ENABLE_CRON}" == "" ]; then
   echo "${GVM_UPDATE_CRON} greenbone-scapdata-sync" >> "${CRON_FILE}"
   crontab "${CRON_FILE}" && cron
 fi
+}
+FUNC="$(declare -f _cron)"
+sudo bash -c "${FUNC}; _cron"
 
 tail -f /usr/local/var/log/gvm/gvmd.log &
 echo "gvmd - starting..."

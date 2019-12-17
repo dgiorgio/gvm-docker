@@ -3,15 +3,30 @@
 version: '3'
 
 services:
+  gvm-postgres:
+    image: "dgiorgio/postgres-gvm"
+    hostname: "postgres-gvm"
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - "postgres-socket:/var/run/postgresql"
+      - "postgres-data:/var/lib/postgresql"
+      - "gvm-lib:/opt/gvmlib"
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - POSTGRES_PASSWORD=gvm
+
   gvm-openvas:
     image: "dgiorgio/openvas"
     hostname: "openvas"
     restart: always
     ports:
-      - "9391-9392:9391-9392"
+      - "51000:51234"
     volumes:
       - "gvm-connect:/usr/local/var/run"
       - "openvas-data:/usr/local/var/lib/openvas"
+      - "ospd-socket:/var/run/ospd"
       - "gvm-data:/usr/local/var/lib/gvm"
       - "/etc/localtime:/etc/localtime:ro"
 
@@ -22,15 +37,19 @@ services:
     ports:
       - "9390:9390"
     volumes:
+      - "gvm-lib:/opt/gvmlib"
       - "gvm-connect:/usr/local/var/run"
       - "openvas-data:/usr/local/var/lib/openvas"
+      - "ospd-socket:/var/run/ospd"
       - "gvm-data:/usr/local/var/lib/gvm"
       # - "/tmp/ssmtp=/etc/ssmtp" # optional - ssmtp config path
+      - "postgres-socket:/var/run/postgresql"
       - "/etc/localtime:/etc/localtime:ro"
     links:
       - gvm-openvas
     depends_on:
       - gvm-openvas
+      - gvm-postgres
 
   gvm-gsa:
     image: "dgiorgio/gsa"
@@ -52,6 +71,10 @@ services:
       - ENABLE_CRON=false
 
 volumes:
+  gvm-lib:
   gvm-connect:
   gvm-data:
   openvas-data:
+  ospd-socket:
+  postgres-socket:
+  postgres-data:

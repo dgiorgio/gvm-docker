@@ -1,4 +1,4 @@
-FROM dgiorgio/gvmlibs:20190819
+FROM dgiorgio/gvmlibs:11.0
 
 # yarn nodejs
 RUN apt update -y && apt install -y curl apt-transport-https \
@@ -8,7 +8,7 @@ RUN apt update -y && apt install -y curl apt-transport-https \
   && echo "deb https://deb.nodesource.com/node_8.x stretch main" | tee /etc/apt/sources.list.d/nodesource.list \
   && apt update -y && apt install -y nodejs yarn \
   && apt install -y --no-install-recommends --fix-missing \
-  git cmake gcc make pkg-config curl libglib2.0-dev \
+  git cmake gcc make clang-format pkg-config curl libglib2.0-dev \
   libgnutls28-dev libmicrohttpd-dev gettext python-polib libxml2-dev \
   doxygen xmltoman ssh texlive-latex-extra texlive-fonts-recommended \
   && rm -rf /var/lib/apt/lists/*

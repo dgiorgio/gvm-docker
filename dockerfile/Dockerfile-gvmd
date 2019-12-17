@@ -1,11 +1,15 @@
-FROM dgiorgio/gvmlibs:20190819
+FROM dgiorgio/gvmlibs:11.0
 
+RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
+  wget gnupg2 \
+  && echo 'deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
+  && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   git cmake gcc make clang-format pkg-config libglib2.0-dev libgnutls28-dev \
   libical-dev gnutls-bin doxygen xmltoman xsltproc sqlfairy libsqlite3-dev \
   libpq-dev postgresql-server-dev-9.6 texlive-latex-base xmlstarlet zip \
   rpm dpkg fakeroot nsis gnupg wget sshpass ssh-client socat snmp smbclient \
-  python3 python3-lxml haveged cron ssmtp \
+  python3 python3-lxml haveged cron msmtp postgresql-client-9.6 \
   && rm -rf /var/lib/apt/lists/*
 
 ARG STAGE
@@ -18,7 +22,7 @@ ENV DATABASE ${DATABASE}
 RUN mkdir -p /root/gvm-src/gvmd
 WORKDIR /root/gvm-src/gvmd
 COPY ./src/gvmd/commit/${STAGE} ./src/gvmd/build.sh ./
-RUN chmod +x ./build.sh && ./build.sh ${STAGE} ${DATABASE} \
+RUN chmod +x ./build.sh && ./build.sh ${STAGE} \
   && apt remove -y git cmake gcc make clang-format pkg-config \
   && rm -rf /var/lib/apt/lists/*
 
@@ -28,11 +32,13 @@ RUN rm -rf /root/gvm-src
 # config smtp
 COPY ./src/gvmd/config/ssmtp.conf ./src/gvmd/config/revaliases /etc/ssmtp/
 
-COPY ./entrypoint/gvmd/docker-entrypoint.sh /usr/local/bin
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+COPY ./entrypoint/gvmd/docker-entrypoint.sh /usr/local/bin/
+RUN chmod 755 /usr/local/bin/docker-entrypoint.sh \
+  && chown -R gvm. /usr/local/var
 
-CMD ["gvmd", "-f", "-v", "--listen=0.0.0.0", "--port=9390"]
+USER gvm
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+CMD ["/usr/local/sbin/gvmd", "-f", "-v", "--osp-vt-update=/var/run/ospd/ospd.sock", "--listen=0.0.0.0", "--port=9390"]
 
 VOLUME ["/usr/local/var/lib/gvm"]
 EXPOSE 9390

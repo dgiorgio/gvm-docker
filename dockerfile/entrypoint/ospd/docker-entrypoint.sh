@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
+sudo rm -rf /var/run/ospd/ospd.pid
+sudo rm -rf /var/run/ospd/ospd.sock
+sudo chown -R gvm. /etc/redis.conf
+
 # Start Redis server
-ldconfig
-/usr/bin/redis-server /etc/redis.conf --daemonize yes
+sudo ldconfig
+/usr/bin/redis-server /etc/redis.conf --daemonize yes \
+&& sudo chown -R gvm. /run/redis/redis.sock
 
 _REDIS-CHECK() {
   REDIS_RESULT="$(/usr/bin/redis-cli ping)"
@@ -18,6 +23,9 @@ while [ "${REDIS_RESULT}" != "PONG" ]; do
 done
 echo "Redis ready."
 
+sudo mkdir -p /usr/local/var/lib/openvas /var/run/ospd \
+&& sudo chown -R gvm. /usr/local/var /var/run/ospd
+
 # sync NVT
 if [ "$(ls -A /usr/local/var/lib/openvas/plugins)" ]; then
   greenbone-nvt-sync --rsync
@@ -25,7 +33,8 @@ else
   greenbone-nvt-sync --wget
 fi
 
-# cron - sync NVT 
+# cron - sync NVT
+function _cron(){
 if [ "${ENABLE_CRON}" == "true" ] || [ "${ENABLE_CRON}" == "" ]; then
   CRON_FILE="/etc/cron.d/crontab"
   GVM_NVT_SYNC="/usr/local/bin/gvm-nvt-sync.sh"
@@ -37,9 +46,12 @@ if [ "${ENABLE_CRON}" == "true" ] || [ "${ENABLE_CRON}" == "" ]; then
   echo "${GVM_UPDATE_CRON} ${GVM_NVT_SYNC}" >> "${CRON_FILE}"
   crontab "${CRON_FILE}" && cron
 fi
+}
+FUNC="$(declare -f _cron)"
+sudo bash -c "${FUNC}; _cron"
 
 # Start openvas
-echo "openvas - creating cache..."
-/usr/local/sbin/openvassd -C >/dev/null 2>&1
+echo "openvas - Updates VT info into redis store from VT files"
+/usr/local/sbin/openvas -u
 echo "openvas - starting..."
 exec "$@"

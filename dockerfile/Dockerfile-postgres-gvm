@@ -10,8 +10,6 @@ RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   python3 python3-lxml haveged cron postgresql libradcli-dev \
   && rm -rf /var/lib/apt/lists/*
 
-COPY --from=dgiorgio/gvmd:9.0-p1 /usr/local/lib/libgvm* /usr/local/lib/
-
 WORKDIR /usr/lib/x86_64-linux-gnu
 RUN ln -sf libical.so libical.so.3 \
   && ln -sf libicalss.so libicalss.so.3 \
@@ -20,6 +18,8 @@ RUN ln -sf libical.so libical.so.3 \
   && ln -sf libicui18n.so libicui18n.so.57 \
   && ln -sf libgcrypt.so libssh-gcrypt.so.4 \
   && ln -sf libc.so libc.so.6
+
+COPY --from=dgiorgio/gvmd:9.0-p1 /usr/local/lib/libgvm* /usr/local/lib/
 
 WORKDIR /usr/local/lib
 RUN ln -sf libgvm_base.so.*~git* libgvm_base.so.11 \

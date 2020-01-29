@@ -61,10 +61,10 @@ docker build -f ./Dockerfile-postgres --build-arg STAGE=${STAGE} \
   -t "dgiorgio/postgres:${postgres_version}${build_postgres:-${BUILD}}" \
   -t "dgiorgio/postgres:latest" .
 
-postgres_version=9.6
-build_postgres="-p2"
+postgres_gvm_version=9.6
+build_postgres_gvm="-p2"
 docker build -f ./Dockerfile-postgres-gvm --build-arg STAGE=${STAGE} \
-  -t "dgiorgio/postgres-gvm:${postgres_version}${build_postgres:-${BUILD}}" \
+  -t "dgiorgio/postgres-gvm:${postgres_gvm_version}${build_postgres_gvm:-${BUILD}}" \
   -t "dgiorgio/postgres-gvm:latest" .
 
 # push
@@ -81,6 +81,9 @@ if [ "${1}" == "push" ]; then
   docker push "dgiorgio/gsa:${gsa_version}${build_gsa:-${BUILD}}"
   docker push "dgiorgio/gsa:latest"
 
-  docker push "dgiorgio/postgres-gvm:${postgres_version}${build_postgres:-${BUILD}}"
+  docker push "dgiorgio/postgres:${postgres_version}${build_postgres:-${BUILD}}"
+  docker push "dgiorgio/postgres:latest"
+
+  docker push "dgiorgio/postgres-gvm:${postgres_gvm_version}${build_postgres_gvm:-${BUILD}}"
   docker push "dgiorgio/postgres-gvm:latest"
 fi

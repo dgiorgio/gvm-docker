@@ -4,7 +4,7 @@ version: '3'
 
 services:
   gvm-postgres:
-    image: "dgiorgio/postgres-gvm"
+    image: "dgiorgio/postgres-gvm:9.6-p2"
     hostname: "postgres-gvm"
     restart: always
     ports:
@@ -17,7 +17,7 @@ services:
       - POSTGRES_PASSWORD=gvm
 
   gvm-openvas:
-    image: "dgiorgio/openvas"
+    image: "dgiorgio/openvas:7.0-p1"
     hostname: "openvas"
     restart: always
     ports:
@@ -30,7 +30,7 @@ services:
       - "/etc/localtime:/etc/localtime:ro"
 
   gvm-gvmd:
-    image: "dgiorgio/gvmd"
+    image: "dgiorgio/gvmd:9.0-p1"
     hostname: "gvmd"
     restart: always
     ports:
@@ -50,7 +50,7 @@ services:
       - gvm-postgres
 
   gvm-gsa:
-    image: "dgiorgio/gsa"
+    image: "dgiorgio/gsa:9.0-p1"
     hostname: "gsa"
     restart: always
     ports:

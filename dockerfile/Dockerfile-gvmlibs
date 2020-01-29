@@ -1,9 +1,9 @@
-FROM debian:stretch-20191118
+FROM debian:buster-20191224
 
 RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
-  git cmake gcc make clang-format pkg-config libglib2.0-dev libgpgme11-dev \
+  git cmake gcc make clang-format pkg-config libglib2.0-dev libgpgme-dev \
   libgnutls28-dev uuid-dev libssh-gcrypt-dev libldap2-dev libhiredis-dev \
-  libfreeradius-dev doxygen xmltoman libxml2-dev sudo \
+  libradcli-dev doxygen xmltoman libxml2-dev libradcli-dev sudo \
   && rm -rf /var/lib/apt/lists/* \
   && mkdir -p /etc/sudoers.d \
   && useradd -s /bin/bash -m gvm \

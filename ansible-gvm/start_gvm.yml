@@ -1,6 +1,6 @@
 ---
 
-- name: "Start GVM Project"
+- name: "Deploy 'Greenbone GVM'"
   hosts: localhost
   gather_facts: no
   tasks:

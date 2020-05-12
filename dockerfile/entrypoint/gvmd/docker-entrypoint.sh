@@ -28,6 +28,7 @@ sudo su - postgres -c "psql -d gvmd" << EOF
 create role dba with superuser noinherit;
 grant dba to gvm;
 create extension "uuid-ossp";
+create extension "pgcrypto";
 EOF
 
 GVM_ADMIN="$(/usr/local/sbin/gvmd --get-users | grep -w admin)"

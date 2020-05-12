@@ -1,4 +1,4 @@
-FROM debian:buster-20191224
+FROM debian:buster-20200422
 
 RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   git cmake gcc make clang-format pkg-config libglib2.0-dev libgpgme-dev \

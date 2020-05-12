@@ -1,4 +1,4 @@
-FROM dgiorgio/gvmlibs:11.0-p1
+FROM dgiorgio/gvmlibs:11.0-p2
 
 # yarn nodejs
 RUN apt update -y && apt install -y curl apt-transport-https \

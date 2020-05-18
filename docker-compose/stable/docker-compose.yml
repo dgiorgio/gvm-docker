@@ -4,41 +4,43 @@ version: '3'
 
 services:
   gvm-postgres:
-    image: "dgiorgio/postgres-gvm:9.6-p3"
+    image: "dgiorgio/postgres-gvm:9.6-20200517"
     hostname: "postgres-gvm"
     restart: always
     ports:
       - "5432:5432"
     volumes:
       - "postgres-socket:/var/run/postgresql"
-      - "postgres-data:/var/lib/postgresql"
+      - "postgres-data:/var/lib/postgresql/data"
       - "/etc/localtime:/etc/localtime:ro"
     environment:
       - POSTGRES_PASSWORD=gvm
 
   gvm-openvas:
-    image: "dgiorgio/openvas:7.0-p2"
+    image: "dgiorgio/openvas:7.0-20200517"
     hostname: "openvas"
     restart: always
     ports:
       - "51000:51234"
     volumes:
       - "gvm-connect:/usr/local/var/run"
-      - "openvas-data:/usr/local/var/lib/openvas"
       - "ospd-socket:/var/run/ospd"
+      - "openvas-data:/usr/local/var/lib/openvas"
       - "gvm-data:/usr/local/var/lib/gvm"
       - "/etc/localtime:/etc/localtime:ro"
+    # environment:
+    #   - COMMUNITY_NVT_RSYNC_FEED=rsync://gvm-nvt-feed-server:/nvt-feed # Custom NVT server https://github.com/dgiorgio/gvm-nvt-feed-server
 
   gvm-gvmd:
-    image: "dgiorgio/gvmd:9.0-p2"
+    image: "dgiorgio/gvmd:9.0-20200517"
     hostname: "gvmd"
     restart: always
     ports:
       - "9390:9390"
     volumes:
       - "gvm-connect:/usr/local/var/run"
-      - "openvas-data:/usr/local/var/lib/openvas"
       - "ospd-socket:/var/run/ospd"
+      - "openvas-data:/usr/local/var/lib/openvas"
       - "gvm-data:/usr/local/var/lib/gvm"
       # - "/tmp/ssmtp=/etc/ssmtp" # optional - ssmtp config path
       - "postgres-socket:/var/run/postgresql"
@@ -50,7 +52,7 @@ services:
       - gvm-postgres
 
   gvm-gsa:
-    image: "dgiorgio/gsa:9.0-p2"
+    image: "dgiorgio/gsa:9.0-20200517"
     hostname: "gsa"
     restart: always
     ports:

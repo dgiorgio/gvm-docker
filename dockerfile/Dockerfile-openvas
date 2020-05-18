@@ -59,7 +59,7 @@ COPY ./src/openvas/config/redis.conf /etc/redis.conf
 WORKDIR /
 RUN rm -rf /root/gvm-src
 
-COPY ./entrypoint/ospd/docker-entrypoint.sh ./src/openvas/scripts/gvm-nvt-sync.sh /usr/local/bin/
+COPY ./entrypoint/openvas/docker-entrypoint.sh ./src/openvas/scripts/gvm-nvt-sync.sh /usr/local/bin/
 RUN chmod 777 /usr/local/bin/docker-entrypoint.sh /usr/local/bin/gvm-nvt-sync.sh \
   && mkdir -p /var/run/ospd/ /run/redis/ \
   && chown -R gvm. /var/run/ospd /run/redis \

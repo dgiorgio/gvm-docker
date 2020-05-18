@@ -27,11 +27,7 @@ sudo mkdir -p /usr/local/var/lib/openvas /var/run/ospd \
 && sudo chown -R gvm. /usr/local/var /var/run/ospd
 
 # sync NVT
-if [ "$(ls -A /usr/local/var/lib/openvas/plugins)" ]; then
-  greenbone-nvt-sync --rsync
-else
-  greenbone-nvt-sync --wget
-fi
+/usr/local/bin/gvm-nvt-sync.sh
 
 # cron - sync NVT
 function _cron(){

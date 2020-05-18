@@ -31,18 +31,15 @@ create extension "uuid-ossp";
 create extension "pgcrypto";
 EOF
 
-GVM_ADMIN="$(/usr/local/sbin/gvmd --get-users | grep -w admin)"
-if [ -z "${GVM_ADMIN}" ]; then
+GVM_ADMIN_PASSWORD="$(date +%s | sha256sum | base64 | head -c 50 ; echo)"
+GVM_ADMIN_CHECK="$(/usr/local/sbin/gvmd --get-users | grep -w admin)"
+if [ -z "${GVM_ADMIN_CHECK}" ]; then
   echo "Creating the 'admin' user."
   /usr/local/sbin/gvmd --create-user=admin --role=Admin
   echo "Setting password for 'admin' user."
-  /usr/local/sbin/gvmd --user=admin --new-password=admin
+  /usr/local/sbin/gvmd --user=admin --new-password=${GVM_ADMIN_PASSWORD}
+  echo "User 'admin' created, password: ${GVM_ADMIN_PASSWORD}"
 fi
-
-# while [ ! -S "/var/run/ospd/ospd.sock" ]; do
-#   echo "File '/var/run/ospd/ospd.sock' not exist - Waiting for ospd to start"
-#   sleep 2
-# done
 
 echo "run greenbone-certdata-sync"
 greenbone-certdata-sync
@@ -51,17 +48,17 @@ greenbone-scapdata-sync
 
 # cron - sync certdata/scapdata
 function _cron(){
-if [ "${ENABLE_CRON}" == "true" ] || [ "${ENABLE_CRON}" == "" ]; then
-  CRON_FILE="/etc/cron.d/crontab"
-  # Set default cron
-  [ "${GVM_UPDATE_CRON}" == "" ] && GVM_UPDATE_CRON="0 */3 * * *"
+  if [ "${ENABLE_CRON}" == "true" ] || [ "${ENABLE_CRON}" == "" ]; then
+    CRON_FILE="/etc/cron.d/crontab"
+    # Set default cron
+    [ "${GVM_UPDATE_CRON}" == "" ] && GVM_UPDATE_CRON="0 */3 * * *"
 
-  touch "${CRON_FILE}" && chmod 0644 "${CRON_FILE}"
+    touch "${CRON_FILE}" && chmod 0644 "${CRON_FILE}"
 
-  echo "${GVM_UPDATE_CRON} greenbone-certdata-sync" >> "${CRON_FILE}"
-  echo "${GVM_UPDATE_CRON} greenbone-scapdata-sync" >> "${CRON_FILE}"
-  crontab "${CRON_FILE}" && cron
-fi
+    echo "${GVM_UPDATE_CRON} greenbone-certdata-sync" >> "${CRON_FILE}"
+    echo "${GVM_UPDATE_CRON} greenbone-scapdata-sync" >> "${CRON_FILE}"
+    crontab "${CRON_FILE}" && cron
+  fi
 }
 FUNC="$(declare -f _cron)"
 sudo bash -c "${FUNC}; _cron"

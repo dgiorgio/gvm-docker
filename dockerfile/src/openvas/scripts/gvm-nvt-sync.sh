@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # sync NVT
-rm /usr/local/var/run/feed-update.lock
+rm /usr/local/var/run/feed-update.lock /var/run/ospd/feed-update.lock
 if [ "$(ls -A /usr/local/var/lib/openvas/plugins | wc -l)" != "0" ]; then
   echo "Sync NVT with 'rsync'"
   # Workaround - https://github.com/greenbone/openvas/issues/508

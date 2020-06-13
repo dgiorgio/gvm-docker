@@ -1,4 +1,4 @@
-FROM dgiorgio/postgres:9.6
+FROM dgiorgio/postgres:9.6-20200613
 
 RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   git cmake gcc make clang-format pkg-config libglib2.0-dev libgpgme11-dev \
@@ -7,7 +7,7 @@ RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   libical-dev gnutls-bin doxygen xmltoman xsltproc sqlfairy libsqlite3-dev \
   libpq-dev postgresql-server-dev-9.6 texlive-latex-base xmlstarlet zip \
   rpm dpkg fakeroot nsis gnupg wget sshpass ssh-client socat snmp smbclient \
-  python3 python3-lxml haveged cron postgresql libradcli-dev \
+  python3 python3-lxml haveged cron postgresql-9.6 libradcli-dev \
   && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/lib/x86_64-linux-gnu

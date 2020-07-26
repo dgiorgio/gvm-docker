@@ -31,9 +31,9 @@ create extension "uuid-ossp";
 create extension "pgcrypto";
 EOF
 
-GVM_ADMIN_PASSWORD="$(date +%s | sha256sum | base64 | head -c 50 ; echo)"
 GVM_ADMIN_CHECK="$(/usr/local/sbin/gvmd --get-users | grep -w admin)"
 if [ -z "${GVM_ADMIN_CHECK}" ]; then
+  GVM_ADMIN_PASSWORD="$(date +%s | sha256sum | base64 | head -c 50 ; echo)"
   echo "Creating the 'admin' user."
   /usr/local/sbin/gvmd --create-user=admin --role=Admin
   echo "Setting password for 'admin' user."

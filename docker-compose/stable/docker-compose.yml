@@ -4,7 +4,7 @@ version: '3'
 
 services:
   gvm-postgres:
-    image: "dgiorgio/postgres-gvm:9.6-20200613"
+    image: "dgiorgio/postgres-gvm:9.6-20200725"
     hostname: "postgres-gvm"
     restart: always
     ports:
@@ -17,7 +17,7 @@ services:
       - POSTGRES_PASSWORD=gvm
 
   gvm-openvas:
-    image: "dgiorgio/openvas:7.0-20200613"
+    image: "dgiorgio/openvas:7.0-20200725"
     hostname: "openvas"
     restart: always
     ports:
@@ -32,7 +32,7 @@ services:
     #   - COMMUNITY_NVT_RSYNC_FEED=rsync://gvm-nvt-feed-server:/nvt-feed # Custom NVT server https://github.com/dgiorgio/gvm-nvt-feed-server
 
   gvm-gvmd:
-    image: "dgiorgio/gvmd:9.0-20200613"
+    image: "dgiorgio/gvmd:9.0-20200725"
     hostname: "gvmd"
     restart: always
     ports:
@@ -52,7 +52,7 @@ services:
       - gvm-postgres
 
   gvm-gsa:
-    image: "dgiorgio/gsa:9.0-20200613"
+    image: "dgiorgio/gsa:9.0-20200725"
     hostname: "gsa"
     restart: always
     ports:

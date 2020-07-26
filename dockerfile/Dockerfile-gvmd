@@ -1,4 +1,4 @@
-FROM dgiorgio/gvmlibs:11.0-p2
+FROM dgiorgio/gvmlibs:11.0-20200725
 
 RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   wget gnupg2 \

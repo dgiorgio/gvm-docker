@@ -1,4 +1,4 @@
-FROM dgiorgio/postgres:9.6-20200613
+FROM dgiorgio/postgres:9.6-20200725
 
 RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   git cmake gcc make clang-format pkg-config libglib2.0-dev libgpgme11-dev \

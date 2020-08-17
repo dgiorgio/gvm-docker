@@ -4,10 +4,10 @@ set -e
 
 # default - vars
 STAGE="stable"
-[ -z "${BUILD}" ] && BUILD="-20200725"
+[ -z "${BUILD}" ] && BUILD="-20200816"
 
 # build gvmlibs
-gvmlibs_version=11.0
+gvmlibs_version=20.08
 build_gvmlibs="${BUILD}"
 echo "
 ################################################################################
@@ -19,7 +19,7 @@ docker build -f ./Dockerfile-gvmlibs --build-arg STAGE=${STAGE} \
   -t "dgiorgio/gvmlibs:latest" .
 
 # build gvmd
-gvmd_version=9.0
+gvmd_version=20.08
 build_gvmd="${BUILD}"
 echo "
 ################################################################################
@@ -31,7 +31,7 @@ docker build -f ./Dockerfile-gvmd --build-arg STAGE=${STAGE} \
   -t "dgiorgio/gvmd:latest" .
 
 # build openvas
-openvas_version=7.0
+openvas_version=20.08
 build_openvas="${BUILD}"
 echo "
 ################################################################################
@@ -43,7 +43,7 @@ docker build -f ./Dockerfile-openvas --build-arg STAGE=${STAGE} \
   -t "dgiorgio/openvas:latest" .
 
 # build gsa
-gsa_version=9.0
+gsa_version=20.08
 build_gsa="${BUILD}"
 echo "
 ################################################################################

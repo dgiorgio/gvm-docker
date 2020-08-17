@@ -1,4 +1,4 @@
-FROM dgiorgio/postgres:9.6-20200725
+FROM dgiorgio/postgres:9.6-20200816
 
 RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   git cmake gcc make clang-format pkg-config libglib2.0-dev libgpgme11-dev \
@@ -19,7 +19,7 @@ RUN ln -sf libical.so libical.so.3 \
   && ln -sf libgcrypt.so libssh-gcrypt.so.4 \
   && ln -sf libc.so libc.so.6
 
-COPY --from=dgiorgio/gvmd:9.0-p1 /usr/local/lib/libgvm* /usr/local/lib/
+COPY --from=dgiorgio/gvmd:20.08-20200816 /usr/local/lib/libgvm* /usr/local/lib/
 
 WORKDIR /usr/local/lib
 RUN ln -sf libgvm_base.so.*~git* libgvm_base.so.11 \

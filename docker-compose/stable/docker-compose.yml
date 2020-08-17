@@ -4,7 +4,7 @@ version: '3'
 
 services:
   gvm-postgres:
-    image: "dgiorgio/postgres-gvm:9.6-20200725"
+    image: "dgiorgio/postgres-gvm:9.6-20200816"
     hostname: "postgres-gvm"
     restart: always
     ports:
@@ -17,7 +17,7 @@ services:
       - POSTGRES_PASSWORD=gvm
 
   gvm-openvas:
-    image: "dgiorgio/openvas:7.0-20200725"
+    image: "dgiorgio/openvas:20.08-20200816"
     hostname: "openvas"
     restart: always
     ports:
@@ -29,10 +29,13 @@ services:
       - "gvm-data:/usr/local/var/lib/gvm"
       - "/etc/localtime:/etc/localtime:ro"
     # environment:
-    #   - COMMUNITY_NVT_RSYNC_FEED=rsync://gvm-nvt-feed-server:/nvt-feed # Custom NVT server https://github.com/dgiorgio/gvm-nvt-feed-server
+    #   - COMMUNITY_NVT_RSYNC_FEED=rsync://gvm_feed_server.service.com:/nvt-feed # Custom feed server https://github.com/dgiorgio/gvm-feed-server
+    #   - COMMUNITY_SCAP_RSYNC_FEED=rsync://gvm_feed_server.service.com:/scap-data # Custom feed server https://github.com/dgiorgio/gvm-feed-server
+    #   - COMMUNITY_GVMD_DATA_RSYNC_FEED=rsync://gvm_feed_server.service.com:/data-objects/gvmd/ # Custom feed server https://github.com/dgiorgio/gvm-feed-server
+    #   - COMMUNITY_CERT_RSYNC_FEED=rsync://gvm_feed_server.service.com:/cert-data # Custom feed server https://github.com/dgiorgio/gvm-feed-server
 
   gvm-gvmd:
-    image: "dgiorgio/gvmd:9.0-20200725"
+    image: "dgiorgio/gvmd:20.08-20200816"
     hostname: "gvmd"
     restart: always
     ports:
@@ -50,9 +53,14 @@ services:
     depends_on:
       - gvm-openvas
       - gvm-postgres
+    # environment:
+    #   - COMMUNITY_NVT_RSYNC_FEED=rsync://gvm_feed_server.service.com:/nvt-feed # Custom feed server https://github.com/dgiorgio/gvm-feed-server
+    #   - COMMUNITY_SCAP_RSYNC_FEED=rsync://gvm_feed_server.service.com:/scap-data # Custom feed server https://github.com/dgiorgio/gvm-feed-server
+    #   - COMMUNITY_GVMD_DATA_RSYNC_FEED=rsync://gvm_feed_server.service.com:/data-objects/gvmd/ # Custom feed server https://github.com/dgiorgio/gvm-feed-server
+    #   - COMMUNITY_CERT_RSYNC_FEED=rsync://gvm_feed_server.service.com:/cert-data # Custom feed server https://github.com/dgiorgio/gvm-feed-server
 
   gvm-gsa:
-    image: "dgiorgio/gsa:9.0-20200725"
+    image: "dgiorgio/gsa:20.08-20200816"
     hostname: "gsa"
     restart: always
     ports:

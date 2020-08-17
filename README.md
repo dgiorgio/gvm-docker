@@ -12,6 +12,15 @@ or
 $ cd ansible-gvm
 $ ansible-playbook start_gvm.yml
 ```
+### Access
+Get 'admin' password:
+```console
+$ docker logs gvm_gvm-gvmd_1 2> /dev/null | grep 'password:'
+```
+##### Reset admin password
+```console
+$ docker exec -ti gvm_gvm-gvmd_1 gvmd --user=admin --new-password=gvmpass
+```
 
 ## License
 

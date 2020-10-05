@@ -4,7 +4,7 @@ set -e
 
 # default - vars
 STAGE="stable"
-[ -z "${BUILD}" ] && BUILD="-20200816"
+[ -z "${BUILD}" ] && BUILD="-20201004"
 
 # build gvmlibs
 gvmlibs_version=20.08

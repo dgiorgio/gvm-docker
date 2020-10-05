@@ -1,4 +1,4 @@
-FROM dgiorgio/gvmlibs:20.08-20200816
+FROM dgiorgio/gvmlibs:20.08-20201004
 
 RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   wget gnupg2 \
@@ -14,9 +14,6 @@ RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
 
 ARG STAGE
 ENV STAGE ${STAGE}
-
-ARG DATABASE
-ENV DATABASE ${DATABASE}
 
 # gvmd
 RUN mkdir -p /root/gvm-src/gvmd

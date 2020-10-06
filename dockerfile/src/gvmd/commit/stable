@@ -1,1 +1,1 @@
-COMMIT="3a5ec8bc2a4313b7c9d04188c6804f6c78c9165e" # branch: gvmd-20.08
+RELEASE_URL="https://github.com/greenbone/gvmd/archive/v20.8.0.tar.gz"

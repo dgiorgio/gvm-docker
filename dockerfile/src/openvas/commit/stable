@@ -1,1 +1,1 @@
-COMMIT="0be05a9f7aa13250c2ff5f7841d2945df098cb17" # branch: openvas-20.08
+RELEASE_URL="https://github.com/greenbone/openvas/archive/v20.8.0.tar.gz"

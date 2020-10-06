@@ -1,4 +1,4 @@
-FROM dgiorgio/gvmlibs:20.08-20201004
+FROM dgiorgio/gvmlibs:20.8.0
 
 # openvas-smb deps: git cmake gcc make pkg-config gcc-mingw-w64
 #                   perl-base heimdal-dev libpopt-dev libglib2.0-dev

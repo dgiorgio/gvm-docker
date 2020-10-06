@@ -1,1 +1,1 @@
-COMMIT="a7ed27e980bd64f0cdcd47e6a339eeefc9ec5d9a" # branch: gsa-20.08
+RELEASE_URL="https://github.com/greenbone/gsa/archive/v20.8.0.tar.gz"

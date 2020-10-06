@@ -4,10 +4,10 @@ set -e
 
 # default - vars
 STAGE="stable"
-[ -z "${BUILD}" ] && BUILD="-20201004"
+[ -z "${BUILD}" ] && BUILD=""
 
 # build gvmlibs
-gvmlibs_version=20.08
+gvmlibs_version=20.8.0
 build_gvmlibs="${BUILD}"
 echo "
 ################################################################################
@@ -19,7 +19,7 @@ docker build -f ./Dockerfile-gvmlibs --build-arg STAGE=${STAGE} \
   -t "dgiorgio/gvmlibs:latest" .
 
 # build gvmd
-gvmd_version=20.08
+gvmd_version=20.8.0
 build_gvmd="${BUILD}"
 echo "
 ################################################################################
@@ -31,7 +31,7 @@ docker build -f ./Dockerfile-gvmd --build-arg STAGE=${STAGE} \
   -t "dgiorgio/gvmd:latest" .
 
 # build openvas
-openvas_version=20.08
+openvas_version=20.8.0
 build_openvas="${BUILD}"
 echo "
 ################################################################################
@@ -43,7 +43,7 @@ docker build -f ./Dockerfile-openvas --build-arg STAGE=${STAGE} \
   -t "dgiorgio/openvas:latest" .
 
 # build gsa
-gsa_version=20.08
+gsa_version=20.8.0
 build_gsa="${BUILD}"
 echo "
 ################################################################################
@@ -54,19 +54,7 @@ docker build -f ./Dockerfile-gsa --build-arg STAGE=${STAGE} \
   -t "dgiorgio/gsa:${gsa_version}${build_gsa}" \
   -t "dgiorgio/gsa:latest" .
 
-# build postgres
-postgres_version=9.6
-build_postgres="${BUILD}"
-echo "
-################################################################################
-################### Build postgres #############################################
-################################################################################
-Image: dgiorgio/postgres:${postgres_version}${build_postgres}"
-docker build -f ./Dockerfile-postgres --build-arg STAGE=${STAGE} \
-  -t "dgiorgio/postgres:${postgres_version}${build_postgres}" \
-  -t "dgiorgio/postgres:latest" .
-
-postgres_gvm_version=9.6
+postgres_gvm_version=11
 build_postgres_gvm="${BUILD}"
 echo "
 ################################################################################
@@ -90,9 +78,6 @@ if [ "${1}" == "push" ]; then
 
   docker push "dgiorgio/gsa:${gsa_version}${build_gsa}"
   docker push "dgiorgio/gsa:latest"
-
-  docker push "dgiorgio/postgres:${postgres_version}${build_postgres}"
-  docker push "dgiorgio/postgres:latest"
 
   docker push "dgiorgio/postgres-gvm:${postgres_gvm_version}${build_postgres_gvm}"
   docker push "dgiorgio/postgres-gvm:latest"

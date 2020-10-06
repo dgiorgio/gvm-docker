@@ -41,10 +41,16 @@ if [ -z "${GVM_ADMIN_CHECK}" ]; then
   echo "User 'admin' created, password: ${GVM_ADMIN_PASSWORD}"
 fi
 
-echo "run greenbone-certdata-sync"
-greenbone-certdata-sync
-echo "run greenbone-scapdata-sync"
-greenbone-scapdata-sync
+echo "Update GVMD_DATA"
+greenbone-feed-sync --type GVMD_DATA
+sleep 5
+
+echo "Update SCAP"
+greenbone-feed-sync --type SCAP
+sleep 5
+
+echo "Update CERT"
+greenbone-feed-sync --type CERT
 
 # cron - sync certdata/scapdata
 function _cron(){

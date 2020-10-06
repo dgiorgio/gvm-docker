@@ -1,7 +1,7 @@
 FROM debian:buster-20200908-slim
 
 RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
-  git cmake gcc make clang-format pkg-config libglib2.0-dev libgpgme-dev \
+  wget git cmake gcc make clang-format pkg-config libglib2.0-dev libgpgme-dev \
   libgnutls28-dev uuid-dev libssh-gcrypt-dev libldap2-dev libhiredis-dev libradcli-dev \
   doxygen xmltoman libxml2-dev sudo libpcap0.8 libpcap0.8-dev libgcrypt20 libgcrypt20-dev \
   && rm -rf /var/lib/apt/lists/* \

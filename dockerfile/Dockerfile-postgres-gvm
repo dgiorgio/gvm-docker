@@ -1,13 +1,22 @@
-FROM dgiorgio/postgres:9.6-20201004
+FROM postgres:11.9
+
+# upgrade debian 9 -> 10
+RUN sed -i 's/stretch/buster/g' /etc/apt/sources.list \
+  && sed -i 's/stretch/buster/g' /etc/apt/sources.list.d/* \
+  && apt update -y \
+  && DEBIAN_FRONTEND=noninteractive apt full-upgrade -y --no-install-recommends --fix-missing \
+  && apt --purge autoremove -y \
+  && echo en_US.UTF-8 UTF-8 > /etc/locale.gen \
+  && locale-gen en_US.UTF-8
 
 RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   git cmake gcc make clang-format pkg-config libglib2.0-dev libgpgme11-dev \
   libgnutls28-dev uuid-dev libssh-gcrypt-dev libldap2-dev libhiredis-dev \
-  libfreeradius-dev doxygen xmltoman libxml2-dev \
-  libical-dev gnutls-bin doxygen xmltoman xsltproc sqlfairy libsqlite3-dev \
-  libpq-dev postgresql-server-dev-9.6 texlive-latex-base xmlstarlet zip \
-  rpm dpkg fakeroot nsis gnupg wget sshpass ssh-client socat snmp smbclient \
-  python3 python3-lxml haveged cron postgresql-9.6 libradcli-dev \
+  libfreeradius-dev doxygen xmltoman libxml2-dev libical-dev gnutls-bin \
+  doxygen xmltoman xsltproc sqlfairy libsqlite3-dev libpq-dev \
+  texlive-latex-base xmlstarlet zip rpm dpkg fakeroot nsis gnupg \
+  wget sshpass ssh-client socat snmp smbclient python3 python3-lxml haveged \
+  cron libpq-dev postgresql-11 postgresql-server-dev-11 libradcli-dev \
   && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/lib/x86_64-linux-gnu
@@ -19,19 +28,9 @@ RUN ln -sf libical.so libical.so.3 \
   && ln -sf libgcrypt.so libssh-gcrypt.so.4 \
   && ln -sf libc.so libc.so.6
 
-COPY --from=dgiorgio/gvmd:20.08-20201004 /usr/local/lib/libgvm* /usr/local/lib/
+COPY --from=dgiorgio/gvmd:20.8.0 /usr/local/lib/libgvm* /usr/local/lib/
 
 WORKDIR /usr/local/lib
-RUN ln -sf libgvm_base.so.*~git* libgvm_base.so.11 \
-  && ln -sf libgvm_base.so.*~git* libgvm_base.so \
-  && ln -sf libgvm_gmp.so.*~git* libgvm_gmp.so \
-  && ln -sf libgvm_gmp.so.*~git* libgvm_gmp.so.11 \
-  && ln -sf libgvm_osp.so.*~git* libgvm_osp.so \
-  && ln -sf libgvm_osp.so.*~git* libgvm_osp.so.11 \
-  && ln -sf libgvm-pg-server.so.*~git* libgvm-pg-server.so \
-  && ln -sf libgvm-pg-server.so.*~git* libgvm-pg-server.so.0 \
-  && ln -sf libgvm_util.so.*~git* libgvm_util.so \
-  && ln -sf libgvm_util.so.*~git* libgvm_util.so.11 \
-  && chmod -R 777 /usr/local/lib/libgvm* \
+RUN chmod -R 777 /usr/local/lib/libgvm* \
   && ldconfig
 EXPOSE 5432

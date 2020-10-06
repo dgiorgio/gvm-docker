@@ -4,7 +4,7 @@ version: '3'
 
 services:
   gvm-postgres:
-    image: "dgiorgio/postgres-gvm:9.6-20201004"
+    image: "dgiorgio/postgres-gvm:11"
     hostname: "postgres-gvm"
     restart: always
     ports:
@@ -17,7 +17,7 @@ services:
       - POSTGRES_PASSWORD=gvm
 
   gvm-openvas:
-    image: "dgiorgio/openvas:20.08-20201004"
+    image: "dgiorgio/openvas:20.8.0"
     hostname: "openvas"
     restart: always
     ports:
@@ -35,7 +35,7 @@ services:
     #   - COMMUNITY_CERT_RSYNC_FEED=rsync://gvm_feed_server.service.com:/cert-data # Custom feed server https://github.com/dgiorgio/gvm-feed-server
 
   gvm-gvmd:
-    image: "dgiorgio/gvmd:20.08-20201004"
+    image: "dgiorgio/gvmd:20.8.0"
     hostname: "gvmd"
     restart: always
     ports:
@@ -60,7 +60,7 @@ services:
     #   - COMMUNITY_CERT_RSYNC_FEED=rsync://gvm_feed_server.service.com:/cert-data # Custom feed server https://github.com/dgiorgio/gvm-feed-server
 
   gvm-gsa:
-    image: "dgiorgio/gsa:20.08-20201004"
+    image: "dgiorgio/gsa:20.8.0"
     hostname: "gsa"
     restart: always
     ports:

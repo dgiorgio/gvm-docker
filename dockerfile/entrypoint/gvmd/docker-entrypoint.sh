@@ -21,7 +21,7 @@ while [ ! -S "/var/run/postgresql/.s.PGSQL.5432" ]; do
   sleep 2
 done
 
-/usr/local/sbin/gvmd -m
+gvmd -m
 
 sudo su - postgres -c "createuser -DRS gvm && createdb -O gvm -e gvmd"
 sudo su - postgres -c "psql -d gvmd" << EOF
@@ -31,15 +31,18 @@ create extension "uuid-ossp";
 create extension "pgcrypto";
 EOF
 
-GVM_ADMIN_CHECK="$(/usr/local/sbin/gvmd --get-users | grep -w admin)"
+GVM_ADMIN_CHECK="$(gvmd --get-users | grep -w admin)"
 if [ -z "${GVM_ADMIN_CHECK}" ]; then
   GVM_ADMIN_PASSWORD="$(date +%s | sha256sum | base64 | head -c 50 ; echo)"
   echo "Creating the 'admin' user."
-  /usr/local/sbin/gvmd --create-user=admin --role=Admin
+  gvmd --create-user=admin --role=Admin
   echo "Setting password for 'admin' user."
-  /usr/local/sbin/gvmd --user=admin --new-password=${GVM_ADMIN_PASSWORD}
+  gvmd --user=admin --new-password=${GVM_ADMIN_PASSWORD}
   echo "User 'admin' created, password: ${GVM_ADMIN_PASSWORD}"
 fi
+
+echo "Setting the Feed Import Owner - admin user"
+gvmd --modify-setting 78eceaec-3385-11ea-b237-28d24461215b --value $(gvmd --get-users --verbose | grep admin | awk '{ print $2 }')
 
 echo "Update GVMD_DATA"
 greenbone-feed-sync --type GVMD_DATA
@@ -61,7 +64,7 @@ function _cron(){
 
     touch "${CRON_FILE}" && chmod 0644 "${CRON_FILE}"
 
-    echo "${GVM_UPDATE_CRON} greenbone-certdata-sync" >> "${CRON_FILE}"
+    echo "${GVM_UPDATE_CRON} greenbone-certdata-sync" > "${CRON_FILE}"
     echo "${GVM_UPDATE_CRON} greenbone-scapdata-sync" >> "${CRON_FILE}"
     crontab "${CRON_FILE}" && cron
   fi

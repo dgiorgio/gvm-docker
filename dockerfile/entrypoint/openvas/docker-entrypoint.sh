@@ -39,7 +39,7 @@ if [ "${ENABLE_CRON}" == "true" ] || [ "${ENABLE_CRON}" == "" ]; then
 
   touch "${CRON_FILE}" && chmod 0644 "${CRON_FILE}"
 
-  echo "${GVM_UPDATE_CRON} ${GVM_NVT_SYNC}" >> "${CRON_FILE}"
+  echo "${GVM_UPDATE_CRON} ${GVM_NVT_SYNC}" > "${CRON_FILE}"
   crontab "${CRON_FILE}" && cron
 fi
 }
@@ -48,6 +48,6 @@ sudo bash -c "${FUNC}; _cron"
 
 # Start openvas
 echo "openvas - Updates VT info into redis store from VT files"
-/usr/local/sbin/openvas -u
+openvas -u
 echo "openvas - starting..."
 exec "$@"

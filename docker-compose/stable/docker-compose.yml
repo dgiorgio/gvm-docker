@@ -17,7 +17,7 @@ services:
       - POSTGRES_PASSWORD=gvm
 
   gvm-openvas:
-    image: "dgiorgio/openvas:20.8.0"
+    image: "dgiorgio/openvas:20.8.0-1"
     hostname: "openvas"
     restart: always
     ports:
@@ -35,7 +35,7 @@ services:
     #   - COMMUNITY_CERT_RSYNC_FEED=rsync://gvm_feed_server.service.com:/cert-data # Custom feed server https://github.com/dgiorgio/gvm-feed-server
 
   gvm-gvmd:
-    image: "dgiorgio/gvmd:20.8.0"
+    image: "dgiorgio/gvmd:20.8.0-1"
     hostname: "gvmd"
     restart: always
     ports:

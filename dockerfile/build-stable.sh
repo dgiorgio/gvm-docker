@@ -40,8 +40,9 @@ echo "
 ################################################################################
 ################### Build openvas-scanner ##############################################
 ################################################################################
-Image: dgiorgio/openvas:${openvas_scanner_version}${build_openvas_scanner}
-Image: dgiorgio/openvas-scanner:${openvas_scanner_version}${build_openvas_scanner}"
+Image: dgiorgio/openvas-scanner:${openvas_scanner_version}${build_openvas_scanner}
+Image: dgiorgio/openvas:${openvas_scanner_version}${build_openvas_scanner}"
+# dgiorgio/openvas compatibility with older builds, will be removed on 02/23/2022
 docker build -f ./Dockerfile-openvas --build-arg STAGE=${STAGE} \
   -t "dgiorgio/openvas:${openvas_scanner_version}${build_openvas_scanner}" \
   -t "dgiorgio/openvas:latest" \
@@ -72,6 +73,8 @@ docker build -f ./Dockerfile-postgres-gvm --build-arg STAGE=${STAGE} \
   -t "dgiorgio/postgres-gvm:${postgres_gvm_version}${build_postgres_gvm}" \
   -t "dgiorgio/postgres-gvm:latest" .
 
+echo "All images successfully built."
+
 # push
 if [ "${1}" == "push" ]; then
   docker push "dgiorgio/gvmlibs:${gvmlibs_version}${build_gvmlibs}"
@@ -80,12 +83,17 @@ if [ "${1}" == "push" ]; then
   docker push "dgiorgio/gsa:${gsa_version}${build_gsa}"
   docker push "dgiorgio/gsa:latest"
 
-  docker push "dgiorgio/openvas:${openvas_version}${build_openvas}"
+  docker push "dgiorgio/openvas-scanner:${openvas_scanner_version}${build_openvas_scanner}"
+  docker push "dgiorgio/openvas-scanner:latest"
+  docker push "dgiorgio/openvas:${openvas_scanner_version}${build_openvas_scanner}"
   docker push "dgiorgio/openvas:latest"
+  # dgiorgio/openvas compatibility with older builds, will be removed on 02/23/2022
 
   docker push "dgiorgio/gvmd:${gvmd_version}${build_gvmd}"
   docker push "dgiorgio/gvmd:latest"
 
   docker push "dgiorgio/postgres-gvm:${postgres_gvm_version}${build_postgres_gvm}"
   docker push "dgiorgio/postgres-gvm:latest"
+
+  echo "All images sent successfully."
 fi

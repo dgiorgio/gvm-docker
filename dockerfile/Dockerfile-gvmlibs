@@ -1,4 +1,4 @@
-FROM debian:buster-20200908-slim
+FROM debian:buster-20210208-slim
 
 RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   wget git cmake gcc make clang-format pkg-config libglib2.0-dev libgpgme-dev \

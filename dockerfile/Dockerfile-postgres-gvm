@@ -28,7 +28,7 @@ RUN ln -sf libical.so libical.so.3 \
   && ln -sf libgcrypt.so libssh-gcrypt.so.4 \
   && ln -sf libc.so libc.so.6
 
-COPY --from=dgiorgio/gvmd:20.8.0 /usr/local/lib/libgvm* /usr/local/lib/
+COPY --from=dgiorgio/gvmd:20.8.1 /usr/local/lib/libgvm* /usr/local/lib/
 
 WORKDIR /usr/local/lib
 RUN chmod -R 777 /usr/local/lib/libgvm* \

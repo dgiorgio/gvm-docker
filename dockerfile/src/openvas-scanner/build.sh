@@ -14,15 +14,15 @@ _build(){
 }
 
 _download_git(){
-  git clone https://github.com/greenbone/openvas.git \
-  && cd openvas \
+  git clone https://github.com/greenbone/openvas-scanner.git \
+  && cd openvas-scanner \
   && git reset --hard ${COMMIT}
 }
 
 _dowload_release(){
   wget -c ${RELEASE_URL} \
   && tar -xzvf *.tar.gz \
-  && cd openvas*
+  && cd openvas-scanner*
 }
 
 if [ ! -z "${COMMIT}" ]; then

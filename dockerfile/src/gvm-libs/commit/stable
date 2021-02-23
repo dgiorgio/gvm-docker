@@ -1,1 +1,4 @@
-RELEASE_URL="https://github.com/greenbone/gvm-libs/archive/v20.8.0.tar.gz"
+#!/usr/bin/env bash
+
+gvmlibs_version=20.8.1
+RELEASE_URL="https://github.com/greenbone/gvm-libs/archive/v${gvmlibs_version}.tar.gz"

@@ -1,4 +1,4 @@
-FROM dgiorgio/gvmlibs:20.8.0
+FROM dgiorgio/gvmlibs:20.8.1
 
 # openvas-smb deps: git cmake gcc make pkg-config gcc-mingw-w64
 #                   perl-base heimdal-dev libpopt-dev libglib2.0-dev
@@ -18,7 +18,9 @@ RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   sudo python3-pip python3-dev \
   python3 python3-setuptools libxslt1-dev gcc python3-dev zlib1g-dev \
   libz-dev libffi-dev make libssl-dev \
-  && rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/* \
+  && pip3 install --upgrade pip \
+  && pip3 install setuptools_rust cryptography
 
 # ospd - required cmake gcc make pkg-config
 # RUN pip3 install setuptools bdist-wheel-name && pip3 install psutil wheel pycparser ospd==2.0.0 ospd-openvas==1.0.0
@@ -48,18 +50,18 @@ COPY ./src/ospd-openvas/commit/${STAGE} ./src/ospd-openvas/build.sh ./
 RUN chmod +x ./build.sh && ./build.sh ${STAGE}
 
 # openvas
-RUN mkdir -p /root/gvm-src/openvas
-WORKDIR /root/gvm-src/openvas
-COPY ./src/openvas/commit/${STAGE} ./src/openvas/build.sh ./
+RUN mkdir -p /root/gvm-src/openvas-scanner
+WORKDIR /root/gvm-src/openvas-scanner
+COPY ./src/openvas-scanner/commit/${STAGE} ./src/openvas-scanner/build.sh ./
 RUN chmod +x ./build.sh && ./build.sh ${STAGE} \
   && apt remove -y git cmake gcc make pkg-config \
   && rm -rf /var/lib/apt/lists/*
-COPY ./src/openvas/config/redis.conf /etc/redis.conf
+COPY ./src/openvas-scanner/config/redis.conf /etc/redis.conf
 
 WORKDIR /
 RUN rm -rf /root/gvm-src
 
-COPY ./entrypoint/openvas/docker-entrypoint.sh ./src/openvas/scripts/gvm-nvt-sync.sh /usr/local/bin/
+COPY ./entrypoint/openvas-scanner/docker-entrypoint.sh ./src/openvas-scanner/scripts/gvm-nvt-sync.sh /usr/local/bin/
 RUN chmod 777 /usr/local/bin/docker-entrypoint.sh /usr/local/bin/gvm-nvt-sync.sh \
   && mkdir -p /var/run/ospd/ /run/redis/ \
   && chown -R gvm. /var/run/ospd /run/redis \

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+openvas_scanner_version=20.8.1
+RELEASE_URL="https://github.com/greenbone/openvas-scanner/archive/v${openvas_scanner_version}.tar.gz"

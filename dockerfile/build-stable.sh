@@ -7,7 +7,8 @@ STAGE="stable"
 [ -z "${BUILD}" ] && BUILD=""
 
 # build gvmlibs
-gvmlibs_version=20.8.0
+source ./src/gvm-libs/commit/stable
+gvmlibs_version=${gvmlibs_version}
 build_gvmlibs="${BUILD}"
 echo "
 ################################################################################
@@ -19,7 +20,8 @@ docker build -f ./Dockerfile-gvmlibs --build-arg STAGE=${STAGE} \
   -t "dgiorgio/gvmlibs:latest" .
 
 # build gsa
-gsa_version=20.8.0
+source ./src/gsa/commit/stable
+gsa_version=${gsa_version}
 build_gsa="${BUILD}"
 echo "
 ################################################################################
@@ -31,19 +33,24 @@ docker build -f ./Dockerfile-gsa --build-arg STAGE=${STAGE} \
   -t "dgiorgio/gsa:latest" .
 
 # build openvas
-openvas_version=20.8.0-1
-build_openvas="${BUILD}"
+source ./src/openvas-scanner/commit/stable
+openvas_scanner_version=${openvas_scanner_version}
+build_openvas_scanner="${BUILD}"
 echo "
 ################################################################################
-################### Build openvas ##############################################
+################### Build openvas-scanner ##############################################
 ################################################################################
-Image: dgiorgio/openvas:${openvas_version}${build_openvas}"
+Image: dgiorgio/openvas:${openvas_scanner_version}${build_openvas_scanner}
+Image: dgiorgio/openvas-scanner:${openvas_scanner_version}${build_openvas_scanner}"
 docker build -f ./Dockerfile-openvas --build-arg STAGE=${STAGE} \
-  -t "dgiorgio/openvas:${openvas_version}${build_openvas}" \
-  -t "dgiorgio/openvas:latest" .
+  -t "dgiorgio/openvas:${openvas_scanner_version}${build_openvas_scanner}" \
+  -t "dgiorgio/openvas:latest" \
+  -t "dgiorgio/openvas-scanner:${openvas_scanner_version}${build_openvas_scanner}" \
+  -t "dgiorgio/openvas-scanner:latest" .
 
 # build gvmd
-gvmd_version=20.8.0-1
+source ./src/gvmd/commit/stable
+gvmd_version=${gvmd_version}
 build_gvmd="${BUILD}"
 echo "
 ################################################################################
@@ -55,7 +62,7 @@ docker build -f ./Dockerfile-gvmd --build-arg STAGE=${STAGE} \
   -t "dgiorgio/gvmd:latest" .
 
 postgres_gvm_version=11
-build_postgres_gvm="${BUILD}"
+build_postgres_gvm="-20.8.1"
 echo "
 ################################################################################
 ################### Build postgres-gvm #########################################

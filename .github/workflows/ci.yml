@@ -27,4 +27,6 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run build script
-        run: ./dockerfile/build-stable.sh
+        run: |
+          cd ./dockerfile
+          ./build-stable.sh

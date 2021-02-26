@@ -50,6 +50,11 @@ https://localhost/scanconfigs
 If the pages are empty, or display an error message.
 You should check the update of the feeds, it may take a long time to install.
 
+### Private feed server
+You can use a private feed server to optimize updates.
+More details in the project below.
+https://github.com/dgiorgio/gvm-feed-server
+
 ## License
 
 This Docker image is licensed under the BSD, see [LICENSE](LICENSE.md).

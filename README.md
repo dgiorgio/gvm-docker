@@ -31,6 +31,7 @@ Access web browser: https://localhost
 
 ### Greenbone Feed Updates and system checks
 Check the feed logs of the gvmd and openvas containers.
+
 ex:
 ```console
 docker logs -f --tail 25 gvm_gvm-gvmd_1

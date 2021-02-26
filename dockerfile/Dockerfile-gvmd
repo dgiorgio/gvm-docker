@@ -29,11 +29,11 @@ RUN rm -rf /root/gvm-src
 # config smtp
 COPY ./src/gvmd/config/ssmtp.conf ./src/gvmd/config/revaliases /etc/ssmtp/
 
-COPY ./entrypoint/gvmd/docker-entrypoint.sh /usr/local/bin/
-RUN chmod 755 /usr/local/bin/docker-entrypoint.sh \
+COPY ./entrypoint/gvmd/docker-entrypoint.sh ./src/gvmd/scripts/* /usr/local/bin/
+RUN chmod 755 /usr/local/bin/* \
   && chown -R gvm. /usr/local/var
 
-COPY --from=dgiorgio/openvas:latest /usr/local/bin/greenbone-nvt-sync /usr/local/bin/
+COPY --from=dgiorgio/openvas-scanner:latest /usr/local/bin/greenbone-nvt-sync /usr/local/bin/
 
 USER gvm
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]

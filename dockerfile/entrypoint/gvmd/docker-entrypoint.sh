@@ -44,16 +44,8 @@ fi
 echo "Setting the Feed Import Owner - admin user"
 gvmd --modify-setting 78eceaec-3385-11ea-b237-28d24461215b --value $(gvmd --get-users --verbose | grep admin | awk '{ print $2 }')
 
-echo "Update GVMD_DATA"
-greenbone-feed-sync --type GVMD_DATA
-sleep 5
-
-echo "Update SCAP"
-greenbone-feed-sync --type SCAP
-sleep 5
-
-echo "Update CERT"
-greenbone-feed-sync --type CERT
+# sync feeds
+/usr/local/bin/gvmd_feed_update.sh &
 
 # cron - sync certdata/scapdata
 function _cron(){
@@ -61,11 +53,8 @@ function _cron(){
     CRON_FILE="/etc/cron.d/crontab"
     # Set default cron
     [ "${GVM_UPDATE_CRON}" == "" ] && GVM_UPDATE_CRON="0 */3 * * *"
-
     touch "${CRON_FILE}" && chmod 0644 "${CRON_FILE}"
-
-    echo "${GVM_UPDATE_CRON} greenbone-certdata-sync" > "${CRON_FILE}"
-    echo "${GVM_UPDATE_CRON} greenbone-scapdata-sync" >> "${CRON_FILE}"
+    echo "${GVM_UPDATE_CRON} /usr/local/bin/gvmd_feed_update.sh" > "${CRON_FILE}"
     crontab "${CRON_FILE}" && cron
   fi
 }

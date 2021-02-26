@@ -14,7 +14,7 @@ or
 $ cd ansible-gvm
 $ ansible-playbook start_gvm.yml
 ```
-### Access
+### Password
 Get 'admin' password:
 ```console
 $ docker logs gvm_gvm-gvmd_1 2> /dev/null | grep 'password:'
@@ -25,6 +25,31 @@ $ docker logs gvm_gvm-gvmd_1 2> /dev/null | grep 'password:'
 $ docker exec -ti gvm_gvm-gvmd_1 gvmd --user=admin --new-password=gvmpass
 ```
 ![ChangePassword](https://github.com/dgiorgio/gvm-docker/raw/master/images/ChangePassword.png)
+
+### Access
+Access web browser: https://localhost
+
+### Greenbone Feed Updates and system checks
+Check the feed logs of the gvmd and openvas containers.
+ex:
+```console
+docker logs -f --tail 25 gvm_gvm-gvmd_1
+docker logs -f --tail 25 gvm_gvm-openvas-scanner_1
+```
+![UpdateSCAPDATA](https://github.com/dgiorgio/gvm-docker/raw/master/images/UpdateSCAPDATA.png)
+
+Check the content of the pages through the GSA.
+```console
+https://localhost/nvts
+https://localhost/cves
+https://localhost/cpes
+https://localhost/portlists
+https://localhost/scanconfigs
+```
+![CheckNVTs](https://github.com/dgiorgio/gvm-docker/raw/master/images/CheckNVTs.png)
+
+If the pages are empty, or display an error message.
+You should check the update of the feeds, it may take a long time to install.
 
 ## License
 

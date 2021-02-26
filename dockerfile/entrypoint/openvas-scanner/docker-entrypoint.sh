@@ -27,19 +27,17 @@ sudo mkdir -p /usr/local/var/lib/openvas /var/run/ospd \
 && sudo chown -R gvm. /usr/local/var /var/run/ospd
 
 # sync NVT
-/usr/local/bin/gvm-nvt-sync.sh
+/usr/local/bin/nvt_feed_update.sh &
 
 # cron - sync NVT
 function _cron(){
 if [ "${ENABLE_CRON}" == "true" ] || [ "${ENABLE_CRON}" == "" ]; then
   CRON_FILE="/etc/cron.d/crontab"
-  GVM_NVT_SYNC="/usr/local/bin/gvm-nvt-sync.sh"
+  NVT_SYNC="/usr/local/bin/nvt_feed_update.sh"
   # Set default cron
   [ "${GVM_UPDATE_CRON}" == "" ] && GVM_UPDATE_CRON="0 */3 * * *"
-
   touch "${CRON_FILE}" && chmod 0644 "${CRON_FILE}"
-
-  echo "${GVM_UPDATE_CRON} ${GVM_NVT_SYNC}" > "${CRON_FILE}"
+  echo "${GVM_UPDATE_CRON} ${NVT_SYNC}" > "${CRON_FILE}"
   crontab "${CRON_FILE}" && cron
 fi
 }

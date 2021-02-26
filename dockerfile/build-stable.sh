@@ -35,7 +35,7 @@ docker build -f ./Dockerfile-gsa --build-arg STAGE=${STAGE} \
 # build openvas
 source ./src/openvas-scanner/commit/stable
 openvas_scanner_version=${openvas_scanner_version}
-build_openvas_scanner="${BUILD}"
+build_openvas_scanner="-1"
 echo "
 ################################################################################
 ################### Build openvas-scanner ##############################################
@@ -52,7 +52,7 @@ docker build -f ./Dockerfile-openvas --build-arg STAGE=${STAGE} \
 # build gvmd
 source ./src/gvmd/commit/stable
 gvmd_version=${gvmd_version}
-build_gvmd="${BUILD}"
+build_gvmd="-1"
 echo "
 ################################################################################
 ################### Build gvmd #################################################

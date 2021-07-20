@@ -35,7 +35,7 @@ docker build -f ./Dockerfile-gsa --build-arg STAGE=${STAGE} \
 # build openvas
 source ./src/openvas-scanner/commit/stable
 openvas_scanner_version=${openvas_scanner_version}
-build_openvas_scanner="-1"
+build_openvas_scanner="${BUILD}"
 echo "
 ################################################################################
 ################### Build openvas-scanner ##############################################
@@ -52,7 +52,7 @@ docker build -f ./Dockerfile-openvas --build-arg STAGE=${STAGE} \
 # build gvmd
 source ./src/gvmd/commit/stable
 gvmd_version=${gvmd_version}
-build_gvmd="-1"
+build_gvmd="${BUILD}"
 echo "
 ################################################################################
 ################### Build gvmd #################################################
@@ -63,7 +63,7 @@ docker build -f ./Dockerfile-gvmd --build-arg STAGE=${STAGE} \
   -t "dgiorgio/gvmd:latest" .
 
 postgres_gvm_version=11
-build_postgres_gvm="-20.8.1"
+build_postgres_gvm="-${gvmd_version}"
 echo "
 ################################################################################
 ################### Build postgres-gvm #########################################

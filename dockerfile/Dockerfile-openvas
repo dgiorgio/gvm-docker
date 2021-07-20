@@ -1,8 +1,8 @@
-FROM dgiorgio/gvmlibs:20.8.1
+FROM dgiorgio/gvmlibs:21.4.1
 
 # openvas-smb deps: git cmake gcc make pkg-config gcc-mingw-w64
 #                   perl-base heimdal-dev libpopt-dev libglib2.0-dev
-#                   libgnutls28-dev xmltoman doxygen
+#                   libgnutls28-dev xmltoman doxygen libunistring-dev
 # openvas deps: git cmake gcc make pkg-config libglib2.0-dev libgnutls28-dev
 #               uuid-dev libssh-gcrypt-dev libpcap-dev libksba-dev bison
 #               libsnmp-dev libgpgme-dev libhiredis-dev bzip2 wget rsync nmap
@@ -15,7 +15,7 @@ RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   heimdal-dev libfreeradius-dev libglib2.0-dev libgnutls28-dev libgpgme-dev \
   libhiredis-dev libksba-dev libldap2-dev libpcap-dev libpopt-dev libsnmp-dev \
   libssh-gcrypt-dev nmap perl-base redis-server rsync uuid-dev wget xmltoman \
-  sudo python3-pip python3-dev \
+  sudo python3-pip python3-dev libunistring-dev \
   python3 python3-setuptools libxslt1-dev gcc python3-dev zlib1g-dev \
   libz-dev libffi-dev make libssl-dev \
   && rm -rf /var/lib/apt/lists/* \

@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-openvas_smb_version=1.0.5
+openvas_smb_version=21.4.0
 RELEASE_URL="https://github.com/greenbone/openvas-smb/archive/v${openvas_smb_version}.tar.gz"

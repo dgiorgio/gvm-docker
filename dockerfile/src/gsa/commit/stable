@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-gsa_version=20.8.1
+gsa_version=21.4.1
 RELEASE_URL="https://github.com/greenbone/gsa/archive/v${gsa_version}.tar.gz"

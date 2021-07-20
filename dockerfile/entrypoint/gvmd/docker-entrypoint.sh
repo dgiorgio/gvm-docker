@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
 GVM_PATH="/usr/local/var/lib/gvm"
+GVM_LOG_PATH="/usr/local/var/log/gvm"
 
-sudo mkdir -p "${GVM_PATH}"
+sudo mkdir -p "${GVM_PATH}" "${GVM_LOG_PATH}"
 sudo chown -R gvm. "/usr/local/var"
 
 ln -sf /run/ospd/ospd.sock /tmp/ospd.sock
@@ -45,7 +46,7 @@ echo "Setting the Feed Import Owner - admin user"
 gvmd --modify-setting 78eceaec-3385-11ea-b237-28d24461215b --value $(gvmd --get-users --verbose | grep admin | awk '{ print $2 }')
 
 # sync feeds
-/usr/local/bin/gvmd_feed_update.sh &
+/usr/local/bin/gvmd_feed_update.sh >> ${GVM_LOG_PATH}/gvmd_feed_update.log &
 
 # cron - sync certdata/scapdata
 function _cron(){
@@ -54,13 +55,13 @@ function _cron(){
     # Set default cron
     [ "${GVM_UPDATE_CRON}" == "" ] && GVM_UPDATE_CRON="0 */3 * * *"
     touch "${CRON_FILE}" && chmod 0644 "${CRON_FILE}"
-    echo "${GVM_UPDATE_CRON} /usr/local/bin/gvmd_feed_update.sh" > "${CRON_FILE}"
+    echo "${GVM_UPDATE_CRON} gvm /usr/local/bin/gvmd_feed_update.sh >> ${GVM_LOG_PATH}/gvmd_feed_update.log" > "${CRON_FILE}"
     crontab "${CRON_FILE}" && cron
   fi
 }
 FUNC="$(declare -f _cron)"
 sudo bash -c "${FUNC}; _cron"
 
-tail -f /usr/local/var/log/gvm/gvmd.log &
+tail -f ${GVM_LOG_PATH}/*.log &
 echo "gvmd - starting..."
 exec "$@"

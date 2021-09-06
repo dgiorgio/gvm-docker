@@ -1,4 +1,4 @@
-FROM postgres:11.12-buster
+FROM postgres:11.13-buster
 
 RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   git cmake gcc make clang-format pkg-config libglib2.0-dev libgpgme11-dev \

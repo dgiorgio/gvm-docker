@@ -4,7 +4,7 @@ version: '3'
 
 services:
   gvm-postgres:
-    image: "dgiorgio/postgres-gvm:11-21.4.3"
+    image: "dgiorgio/postgres-gvm:11.13-21.4.3"
     hostname: "postgres-gvm"
     restart: always
     ports:

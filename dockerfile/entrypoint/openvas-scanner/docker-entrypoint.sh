@@ -2,25 +2,15 @@
 
 sudo rm -rf /var/run/ospd/ospd.pid
 sudo rm -rf /var/run/ospd/ospd.sock
-sudo chown -R gvm. /etc/redis.conf
 
-# Start Redis server
 sudo ldconfig
-/usr/bin/redis-server /etc/redis.conf --daemonize yes \
-&& sudo chown -R gvm. /run/redis/redis.sock
-
-_REDIS-CHECK() {
-  REDIS_RESULT="$(/usr/bin/redis-cli ping)"
-}
 
 echo "Testing redis status..."
-_REDIS-CHECK
-
-while [ "${REDIS_RESULT}" != "PONG" ]; do
-  echo "Redis not yet ready..."
+while [ ! -S "/var/run/redis/redis.sock" ]; do
+  echo "Redis not yet ready, /run/redis/redis.sock not exists."
   sleep 1
-  _REDIS-CHECK
 done
+sudo chown gvm. /run/redis/redis.sock
 echo "Redis ready."
 
 sudo mkdir -p /usr/local/var/lib/openvas /var/run/ospd \

@@ -6,7 +6,7 @@ FROM dgiorgio/gvmlibs:21.4.2
 # openvas deps: git cmake gcc make pkg-config libglib2.0-dev libgnutls28-dev
 #               uuid-dev libssh-gcrypt-dev libpcap-dev libksba-dev bison
 #               libsnmp-dev libgpgme-dev libhiredis-dev bzip2 wget rsync nmap
-#               libldap2-dev doxygen xmltoman libfreeradius-dev cron redis-server
+#               libldap2-dev doxygen xmltoman libfreeradius-dev cron
 # ospd/ospd-openvas deps: python3 python3-setuptools libxslt1-dev gcc python3-dev zlib1g-dev
 #               libz-dev libffi-dev make libssl-dev
 
@@ -14,7 +14,7 @@ RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   git cmake gcc make pkg-config bison bzip2 cron doxygen gcc-mingw-w64 \
   heimdal-dev libfreeradius-dev libglib2.0-dev libgnutls28-dev libgpgme-dev \
   libhiredis-dev libksba-dev libldap2-dev libpcap-dev libpopt-dev libsnmp-dev \
-  libssh-gcrypt-dev nmap perl-base redis-server rsync uuid-dev wget xmltoman \
+  libssh-gcrypt-dev nmap perl-base rsync uuid-dev wget xmltoman \
   sudo python3-pip python3-dev libunistring-dev \
   python3 python3-setuptools libxslt1-dev gcc python3-dev zlib1g-dev \
   libz-dev libffi-dev make libssl-dev \
@@ -56,16 +56,14 @@ COPY ./src/openvas-scanner/commit/${STAGE} ./src/openvas-scanner/build.sh ./
 RUN chmod +x ./build.sh && ./build.sh ${STAGE} \
   && apt remove -y git cmake gcc make pkg-config \
   && rm -rf /var/lib/apt/lists/*
-COPY ./src/openvas-scanner/config/redis.conf /etc/redis.conf
 
 WORKDIR /
 RUN rm -rf /root/gvm-src
 
 COPY ./entrypoint/openvas-scanner/docker-entrypoint.sh ./src/openvas-scanner/scripts/* /usr/local/bin/
 RUN chmod 755 /usr/local/bin/* \
-  && mkdir -p /var/run/ospd/ /run/redis/ \
-  && chown -R gvm. /var/run/ospd /run/redis \
-  && usermod -aG redis gvm
+  && mkdir -p /var/run/ospd/ \
+  && chown -R gvm. /var/run/ospd
 
 USER gvm
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]

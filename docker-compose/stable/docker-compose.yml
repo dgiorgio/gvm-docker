@@ -16,6 +16,17 @@ services:
     environment:
       - POSTGRES_PASSWORD=gvm
 
+  gvm-redis:
+    image: "redis:6.2.5-alpine"
+    hostname: "redis"
+    restart: always
+    volumes:
+      - "redis-socket:/var/run/redis"
+      - "/etc/localtime:/etc/localtime:ro"
+    command: >
+        sh -c "echo -e 'unixsocket /run/redis/redis.sock \nunixsocketperm 755 \ntimeout 0 \ndatabases 1025 \nmaxclients 512' > /etc/redis.conf
+        && redis-server /etc/redis.conf"
+
   gvm-openvas-scanner:
     image: "dgiorgio/openvas-scanner:21.4.2"
     hostname: "openvas-scanner"
@@ -23,6 +34,7 @@ services:
     ports:
       - "51000:51234"
     volumes:
+      - "redis-socket:/var/run/redis"
       - "gvm-connect:/usr/local/var/run"
       - "ospd-socket:/var/run/ospd"
       - "openvas-data:/usr/local/var/lib/openvas"
@@ -84,3 +96,4 @@ volumes:
   ospd-socket:
   postgres-socket:
   postgres-data:
+  redis-socket:

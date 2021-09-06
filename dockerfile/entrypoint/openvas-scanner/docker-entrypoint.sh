@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# vars
+ENABLE_CRON="${ENABLE_CRON:-true}"
+ENABLE_CRON="${ENABLE_CRON,,}"
+GVM_UPDATE_CRON="${GVM_UPDATE_CRON:-0 */12 * * *}"
+
+################################################################################
 sudo rm -rf /var/run/ospd/ospd.pid
 sudo rm -rf /var/run/ospd/ospd.sock
 
@@ -20,19 +26,16 @@ sudo mkdir -p /usr/local/var/lib/openvas /var/run/ospd \
 /usr/local/bin/nvt_feed_update.sh &
 
 # cron - sync NVT
-function _cron(){
-if [ "${ENABLE_CRON}" == "true" ] || [ "${ENABLE_CRON}" == "" ]; then
-  CRON_FILE="/etc/cron.d/crontab"
+if [ "${ENABLE_CRON}" != "false" ]; then
+  CRON_FILE="/etc/cron.d/gvm"
   NVT_SYNC="/usr/local/bin/nvt_feed_update.sh"
   # Set default cron
-  [ "${GVM_UPDATE_CRON}" == "" ] && GVM_UPDATE_CRON="0 */3 * * *"
-  touch "${CRON_FILE}" && chmod 0644 "${CRON_FILE}"
-  echo "${GVM_UPDATE_CRON} ${NVT_SYNC}" > "${CRON_FILE}"
-  crontab "${CRON_FILE}" && cron
+  sudo touch "${CRON_FILE}"
+  sudo chmod 0644 "${CRON_FILE}"
+  echo "${GVM_UPDATE_CRON} gvm ${NVT_SYNC}" | sudo tee "${CRON_FILE}" > /dev/null
+  sudo cron
+  crontab "${CRON_FILE}"
 fi
-}
-FUNC="$(declare -f _cron)"
-sudo bash -c "${FUNC}; _cron"
 
 # Start openvas
 echo "openvas - Updates VT info into redis store from VT files"

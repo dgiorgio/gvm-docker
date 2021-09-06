@@ -40,15 +40,15 @@ services:
       - "openvas-data:/usr/local/var/lib/openvas"
       - "gvm-data:/usr/local/var/lib/gvm"
       - "/etc/localtime:/etc/localtime:ro"
+    depends_on:
+      - gvm-redis
     # environment:
     #   - COMMUNITY_NVT_RSYNC_FEED=rsync://gvm_feed_server.service.com:/nvt-feed # Custom feed server https://github.com/dgiorgio/gvm-feed-server
     #   - COMMUNITY_SCAP_RSYNC_FEED=rsync://gvm_feed_server.service.com:/scap-data # Custom feed server https://github.com/dgiorgio/gvm-feed-server
     #   - COMMUNITY_GVMD_DATA_RSYNC_FEED=rsync://gvm_feed_server.service.com:/data-objects/gvmd/ # Custom feed server https://github.com/dgiorgio/gvm-feed-server
     #   - COMMUNITY_CERT_RSYNC_FEED=rsync://gvm_feed_server.service.com:/cert-data # Custom feed server https://github.com/dgiorgio/gvm-feed-server
-    depends_on:
-      - gvm-redis
-      # - ENABLE_CRON="false" # true/false - default: "true"
-      # - GVM_UPDATE_CRON="0 */3 * * *" # cron config - default: "0 */12 * * *"
+    #   - ENABLE_CRON="false" # true/false - default: "true"
+    #   - GVM_UPDATE_CRON="0 */3 * * *" # cron config - default: "0 */12 * * *"
 
   gvm-gvmd:
     image: "dgiorgio/gvmd:21.4.3"
@@ -73,20 +73,20 @@ services:
     #   - COMMUNITY_SCAP_RSYNC_FEED=rsync://gvm_feed_server.service.com:/scap-data # Custom feed server https://github.com/dgiorgio/gvm-feed-server
     #   - COMMUNITY_GVMD_DATA_RSYNC_FEED=rsync://gvm_feed_server.service.com:/data-objects/gvmd/ # Custom feed server https://github.com/dgiorgio/gvm-feed-server
     #   - COMMUNITY_CERT_RSYNC_FEED=rsync://gvm_feed_server.service.com:/cert-data # Custom feed server https://github.com/dgiorgio/gvm-feed-server
-      # - ENABLE_CRON="false" # true/false - default: "true"
-      # - GVM_UPDATE_CRON="0 */3 * * *" # cron config - default: "0 */12 * * *"
-      ### https://www.dragonflybsd.org/cgi/web-man?command=dma&section=ANY
-      ### https://github.com/corecode/dma/blob/master/dma.conf
-      ### https://github.com/corecode/dma/blob/master/auth.conf
-      # - SMTP_DMA_SMARTHOST=smtp.gmail.com
-      # - SMTP_DMA_PORT=587
-      # - SMTP_DMA_AUTHPATH=/etc/dma/auth.conf
-      # - SMTP_DMA_SECURETRANSFER=""
-      # - SMTP_DMA_STARTTLS=""
-      # - SMTP_DMA_MASQUERADE=example@gmail.com
-      # - SMTP_DMA_AUTH_USER=example@gmail.com
-      # - SMTP_DMA_AUTH_SMARTHOST=smtp.gmail.com
-      # - SMTP_DMA_AUTH_PASSWORD=mypassword123
+    #   - ENABLE_CRON="false" # true/false - default: "true"
+    #   - GVM_UPDATE_CRON="0 */3 * * *" # cron config - default: "0 */12 * * *"
+    #   ### https://www.dragonflybsd.org/cgi/web-man?command=dma&section=ANY
+    #   ### https://github.com/corecode/dma/blob/master/dma.conf
+    #   ### https://github.com/corecode/dma/blob/master/auth.conf
+    #   - SMTP_DMA_SMARTHOST=smtp.gmail.com
+    #   - SMTP_DMA_PORT=587
+    #   - SMTP_DMA_AUTHPATH=/etc/dma/auth.conf
+    #   - SMTP_DMA_SECURETRANSFER=""
+    #   - SMTP_DMA_STARTTLS=""
+    #   - SMTP_DMA_MASQUERADE=example@gmail.com
+    #   - SMTP_DMA_AUTH_USER=example@gmail.com
+    #   - SMTP_DMA_AUTH_SMARTHOST=smtp.gmail.com
+    #   - SMTP_DMA_AUTH_PASSWORD=mypassword123
 
   gvm-gsa:
     image: "dgiorgio/gsa:21.4.2"

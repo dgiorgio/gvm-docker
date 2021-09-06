@@ -29,6 +29,8 @@ RUN rm -rf /root/gvm-src
 
 COPY ./entrypoint/gsa/docker-entrypoint.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+USER gvm
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
 EXPOSE 80 443

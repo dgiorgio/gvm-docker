@@ -76,7 +76,6 @@ services:
     environment:
       - GVMD_ADDRESS=gvm-gvmd
       - GVMD_PORT=9390
-      - ENABLE_CRON=false
 
 volumes:
   gvm-connect:

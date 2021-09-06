@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
-mkdir -p /usr/local/var/log/gvm
-touch /usr/local/var/log/gvm/gsad.log
+# vars
+GVM_ROOT="/usr/local/var"
 
-tail -f /usr/local/var/log/gvm/gsad.log &
+sudo mkdir -p ${GVM_ROOT}/log/gvm
+sudo touch ${GVM_ROOT}/log/gvm/gsad.log
+sudo chown -R gvm. "${GVM_ROOT}"
+
+tail -f ${GVM_ROOT}/log/gvm/gsad.log &
 echo "gsad - starting..."
 gsad -f -v --mport=${GVMD_PORT} --mlisten=${GVMD_ADDRESS} --listen=0.0.0.0

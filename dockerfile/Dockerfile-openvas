@@ -1,4 +1,4 @@
-FROM dgiorgio/gvmlibs:21.4.1
+FROM dgiorgio/gvmlibs:21.4.2
 
 # openvas-smb deps: git cmake gcc make pkg-config gcc-mingw-w64
 #                   perl-base heimdal-dev libpopt-dev libglib2.0-dev

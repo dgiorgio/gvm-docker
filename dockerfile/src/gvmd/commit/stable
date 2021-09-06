@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-gvmd_version=21.4.2
+gvmd_version=21.4.3
 RELEASE_URL="https://github.com/greenbone/gvmd/archive/v${gvmd_version}.tar.gz"

@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-gvmlibs_version=21.4.1
+gvmlibs_version=21.4.2
 RELEASE_URL="https://github.com/greenbone/gvm-libs/archive/v${gvmlibs_version}.tar.gz"

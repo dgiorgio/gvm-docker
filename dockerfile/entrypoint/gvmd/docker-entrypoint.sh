@@ -3,6 +3,8 @@
 GVM_PATH="/usr/local/var/lib/gvm"
 GVM_LOG_PATH="/usr/local/var/log/gvm"
 
+SMTP_DMA_CONF_FILE="/etc/dma/dma.conf"
+SMTP_DMA_AUTH_FILE="/etc/dma/auth.conf"
 sudo mkdir -p "${GVM_PATH}" "${GVM_LOG_PATH}"
 sudo chown -R gvm. "/usr/local/var"
 
@@ -61,6 +63,12 @@ function _cron(){
 }
 FUNC="$(declare -f _cron)"
 sudo bash -c "${FUNC}; _cron"
+# apply SMTP template
+echo "" | sudo tee "${SMTP_DMA_CONF_FILE}" > /dev/null # clean smtp config
+echo "" | sudo tee "${SMTP_DMA_AUTH_FILE}" > /dev/null # clean smtp config
+sudo chmod 640 "${SMTP_DMA_CONF_FILE}" "${SMTP_DMA_AUTH_FILE}"
+j2 /etc/dma/dma.conf.j2 | grep -v '^$' | sudo tee -a "${SMTP_DMA_CONF_FILE}" > /dev/null
+j2 /etc/dma/auth.conf.j2 | grep -v '^$' | sudo tee -a "${SMTP_DMA_AUTH_FILE}" > /dev/null
 
 tail -f ${GVM_LOG_PATH}/*.log &
 echo "gvmd - starting..."

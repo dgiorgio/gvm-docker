@@ -4,12 +4,13 @@ RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   wget gnupg2 \
   && echo 'deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
   && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
+RUN apt update -y && DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends --fix-missing \
   git cmake gcc make clang-format pkg-config libglib2.0-dev libgnutls28-dev \
   libical-dev xml-twig-tools gnutls-bin doxygen xmltoman xsltproc sqlfairy \
   libsqlite3-dev texlive-latex-base xmlstarlet zip rpm dpkg fakeroot nsis \
   gnupg wget sshpass ssh-client socat snmp smbclient python3 python3-lxml \
-  haveged cron msmtp libpq-dev postgresql-client-11 postgresql-server-dev-11 rsync \
+  haveged cron libpq-dev postgresql-client-11 postgresql-server-dev-11 rsync \
+  python3-pip dma \
   && rm -rf /var/lib/apt/lists/*
 
 ARG STAGE
@@ -26,8 +27,10 @@ RUN chmod +x ./build.sh && ./build.sh ${STAGE} \
 WORKDIR /
 RUN rm -rf /root/gvm-src
 
+# install https://github.com/kolypto/j2cli
+RUN pip3 install j2cli setuptools
 # config smtp
-COPY ./src/gvmd/config/ssmtp.conf ./src/gvmd/config/revaliases /etc/ssmtp/
+COPY ./src/gvmd/config/dma.conf.j2 ./src/gvmd/config/auth.conf.j2 /etc/dma/
 
 COPY ./entrypoint/gvmd/docker-entrypoint.sh ./src/gvmd/scripts/* /usr/local/bin/
 RUN chmod 755 /usr/local/bin/* \

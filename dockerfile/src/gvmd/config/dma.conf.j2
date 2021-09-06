@@ -1,0 +1,67 @@
+###
+### FILE AUTOMATICALLY CREATED ON DOCKER STARTUP 'dgiorgio/gvm-docker' - DO NOT EDIT MANUALLY
+###
+
+{% if SMTP_DMA_SMARTHOST is defined %}
+SMARTHOST {{ SMTP_DMA_SMARTHOST }}
+{% endif %}
+
+{% if SMTP_DMA_PORT is defined %}
+PORT {{ SMTP_DMA_PORT }}
+{% endif %}
+
+{% if SMTP_DMA_ALIASES is defined %}
+ALIASES {{ SMTP_DMA_ALIASES }}
+{% endif %}
+
+{% if SMTP_DMA_SPOOLDIR is defined %}
+SPOOLDIR {{ SMTP_DMA_SPOOLDIR }}
+{% endif %}
+
+{% if SMTP_DMA_AUTHPATH is defined %}
+AUTHPATH {{ SMTP_DMA_AUTHPATH }}
+{% endif %}
+
+{% if SMTP_DMA_SECURETRANSFER is defined %}
+SECURETRANSFER
+{% endif %}
+
+{% if SMTP_DMA_STARTTLS is defined %}
+STARTTLS
+{% endif %}
+
+{% if SMTP_DMA_FINGERPRINT is defined %}
+FINGERPRINT {{ SMTP_DMA_FINGERPRINT }}
+{% endif %}
+
+{% if SMTP_DMA_OPPORTUNISTIC_TLS is defined %}
+OPPORTUNISTIC_TLS
+{% endif %}
+
+{% if SMTP_DMA_CERTFILE is defined %}
+CERTFILE
+{% endif %}
+
+{% if SMTP_DMA_SECURE is defined %}
+SECURE
+{% endif %}
+
+{% if SMTP_DMA_DEFER is defined %}
+DEFER
+{% endif %}
+
+{% if SMTP_DMA_FULLBOUNCE is defined %}
+FULLBOUNCE
+{% endif %}
+
+{% if SMTP_DMA_MAILNAME is defined %}
+MAILNAME {{ SMTP_DMA_MAILNAME }}
+{% endif %}
+
+{% if SMTP_DMA_MASQUERADE is defined %}
+MASQUERADE {{ SMTP_DMA_MASQUERADE }}
+{% endif %}
+
+{% if SMTP_DMA_NULLCLIENT is defined %}
+NULLCLIENT
+{% endif %}

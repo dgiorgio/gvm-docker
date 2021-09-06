@@ -45,6 +45,8 @@ services:
     #   - COMMUNITY_SCAP_RSYNC_FEED=rsync://gvm_feed_server.service.com:/scap-data # Custom feed server https://github.com/dgiorgio/gvm-feed-server
     #   - COMMUNITY_GVMD_DATA_RSYNC_FEED=rsync://gvm_feed_server.service.com:/data-objects/gvmd/ # Custom feed server https://github.com/dgiorgio/gvm-feed-server
     #   - COMMUNITY_CERT_RSYNC_FEED=rsync://gvm_feed_server.service.com:/cert-data # Custom feed server https://github.com/dgiorgio/gvm-feed-server
+    depends_on:
+      - gvm-redis
       # - ENABLE_CRON="false" # true/false - default: "true"
       # - GVM_UPDATE_CRON="0 */3 * * *" # cron config - default: "0 */12 * * *"
 

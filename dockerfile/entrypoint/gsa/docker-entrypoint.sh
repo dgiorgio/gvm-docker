@@ -9,4 +9,4 @@ sudo chown -R gvm. "${GVM_ROOT}"
 
 tail -f ${GVM_ROOT}/log/gvm/gsad.log &
 echo "gsad - starting..."
-gsad -f -v --mport=${GVMD_PORT} --mlisten=${GVMD_ADDRESS} --listen=0.0.0.0
+sudo gsad -f -v --mport=${GVMD_PORT} --mlisten=${GVMD_ADDRESS} --listen=0.0.0.0

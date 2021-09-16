@@ -63,7 +63,7 @@ docker build -f ./Dockerfile-gvmd --build-arg STAGE=${STAGE} \
   -t "dgiorgio/gvmd:latest" .
 
 postgres_gvm_version=11.13
-build_postgres_gvm="-${gvmd_version}"
+build_postgres_gvm="-${gvmd_version}-1"
 echo "
 ################################################################################
 ################### Build postgres-gvm #########################################

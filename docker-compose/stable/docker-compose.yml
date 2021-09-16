@@ -51,7 +51,7 @@ services:
     #   - GVM_UPDATE_CRON="0 */3 * * *" # cron config - default: "0 */12 * * *"
 
   gvm-gvmd:
-    image: "dgiorgio/gvmd:21.4.3"
+    image: "dgiorgio/gvmd:21.4.3-1"
     hostname: "gvmd"
     restart: always
     ports:

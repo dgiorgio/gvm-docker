@@ -52,7 +52,7 @@ docker build -f ./Dockerfile-openvas --build-arg STAGE=${STAGE} \
 # build gvmd
 source ./src/gvmd/commit/stable
 gvmd_version=${gvmd_version}
-build_gvmd="${BUILD}"
+build_gvmd="-1"
 echo "
 ################################################################################
 ################### Build gvmd #################################################

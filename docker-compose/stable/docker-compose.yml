@@ -89,7 +89,7 @@ services:
     #   - SMTP_DMA_AUTH_PASSWORD=mypassword123
 
   gvm-gsa:
-    image: "dgiorgio/gsa:21.4.2"
+    image: "dgiorgio/gsa:21.4.2-1"
     hostname: "gsa"
     restart: always
     ports:

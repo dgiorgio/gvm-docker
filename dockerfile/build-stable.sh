@@ -22,7 +22,7 @@ docker build -f ./Dockerfile-gvmlibs --build-arg STAGE=${STAGE} \
 # build gsa
 source ./src/gsa/commit/stable
 gsa_version=${gsa_version}
-build_gsa="${BUILD}"
+build_gsa="-1"
 echo "
 ################################################################################
 ################### Build gsa ##################################################

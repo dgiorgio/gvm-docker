@@ -56,7 +56,7 @@ echo "Setting the Feed Import Owner - admin user"
 gvmd --modify-setting 78eceaec-3385-11ea-b237-28d24461215b --value $(gvmd --get-users --verbose | grep admin | awk '{ print $2 }')
 
 # sync feeds
-/usr/local/bin/gvmd_feed_update.sh >> ${GVM_LOG_PATH}/gvmd_feed_update.log &
+flock --verbose -n /tmp/gvmd_feed_update.lockfile /usr/local/bin/gvmd_feed_update.sh >> ${GVM_LOG_PATH}/gvmd_feed_update.log 2>&1 &
 
 # cron - sync certdata/scapdata
 if [ "${ENABLE_CRON}" != "false" ]; then
@@ -64,9 +64,9 @@ if [ "${ENABLE_CRON}" != "false" ]; then
   # Set default cron
   sudo touch "${CRON_FILE}"
   sudo chmod 0644 "${CRON_FILE}"
-  echo "${GVM_UPDATE_CRON} gvm /usr/local/bin/gvmd_feed_update.sh >> ${GVM_LOG_PATH}/gvmd_feed_update.log" | sudo tee "${CRON_FILE}" > /dev/null
+  printenv | grep -e "^PATH=\|RSYNC_FEED" | sudo tee "${CRON_FILE}" > /dev/null
+  echo "${GVM_UPDATE_CRON} gvm flock --verbose -n /tmp/gvmd_feed_update.lockfile /usr/local/bin/gvmd_feed_update.sh >> ${GVM_LOG_PATH}/gvmd_feed_update.log 2>&1" | sudo tee -a "${CRON_FILE}" > /dev/null
   sudo cron
-  crontab "${CRON_FILE}"
 fi
 
 # apply SMTP template

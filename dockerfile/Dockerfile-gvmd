@@ -37,11 +37,10 @@ COPY ./entrypoint/gvmd/docker-entrypoint.sh ./src/gvmd/scripts/* /usr/local/bin/
 RUN chmod 755 /usr/local/bin/* \
   && chown -R gvm. /usr/local/var
 
-COPY --from=dgiorgio/openvas-scanner:21.4.2-1 /usr/local/bin/greenbone-nvt-sync /usr/local/bin/
+COPY --from=dgiorgio/openvas-scanner:21.4.2-2 /usr/local/bin/greenbone-nvt-sync /usr/local/bin/
 
 USER gvm
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-CMD ["/usr/local/sbin/gvmd", "-f", "-v", "--osp-vt-update=/var/run/ospd/ospd.sock", "--listen=0.0.0.0", "--port=9390"]
 
 VOLUME ["/usr/local/var/lib/gvm"]
 EXPOSE 9390

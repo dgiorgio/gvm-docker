@@ -13,9 +13,6 @@ GVM_LOG_PATH="${GVM_ROOT}/log/gvm"
 sudo mkdir -p "${GVM_PATH}" "${GVM_LOG_PATH}"
 sudo chown -R gvm. "${GVM_ROOT}"
 
-sudo rm -rf /var/run/ospd/ospd.pid
-sudo rm -rf /var/run/ospd/ospd.sock
-
 sudo ldconfig
 
 echo "Testing redis status..."
@@ -43,10 +40,10 @@ fi
 # sync NVT
 touch "${GVM_LOG_PATH}/nvt_feed_update.log"
 tail -f ${GVM_LOG_PATH}/*.log &
-flock --verbose -n /tmp/nvt_feed_update.lockfile /usr/local/bin/nvt_feed_update.sh >> ${GVM_LOG_PATH}/nvt_feed_update.log 2>&1
+flock --verbose -n /tmp/nvt_feed_update.lockfile /usr/local/bin/nvt_feed_update.sh >> ${GVM_LOG_PATH}/nvt_feed_update.log 2>&1 &
 
 # Start openvas
 echo "openvas - Updates VT info into redis store from VT files"
 openvas -u
 echo "openvas - starting..."
-exec "$@"
+ospd-openvas -f --pid-file /var/run/ospd/ospd.pid --unix-socket /var/run/ospd/ospd.sock -m 0777 --key-file /usr/local/var/lib/gvm/private/CA/serverkey.pem --cert-file /usr/local/var/lib/gvm/CA/servercert.pem --ca-file /usr/local/var/lib/gvm/CA/cacert.pem -L DEBUG

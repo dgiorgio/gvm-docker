@@ -4,7 +4,7 @@ version: '3'
 
 services:
   gvm-postgres:
-    image: "dgiorgio/postgres-gvm:11.13-21.4.3-1"
+    image: "dgiorgio/postgres-gvm:11.13-21.4.3-2"
     hostname: "postgres-gvm"
     restart: always
     ports:
@@ -29,7 +29,7 @@ services:
         && redis-server /etc/redis.conf"
 
   gvm-openvas-scanner:
-    image: "dgiorgio/openvas-scanner:21.4.2-1"
+    image: "dgiorgio/openvas-scanner:21.4.2-2"
     hostname: "openvas-scanner"
     restart: always
     ports:
@@ -52,7 +52,7 @@ services:
     #   - GVM_UPDATE_CRON=0 */3 * * * # cron config - default: 0 */12 * * *
 
   gvm-gvmd:
-    image: "dgiorgio/gvmd:21.4.3-2"
+    image: "dgiorgio/gvmd:21.4.3-3"
     hostname: "gvmd"
     restart: always
     ports:

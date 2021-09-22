@@ -67,7 +67,6 @@ RUN chmod 755 /usr/local/bin/* \
 
 USER gvm
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-CMD ["ospd-openvas", "--pid-file", "/var/run/ospd/ospd.pid", "--unix-socket", "/var/run/ospd/ospd.sock", "-m", "0777", "--key-file", "/usr/local/var/lib/gvm/private/CA/serverkey.pem", "--cert-file", "/usr/local/var/lib/gvm/CA/servercert.pem", "--ca-file", "/usr/local/var/lib/gvm/CA/cacert.pem", "-L", "DEBUG", "-f"]
 
 VOLUME ["/usr/local/var/lib/openvas"]
 EXPOSE 51234

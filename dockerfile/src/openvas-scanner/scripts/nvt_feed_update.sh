@@ -21,7 +21,6 @@ feed_sync_nvt="1" # force start loop
 while [ "${feed_sync_nvt}" != "0" ]; do
   MSG="Update NVT - starting!!!" _PRINT "yellow"
   echo "1" > "${feed_sync_nvt_status_file}"
-  # /usr/local/bin/gvm-nvt-sync.sh
   greenbone-nvt-sync -v
   feed_sync_nvt="${?}"
 

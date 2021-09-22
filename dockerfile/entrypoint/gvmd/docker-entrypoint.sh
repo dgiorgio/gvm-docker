@@ -15,8 +15,6 @@ SMTP_DMA_AUTH_FILE="/etc/dma/auth.conf"
 sudo mkdir -p "${GVM_PATH}" "${GVM_LOG_PATH}"
 sudo chown -R gvm. "${GVM_ROOT}"
 
-ln -sf /run/ospd/ospd.sock /tmp/ospd.sock
-
 if [ ! -f "${GVM_PATH}/CA/clientcert.pem" ] || \
   [ ! -f "${GVM_PATH}/CA/cacert.pem" ] || \
   [ ! -f "${GVM_PATH}/private/CA/serverkey.pem" ] || \
@@ -78,4 +76,4 @@ j2 /etc/dma/auth.conf.j2 | grep -v '^$' | sudo tee -a "${SMTP_DMA_AUTH_FILE}" > 
 
 tail -f ${GVM_LOG_PATH}/*.log &
 echo "gvmd - starting..."
-exec "$@"
+gvmd -f -v --osp-vt-update=/var/run/ospd/ospd.sock --listen=0.0.0.0 --port=9390

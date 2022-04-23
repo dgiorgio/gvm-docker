@@ -1,4 +1,8 @@
-FROM dgiorgio/gvmlibs:21.4.2
+ARG gvmlibs_version
+ARG openvas_scanner_version
+
+FROM dgiorgio/openvas-scanner:${openvas_scanner_version} AS openvas
+FROM dgiorgio/gvmlibs:${gvmlibs_version}
 
 RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   wget gnupg2 \
@@ -14,10 +18,12 @@ RUN apt update -y && DEBIAN_FRONTEND=noninteractive apt install -y --no-install-
   && apt install -y texlive-fonts-recommended \
   && rm -rf /var/lib/apt/lists/*
 
+# gvmd
 ARG STAGE
 ENV STAGE ${STAGE}
+ARG gvmd_version
+ENV gvmd_version ${gvmd_version}
 
-# gvmd
 RUN mkdir -p /root/gvm-src/gvmd
 WORKDIR /root/gvm-src/gvmd
 COPY ./src/gvmd/commit/${STAGE} ./src/gvmd/build.sh ./
@@ -29,18 +35,19 @@ WORKDIR /
 RUN rm -rf /root/gvm-src
 
 # install https://github.com/kolypto/j2cli
-RUN pip3 install j2cli setuptools
+RUN python3 -m pip install --upgrade pip \
+  && pip3 install --upgrade j2cli setuptools
 # config smtp
 COPY ./src/gvmd/config/dma.conf.j2 ./src/gvmd/config/auth.conf.j2 /etc/dma/
 
 COPY ./entrypoint/gvmd/docker-entrypoint.sh ./src/gvmd/scripts/* /usr/local/bin/
-RUN chmod 755 /usr/local/bin/* \
-  && chown -R gvm. /usr/local/var
+RUN chmod 755 /usr/local/bin/*
 
-COPY --from=dgiorgio/openvas-scanner:21.4.2-2 /usr/local/bin/greenbone-nvt-sync /usr/local/bin/
+COPY --from=openvas /usr/local/bin/greenbone-nvt-sync /usr/local/bin/
 
 USER gvm
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+WORKDIR /home/gvm
+ENTRYPOINT ["/tini", "--", "/usr/local/bin/docker-entrypoint.sh"]
 
-VOLUME ["/usr/local/var/lib/gvm"]
+VOLUME ["/var/lib/gvm"]
 EXPOSE 9390

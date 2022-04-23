@@ -6,19 +6,23 @@ STAGE="${1}"
 source "./${STAGE}"
 
 _build(){
-  python3 setup.py install
+  mkdir -p build \
+  && cd build \
+  && cmake .. \
+  && make -j$(($(nproc) + 1)) \
+  && make install
 }
 
 _download_git(){
-  git clone https://github.com/greenbone/ospd.git \
-  && cd ospd \
+  git clone https://github.com/greenbone/gsad.git \
+  && cd gsa \
   && git reset --hard ${COMMIT}
 }
 
 _dowload_release(){
   wget -c ${RELEASE_URL} \
   && tar -xzvf *.tar.gz \
-  && cd ospd*
+  && cd gsa*
 }
 
 if [ ! -z "${COMMIT}" ]; then

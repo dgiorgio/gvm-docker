@@ -1,4 +1,5 @@
-FROM debian:buster-20210902-slim
+ARG gvmlibs_debian_version
+FROM debian:${gvmlibs_debian_version}
 
 RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   wget git cmake gcc make clang-format pkg-config libglib2.0-dev libgpgme-dev \
@@ -10,10 +11,12 @@ RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   && useradd -s /bin/bash -m gvm \
   && echo 'gvm ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/gvm
 
+# gvm-libs
 ARG STAGE
 ENV STAGE ${STAGE}
+ARG gvmlibs_version
+ENV gvmlibs_version ${gvmlibs_version}
 
-# gvm-libs
 RUN mkdir -p /root/gvm-src/gvm-libs
 WORKDIR /root/gvm-src/gvm-libs
 COPY ./src/gvm-libs/build.sh ./src/gvm-libs/commit/${STAGE} ./
@@ -23,3 +26,8 @@ RUN chmod +x ./build.sh && ./build.sh ${STAGE} \
 
 WORKDIR /
 RUN rm -rf /root/gvm-src
+
+# Add Tini
+ENV TINI_VERSION v0.19.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+RUN chmod +x /tini

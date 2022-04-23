@@ -6,7 +6,7 @@ STAGE="${1}"
 source "./${STAGE}"
 
 _build(){
-  python3 setup.py install
+  python3 -m pip install ./
 }
 
 _download_git(){

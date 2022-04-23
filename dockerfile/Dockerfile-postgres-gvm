@@ -1,4 +1,8 @@
-FROM postgres:11.13-buster
+ARG gvmd_version
+ARG postgres_gvm_version
+
+FROM dgiorgio/gvmd:${gvmd_version} AS gvmd
+FROM postgres:${postgres_gvm_version}
 
 RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   git cmake gcc make clang-format pkg-config libglib2.0-dev libgpgme11-dev \
@@ -19,7 +23,7 @@ RUN ln -sf libical.so libical.so.3 \
   && ln -sf libgcrypt.so libssh-gcrypt.so.4 \
   && ln -sf libc.so libc.so.6
 
-COPY --from=dgiorgio/gvmd:21.4.3-3 /usr/local/lib/libgvm* /usr/local/lib/
+COPY --from=gvmd /usr/local/lib/libgvm* /usr/local/lib/
 
 WORKDIR /usr/local/lib
 RUN chmod -R 644 /usr/local/lib/libgvm* \

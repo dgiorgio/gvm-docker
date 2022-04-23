@@ -6,11 +6,11 @@ STAGE="${1}"
 source "./${STAGE}"
 
 _build(){
-  mkdir -p build \
-  && cd build \
-  && cmake .. \
-  && make -j$(($(nproc) + 1)) \
-  && make install
+  yarn \
+  && npx browserslist@latest --update-db \
+  && yarn build \
+  && mkdir -p /usr/local/share/gvm/gsad \
+  && mv build /usr/local/share/gvm/gsad/web
 }
 
 _download_git(){

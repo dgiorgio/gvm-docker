@@ -6,7 +6,7 @@ ENABLE_CRON="${ENABLE_CRON,,}"
 GVM_UPDATE_CRON="${GVM_UPDATE_CRON:-0 */12 * * *}"
 
 ################################################################################
-GVM_ROOT="/usr/local/var"
+GVM_ROOT="/var"
 GVM_PATH="${GVM_ROOT}/lib/gvm"
 GVM_LOG_PATH="${GVM_ROOT}/log/gvm"
 SMTP_DMA_CONF_FILE="/etc/dma/dma.conf"
@@ -64,6 +64,7 @@ if [ "${ENABLE_CRON}" != "false" ]; then
   sudo chmod 0644 "${CRON_FILE}"
   printenv | grep -e "^PATH=\|RSYNC_FEED" | sudo tee "${CRON_FILE}" > /dev/null
   echo "${GVM_UPDATE_CRON} gvm flock --verbose -n /tmp/gvmd_feed_update.lockfile /usr/local/bin/gvmd_feed_update.sh >> ${GVM_LOG_PATH}/gvmd_feed_update.log 2>&1" | sudo tee -a "${CRON_FILE}" > /dev/null
+  sudo rm -f /var/run/crond.pid
   sudo cron
 fi
 
@@ -75,5 +76,10 @@ j2 /etc/dma/dma.conf.j2 | grep -v '^$' | sudo tee -a "${SMTP_DMA_CONF_FILE}" > /
 j2 /etc/dma/auth.conf.j2 | grep -v '^$' | sudo tee -a "${SMTP_DMA_AUTH_FILE}" > /dev/null
 
 tail -f ${GVM_LOG_PATH}/*.log &
-echo "gvmd - starting..."
-gvmd -f -v --osp-vt-update=/var/run/ospd/ospd.sock --listen=0.0.0.0 --port=9390
+
+if [[ -z $@ ]]; then
+  echo "gvmd - starting..."
+  gvmd -f -v --osp-vt-update=/var/run/ospd/ospd.sock --listen=0.0.0.0 --port=9390
+else
+  exec "$@"
+fi

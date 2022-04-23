@@ -4,7 +4,7 @@ version: '3'
 
 services:
   gvm-postgres:
-    image: "dgiorgio/postgres-gvm:11.13-21.4.3-2"
+    image: "dgiorgio/postgres-gvm:${postgres_gvm_version}-${gvmd_version}"
     hostname: "postgres-gvm"
     restart: always
     ports:
@@ -18,28 +18,28 @@ services:
     # command: postgres -c shared_buffers=256MB -c max_connections=200
 
   gvm-redis:
-    image: "redis:6.2.5-alpine"
+    image: "redis:6.2.6-alpine"
     hostname: "redis"
     restart: always
     volumes:
-      - "redis-socket:/var/run/redis"
+      - "redis-socket:/run/redis/"
       - "/etc/localtime:/etc/localtime:ro"
     command: >
         sh -c "echo -e 'unixsocket /run/redis/redis.sock \nunixsocketperm 755 \ntimeout 0 \ndatabases 1025 \nmaxclients 512' > /etc/redis.conf
         && redis-server /etc/redis.conf"
 
   gvm-openvas-scanner:
-    image: "dgiorgio/openvas-scanner:21.4.2-2"
+    image: "dgiorgio/openvas-scanner:${openvas_scanner_version}"
     hostname: "openvas-scanner"
     restart: always
     ports:
       - "51000:51234"
     volumes:
       - "redis-socket:/var/run/redis"
-      - "gvm-connect:/usr/local/var/run"
+      - "gvm-connect:/var/run"
       - "ospd-socket:/var/run/ospd"
-      - "openvas-data:/usr/local/var/lib/openvas"
-      - "gvm-data:/usr/local/var/lib/gvm"
+      - "openvas-data:/var/lib/openvas"
+      - "gvm-data:/var/lib/gvm"
       - "/etc/localtime:/etc/localtime:ro"
     depends_on:
       - gvm-redis
@@ -52,16 +52,16 @@ services:
     #   - GVM_UPDATE_CRON=0 */3 * * * # cron config - default: 0 */12 * * *
 
   gvm-gvmd:
-    image: "dgiorgio/gvmd:21.4.3-3"
+    image: "dgiorgio/gvmd:${gvmd_version}"
     hostname: "gvmd"
     restart: always
     ports:
       - "9390:9390"
     volumes:
-      - "gvm-connect:/usr/local/var/run"
+      - "gvm-connect:/var/run"
       - "ospd-socket:/var/run/ospd"
-      - "openvas-data:/usr/local/var/lib/openvas"
-      - "gvm-data:/usr/local/var/lib/gvm"
+      - "openvas-data:/var/lib/openvas"
+      - "gvm-data:/var/lib/gvm"
       - "postgres-socket:/var/run/postgresql"
       - "/etc/localtime:/etc/localtime:ro"
     links:
@@ -90,14 +90,14 @@ services:
     #   - SMTP_DMA_AUTH_PASSWORD=mypassword123
 
   gvm-gsa:
-    image: "dgiorgio/gsa:21.4.2-1"
+    image: "dgiorgio/gsa:${gsa_version}"
     hostname: "gsa"
     restart: always
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - "gvm-data:/usr/local/var/lib/gvm"
+      - "gvm-data:/var/lib/gvm"
       - "/etc/localtime:/etc/localtime:ro"
     links:
       - gvm-gvmd

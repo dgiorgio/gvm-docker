@@ -4,7 +4,7 @@
 # 0 - success
 # 1 - start process
 # 2 - failed
-feed_sync_nvt_status_file="/usr/local/var/lib/openvas/feed_sync_nvt_status"
+feed_sync_nvt_status_file="/var/lib/openvas/feed_sync_nvt_status"
 touch "${feed_sync_nvt_status_file}"
 
 _PRINT() {

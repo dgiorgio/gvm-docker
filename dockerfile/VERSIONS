@@ -1,0 +1,14 @@
+gvmlibs_debian_version=buster-20220418-slim
+
+gvmlibs_version=21.4.4
+
+gsa_version=21.4.4
+gsad_version=21.4.4
+
+openvas_smb_version=21.4.0
+ospd_openvas_version=21.4.4
+openvas_scanner_version=21.4.4
+
+gvmd_version=21.4.5
+
+postgres_gvm_version=11.13-buster

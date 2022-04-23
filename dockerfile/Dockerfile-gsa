@@ -1,20 +1,31 @@
-FROM dgiorgio/gvmlibs:21.4.2
+ARG gvmlibs_version
+FROM dgiorgio/gvmlibs:${gvmlibs_version}
 
 # yarn nodejs
 RUN apt update -y && apt install -y curl apt-transport-https \
   && curl --silent --show-error https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
   && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-  && curl --silent --show-error https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
-  && echo "deb https://deb.nodesource.com/node_8.x stretch main" | tee /etc/apt/sources.list.d/nodesource.list \
-  && apt update -y && apt install -y nodejs yarn \
-  && apt install -y --no-install-recommends --fix-missing \
+  && curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
+  && apt update -y && apt install -y --no-install-recommends --fix-missing \
   git cmake gcc g++ make clang-format pkg-config curl libglib2.0-dev \
   libgnutls28-dev libmicrohttpd-dev gettext python-polib libxml2-dev \
   doxygen xmltoman ssh texlive-latex-extra texlive-fonts-recommended \
+  && apt install -y --no-install-recommends nodejs yarn \
   && rm -rf /var/lib/apt/lists/*
+
 
 ARG STAGE
 ENV STAGE ${STAGE}
+ARG gsad_version
+ENV gsad_version ${gsad_version}
+ARG gsa_version
+ENV gsa_version ${gsa_version}
+
+# gsad
+RUN mkdir -p /root/gvm-src/gsad
+WORKDIR /root/gvm-src/gsad
+COPY ./src/gsad/commit/${STAGE} ./src/gsad/build.sh ./
+RUN chmod +x ./build.sh && ./build.sh ${STAGE}
 
 # gsa
 RUN mkdir -p /root/gvm-src/gsa
@@ -31,6 +42,7 @@ COPY ./entrypoint/gsa/docker-entrypoint.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 USER gvm
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+WORKDIR /home/gvm
+ENTRYPOINT ["/tini", "--", "/usr/local/bin/docker-entrypoint.sh"]
 
 EXPOSE 80 443

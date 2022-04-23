@@ -1,4 +1,5 @@
-FROM dgiorgio/gvmlibs:21.4.2
+ARG gvmlibs_version
+FROM dgiorgio/gvmlibs:${gvmlibs_version}
 
 # openvas-smb deps: git cmake gcc make pkg-config gcc-mingw-w64
 #                   perl-base heimdal-dev libpopt-dev libglib2.0-dev
@@ -22,25 +23,19 @@ RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   && pip3 install --upgrade pip \
   && pip3 install setuptools_rust cryptography
 
-# ospd - required cmake gcc make pkg-config
-# RUN pip3 install setuptools bdist-wheel-name && pip3 install psutil wheel pycparser ospd==2.0.0 ospd-openvas==1.0.0
-# RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
-#   python3 python3-setuptools libxslt1-dev gcc python3-dev zlib1g-dev \
-#   libz-dev libffi-dev make libssl-dev
-
 ARG STAGE
 ENV STAGE ${STAGE}
+ARG openvas_smb_version
+ENV openvas_smb_version ${openvas_smb_version}
+ARG ospd_openvas_version
+ENV ospd_openvas_version ${ospd_openvas_version}
+ARG openvas_scanner_version
+ENV openvas_scanner_version ${openvas_scanner_version}
 
 # openvas-smb
 RUN mkdir -p /root/gvm-src/openvas-smb
 WORKDIR /root/gvm-src/openvas-smb
 COPY ./src/openvas-smb/commit/${STAGE} ./src/openvas-smb/build.sh ./
-RUN chmod +x ./build.sh && ./build.sh ${STAGE}
-
-# ospd
-RUN mkdir -p /root/gvm-src/ospd
-WORKDIR /root/gvm-src/ospd
-COPY ./src/ospd/commit/${STAGE} ./src/ospd/build.sh ./
 RUN chmod +x ./build.sh && ./build.sh ${STAGE}
 
 # ospd-openvas
@@ -66,7 +61,8 @@ RUN chmod 755 /usr/local/bin/* \
   && chown -R gvm. /var/run/ospd
 
 USER gvm
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+WORKDIR /home/gvm
+ENTRYPOINT ["/tini", "--", "/usr/local/bin/docker-entrypoint.sh"]
 
-VOLUME ["/usr/local/var/lib/openvas"]
+VOLUME ["/var/lib/openvas"]
 EXPOSE 51234

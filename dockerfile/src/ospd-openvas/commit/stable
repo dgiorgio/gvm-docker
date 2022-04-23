@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
 
-ospd_openvas_version=21.4.2
 RELEASE_URL="https://github.com/greenbone/ospd-openvas/archive/v${ospd_openvas_version}.tar.gz"

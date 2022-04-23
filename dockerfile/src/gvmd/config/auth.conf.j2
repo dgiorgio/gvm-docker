@@ -1,1 +1,3 @@
+{% if SMTP_DMA_AUTH_USER is defined and (SMTP_DMA_AUTH_SMARTHOST is defined or SMTP_DMA_SMARTHOST is defined) and SMTP_DMA_AUTH_PASSWORD is defined %}
 {{ SMTP_DMA_AUTH_USER }}|{{ SMTP_DMA_AUTH_SMARTHOST | default(SMTP_DMA_SMARTHOST) }}:{{ SMTP_DMA_AUTH_PASSWORD }}
+{% endif %}

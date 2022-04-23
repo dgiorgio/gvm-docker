@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+RELEASE_URL="https://github.com/greenbone/gsad/archive/v${gsad_version}.tar.gz"

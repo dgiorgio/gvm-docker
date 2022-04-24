@@ -6,7 +6,7 @@ https://github.com/dgiorgio/gvm-docker
 ##### Run with docker-compose
 ```console
 $ cd gvm-docker/docker-compose/stable
-$ docker-compose -p gvm -f docker-compose.yml up -d
+$ ./run_compose.sh
 ```
 or
 ##### Run docker-compose with ansible

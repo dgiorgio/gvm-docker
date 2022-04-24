@@ -3,6 +3,8 @@
 - name: "Deploy 'Greenbone GVM'"
   hosts: localhost
   gather_facts: no
+  vars:
+    versions_file: "../dockerfile/VERSIONS"
   tasks:
 
     - name: "Run GVM docker-compose"
@@ -10,6 +12,7 @@
         project_name: gvm
         project_src: ../docker-compose/stable
         files: docker-compose.yml
+        env_file: "{{ versions_file }}"
       register: output
 
     - debug:

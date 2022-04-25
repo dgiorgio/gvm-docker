@@ -2,12 +2,13 @@
 
 # vars
 GVM_ROOT="/var"
+GSA_LOG_PATH="${GVM_ROOT}/log/gvm"
 
-sudo mkdir -p ${GVM_ROOT}/log/gvm
-sudo touch ${GVM_ROOT}/log/gvm/gsad.log
-sudo chown -R gvm. "${GVM_ROOT}"
+sudo mkdir -p "${GSA_LOG_PATH}"
+sudo touch ${GSA_LOG_PATH}/gsad.log
+sudo chown -R gvm. "${GSA_LOG_PATH}"
 
-tail -f ${GVM_ROOT}/log/gvm/gsad.log &
+tail -f ${GSA_LOG_PATH}/gsad.log &
 
 if [[ -z $@ ]]; then
   echo "gsad - starting..."

@@ -9,9 +9,11 @@ GVM_UPDATE_CRON="${GVM_UPDATE_CRON:-0 */12 * * *}"
 GVM_ROOT="/var"
 GVM_PATH="${GVM_ROOT}/lib/gvm"
 GVM_LOG_PATH="${GVM_ROOT}/log/gvm"
+OPENVAS_LIB_PATH="${GVM_ROOT}/lib/openvas"
+OSDP_RUN_PATH="/run/ospd"
 ################################################################################
-sudo mkdir -p "${GVM_PATH}" "${GVM_LOG_PATH}"
-sudo chown -R gvm. "${GVM_ROOT}"
+sudo mkdir -p "${GVM_PATH}" "${GVM_LOG_PATH}" "${OPENVAS_LIB_PATH}" "${OSDP_RUN_PATH}"
+sudo chown -R gvm. "${GVM_PATH}" "${GVM_LOG_PATH}" "${OPENVAS_LIB_PATH}" "${OSDP_RUN_PATH}"
 
 sudo ldconfig
 
@@ -22,9 +24,6 @@ while [ ! -S "/var/run/redis/redis.sock" ]; do
 done
 sudo chown gvm. /run/redis/redis.sock
 echo "Redis ready."
-
-sudo mkdir -p ${GVM_ROOT}/lib/openvas /var/run/ospd \
-&& sudo chown -R gvm. ${GVM_ROOT} /var/run/ospd
 
 # cron - sync NVT
 if [ "${ENABLE_CRON}" != "false" ]; then
@@ -43,12 +42,10 @@ tail -f ${GVM_LOG_PATH}/*.log &
 flock --verbose -n /tmp/nvt_feed_update.lockfile /usr/local/bin/nvt_feed_update.sh >> ${GVM_LOG_PATH}/nvt_feed_update.log 2>&1 &
 
 if [[ -z $@ ]]; then
-  rm -f /var/run/ospd/ospd.pid
+  rm -f ${OSDP_RUN_PATH}/ospd.pid
   # Start openvas
-  echo "openvas - Updates VT info into redis store from VT files"
-  openvas -u
   echo "openvas - starting..."
-  ospd-openvas -f --pid-file /var/run/ospd/ospd.pid --unix-socket /var/run/ospd/ospd.sock -m 0777 --key-file /usr/local/var/lib/gvm/private/CA/serverkey.pem --cert-file /usr/local/var/lib/gvm/CA/servercert.pem --ca-file /usr/local/var/lib/gvm/CA/cacert.pem -L DEBUG
+  ospd-openvas -f --pid-file ${OSDP_RUN_PATH}/ospd-openvas.pid --unix-socket ${OSDP_RUN_PATH}/ospd-openvas.sock -m 0777 --key-file ${GVM_PATH}/private/CA/serverkey.pem --cert-file ${GVM_PATH}/CA/servercert.pem --ca-file ${GVM_PATH}/CA/cacert.pem -L DEBUG
 else
   exec "$@"
 fi

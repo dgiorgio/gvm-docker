@@ -9,11 +9,13 @@ GVM_UPDATE_CRON="${GVM_UPDATE_CRON:-0 */12 * * *}"
 GVM_ROOT="/var"
 GVM_PATH="${GVM_ROOT}/lib/gvm"
 GVM_LOG_PATH="${GVM_ROOT}/log/gvm"
+GVM_RUN_PATH="/run/gvm"
 SMTP_DMA_CONF_FILE="/etc/dma/dma.conf"
 SMTP_DMA_AUTH_FILE="/etc/dma/auth.conf"
+OSDP_RUN_PATH="/run/ospd"
 ################################################################################
-sudo mkdir -p "${GVM_PATH}" "${GVM_LOG_PATH}"
-sudo chown -R gvm. "${GVM_ROOT}"
+sudo mkdir -p "${GVM_PATH}" "${GVM_LOG_PATH}" "${GVM_RUN_PATH}"
+sudo chown -R gvm. "${GVM_PATH}" "${GVM_LOG_PATH}" "${GVM_RUN_PATH}"
 
 if [ ! -f "${GVM_PATH}/CA/clientcert.pem" ] || \
   [ ! -f "${GVM_PATH}/CA/cacert.pem" ] || \
@@ -79,7 +81,7 @@ tail -f ${GVM_LOG_PATH}/*.log &
 
 if [[ -z $@ ]]; then
   echo "gvmd - starting..."
-  gvmd -f -v --osp-vt-update=/var/run/ospd/ospd.sock --listen=0.0.0.0 --port=9390
+  gvmd -f -v --osp-vt-update=${OSDP_RUN_PATH}/ospd-openvas.sock --listen=0.0.0.0 --port=9390
 else
   exec "$@"
 fi

@@ -37,7 +37,7 @@ services:
     volumes:
       - "redis-socket:/var/run/redis"
       - "gvm-connect:/var/run"
-      - "ospd-socket:/var/run/ospd"
+      - "ospd-socket:/run/ospd"
       - "openvas-data:/var/lib/openvas"
       - "gvm-data:/var/lib/gvm"
       - "/etc/localtime:/etc/localtime:ro"
@@ -59,7 +59,7 @@ services:
       - "9390:9390"
     volumes:
       - "gvm-connect:/var/run"
-      - "ospd-socket:/var/run/ospd"
+      - "ospd-socket:/run/ospd"
       - "openvas-data:/var/lib/openvas"
       - "gvm-data:/var/lib/gvm"
       - "postgres-socket:/var/run/postgresql"

@@ -20,8 +20,8 @@ RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   python3 python3-setuptools libxslt1-dev gcc python3-dev zlib1g-dev \
   libz-dev libffi-dev make libssl-dev \
   && rm -rf /var/lib/apt/lists/* \
-  && pip3 install --upgrade pip \
-  && pip3 install setuptools_rust cryptography
+  && python3 -m pip install --upgrade pip \
+  && python3 -m pip install setuptools_rust cryptography
 
 ARG STAGE
 ENV STAGE ${STAGE}

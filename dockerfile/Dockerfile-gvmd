@@ -36,7 +36,7 @@ RUN rm -rf /root/gvm-src
 
 # install https://github.com/kolypto/j2cli
 RUN python3 -m pip install --upgrade pip \
-  && pip3 install --upgrade j2cli setuptools
+  && python3 -m pip install --upgrade j2cli setuptools
 # config smtp
 COPY ./src/gvmd/config/dma.conf.j2 ./src/gvmd/config/auth.conf.j2 /etc/dma/
 

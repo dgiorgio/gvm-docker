@@ -9,6 +9,10 @@ $ cd gvm-docker/docker-compose/stable
 $ ./run_compose.sh
 ```
 or
+```console
+$ cd gvm-docker/docker-compose/stable
+$ docker-compose -p gvm --env-file "../../dockerfile/VERSIONS" -f docker-compose.yml up -d
+```
 ##### Run docker-compose with ansible
 ```console
 $ cd ansible-gvm

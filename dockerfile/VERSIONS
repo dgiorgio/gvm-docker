@@ -1,14 +1,19 @@
-gvmlibs_debian_version=buster-20220418-slim
+# docker image version and build version
+postgres_gvm_version=11.13-buster # postgres-gvm image
+openvas_scanner_version=21.4.4 # openvas-scanner image
+gvmd_version=21.4.5 # gvmd image
+gsa_version=21.4.4 # gsa image
+gvmlibs_version=21.4.4 # gvmlibs image
 
-gvmlibs_version=21.4.4
+# only build version
+openvas_smb_version=21.4.0 # openvas-scanner image
+ospd_openvas_version=21.4.4 # openvas-scanner image
+gsad_version=21.4.4 # gsa image
+gvmlibs_debian_version=buster-20220622-slim # gvmlibs image
 
-gsa_version=21.4.4
-gsad_version=21.4.4
-
-openvas_smb_version=21.4.0
-ospd_openvas_version=21.4.4
-openvas_scanner_version=21.4.4
-
-gvmd_version=21.4.5
-
-postgres_gvm_version=11.13-buster
+# docker image custom tag
+build_gvmlibs="-20220709"
+build_gsa="-20220709"
+build_openvas_scanner="-20220709"
+build_gvmd="-20220709"
+build_postgres_gvm="-${gvmd_version}-20220709"

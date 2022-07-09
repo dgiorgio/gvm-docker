@@ -10,7 +10,7 @@ GVM_ROOT="/var"
 GVM_PATH="${GVM_ROOT}/lib/gvm"
 GVM_LOG_PATH="${GVM_ROOT}/log/gvm"
 OPENVAS_LIB_PATH="${GVM_ROOT}/lib/openvas"
-OSDP_RUN_PATH="/run/ospd"
+OSDP_RUN_PATH="/var/run/ospd"
 ################################################################################
 sudo mkdir -p "${GVM_PATH}" "${GVM_LOG_PATH}" "${OPENVAS_LIB_PATH}" "${OSDP_RUN_PATH}"
 sudo chown -R gvm. "${GVM_PATH}" "${GVM_LOG_PATH}" "${OPENVAS_LIB_PATH}" "${OSDP_RUN_PATH}"
@@ -19,10 +19,10 @@ sudo ldconfig
 
 echo "Testing redis status..."
 while [ ! -S "/var/run/redis/redis.sock" ]; do
-  echo "Redis not yet ready, /run/redis/redis.sock not exists."
+  echo "Redis not yet ready, /var/run/redis/redis.sock not exists."
   sleep 1
 done
-sudo chown gvm. /run/redis/redis.sock
+sudo chown gvm. /var/run/redis/redis.sock
 echo "Redis ready."
 
 # cron - sync NVT

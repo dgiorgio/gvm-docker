@@ -10,7 +10,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - "postgres-socket:/var/run/postgresql"
+      - "/run/gvm-docker/postgres-socket:/var/run/postgresql:rw,rshared"
       - "postgres-data:/var/lib/postgresql/data"
       - "/etc/localtime:/etc/localtime:ro"
     environment:
@@ -22,10 +22,11 @@ services:
     hostname: "redis"
     restart: always
     volumes:
-      - "redis-socket:/run/redis/"
+      - "redis-data:/data"
+      - "/run/gvm-docker/redis-socket:/var/run/redis:rw,rshared"
       - "/etc/localtime:/etc/localtime:ro"
     command: >
-        sh -c "echo -e 'unixsocket /run/redis/redis.sock \nunixsocketperm 755 \ntimeout 0 \ndatabases 1025 \nmaxclients 512' > /etc/redis.conf
+        sh -c "echo -e 'unixsocket /var/run/redis/redis.sock \nunixsocketperm 755 \ntimeout 0 \ndatabases 1025 \nmaxclients 512' > /etc/redis.conf
         && redis-server /etc/redis.conf"
 
   gvm-openvas-scanner:
@@ -35,9 +36,9 @@ services:
     ports:
       - "51000:51234"
     volumes:
-      - "redis-socket:/var/run/redis"
-      - "gvm-connect:/var/run"
-      - "ospd-socket:/run/ospd"
+      - "/run/gvm-docker/gvm-socket:/var/run/gvm:rw,rshared"
+      - "/run/gvm-docker/ospd-socket:/var/run/ospd:rw,rshared"
+      - "/run/gvm-docker/redis-socket:/var/run/redis:rw,rshared"
       - "openvas-data:/var/lib/openvas"
       - "gvm-data:/var/lib/gvm"
       - "/etc/localtime:/etc/localtime:ro"
@@ -58,11 +59,11 @@ services:
     ports:
       - "9390:9390"
     volumes:
-      - "gvm-connect:/var/run"
-      - "ospd-socket:/run/ospd"
+      - "/run/gvm-docker/gvm-socket:/var/run/gvm:rw,rshared"
+      - "/run/gvm-docker/ospd-socket:/var/run/ospd:rw,rshared"
+      - "/run/gvm-docker/postgres-socket:/var/run/postgresql:rw,rshared"
       - "openvas-data:/var/lib/openvas"
       - "gvm-data:/var/lib/gvm"
-      - "postgres-socket:/var/run/postgresql"
       - "/etc/localtime:/etc/localtime:ro"
     links:
       - gvm-openvas-scanner
@@ -108,10 +109,7 @@ services:
       - GVMD_PORT=9390
 
 volumes:
-  gvm-connect:
   gvm-data:
   openvas-data:
-  ospd-socket:
-  postgres-socket:
   postgres-data:
-  redis-socket:
+  redis-data:

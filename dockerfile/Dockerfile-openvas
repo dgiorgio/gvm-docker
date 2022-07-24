@@ -62,7 +62,7 @@ RUN chmod 755 /usr/local/bin/* \
 
 USER gvm
 WORKDIR /home/gvm
-ENTRYPOINT ["/tini", "--", "/usr/local/bin/docker-entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/docker-entrypoint.sh"]
 
 VOLUME ["/var/lib/openvas"]
 EXPOSE 51234

@@ -43,6 +43,6 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 USER gvm
 WORKDIR /home/gvm
-ENTRYPOINT ["/tini", "--", "/usr/local/bin/docker-entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/docker-entrypoint.sh"]
 
 EXPOSE 80 443

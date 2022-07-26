@@ -12,8 +12,8 @@ gsad_version=22.4.0 # gsa image - https://github.com/greenbone/gsad/releases
 gvmlibs_debian_version=bullseye-20220711-slim # gvmlibs image - https://hub.docker.com/_/debian/
 
 # docker image custom tag
-build_gvmlibs="-20220720"
-build_gsa="-20220720"
-build_openvas_scanner="-20220720"
-build_gvmd="-20220720"
-build_postgres_gvm="-${gvmd_version}-20220720"
+build_gvmlibs="-20220726"
+build_gsa="-20220726"
+build_openvas_scanner="-20220726"
+build_gvmd="-20220726"
+build_postgres_gvm="-${gvmd_version}-20220726"

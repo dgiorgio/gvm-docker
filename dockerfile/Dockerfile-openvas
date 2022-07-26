@@ -18,7 +18,7 @@ RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   libssh-gcrypt-dev nmap perl-base rsync uuid-dev wget xmltoman \
   sudo python3-pip python3-dev libunistring-dev \
   python3 python3-setuptools libxslt1-dev gcc python3-dev zlib1g-dev \
-  libz-dev libffi-dev make libssl-dev \
+  libz-dev libffi-dev make libssl-dev libjson-glib-dev libbsd-dev \
   && rm -rf /var/lib/apt/lists/* \
   && python3 -m pip install --upgrade pip \
   && python3 -m pip install setuptools_rust cryptography

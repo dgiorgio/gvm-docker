@@ -6,7 +6,7 @@ FROM dgiorgio/gvmlibs:${gvmlibs_version}
 
 RUN apt update -y && apt install -y --no-install-recommends --fix-missing \
   wget gnupg2 \
-  && echo 'deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
+  && echo "deb http://apt.postgresql.org/pub/repos/apt bullseye-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
   && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN apt update -y && DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends --fix-missing \
   git cmake gcc make clang-format pkg-config libglib2.0-dev libgnutls28-dev \

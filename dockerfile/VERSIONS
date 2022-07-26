@@ -1,19 +1,19 @@
 # docker image version and build version
-postgres_gvm_version=11.13-buster # postgres-gvm image
-openvas_scanner_version=21.4.4 # openvas-scanner image
-gvmd_version=21.4.5 # gvmd image
-gsa_version=21.4.4 # gsa image
-gvmlibs_version=21.4.4 # gvmlibs image
+postgres_gvm_version=11.16-bullseye # postgres-gvm image
+openvas_scanner_version=22.4.0 # openvas-scanner image - https://github.com/greenbone/openvas-scanner/releases
+gvmd_version=22.4.0 # gvmd image - https://github.com/greenbone/gvmd/releases
+gsa_version=22.4.0 # gsa image - https://github.com/greenbone/gsa/releases
+gvmlibs_version=22.4.0 # gvmlibs image - https://github.com/greenbone/gvm-libs/releases
 
 # only build version
-openvas_smb_version=21.4.0 # openvas-scanner image
-ospd_openvas_version=21.4.4 # openvas-scanner image
-gsad_version=21.4.4 # gsa image
-gvmlibs_debian_version=buster-20220622-slim # gvmlibs image
+openvas_smb_version=22.4.0 # openvas-scanner image - https://github.com/greenbone/openvas-smb/releases
+ospd_openvas_version=22.4.0 # openvas-scanner image - https://github.com/greenbone/ospd-openvas/releases
+gsad_version=22.4.0 # gsa image - https://github.com/greenbone/gsad/releases
+gvmlibs_debian_version=bullseye-20220711-slim # gvmlibs image - https://hub.docker.com/_/debian/
 
 # docker image custom tag
-build_gvmlibs="-20220709"
-build_gsa="-20220709"
-build_openvas_scanner="-20220709"
-build_gvmd="-20220709"
-build_postgres_gvm="-${gvmd_version}-20220709"
+build_gvmlibs="-20220720"
+build_gsa="-20220720"
+build_openvas_scanner="-20220720"
+build_gvmd="-20220720"
+build_postgres_gvm="-${gvmd_version}-20220720"

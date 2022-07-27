@@ -7,13 +7,13 @@ gvmlibs_version=22.4.0 # gvmlibs image - https://github.com/greenbone/gvm-libs/r
 
 # only build version
 openvas_smb_version=22.4.0 # openvas-scanner image - https://github.com/greenbone/openvas-smb/releases
-ospd_openvas_version=22.4.0 # openvas-scanner image - https://github.com/greenbone/ospd-openvas/releases
+ospd_openvas_version=21.4.4 # openvas-scanner image - https://github.com/greenbone/ospd-openvas/releases
 gsad_version=22.4.0 # gsa image - https://github.com/greenbone/gsad/releases
 gvmlibs_debian_version=bullseye-20220711-slim # gvmlibs image - https://hub.docker.com/_/debian/
 
 # docker image custom tag
 build_gvmlibs="-20220726"
 build_gsa="-20220726"
-build_openvas_scanner="-20220726"
+build_openvas_scanner="-20220727"
 build_gvmd="-20220726"
 build_postgres_gvm="-${gvmd_version}-20220726"

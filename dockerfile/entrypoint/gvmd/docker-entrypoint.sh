@@ -81,7 +81,7 @@ tail -f ${GVM_LOG_PATH}/*.log &
 
 if [[ -z $@ ]]; then
   echo "gvmd - starting..."
-  gvmd -f -v --osp-vt-update=${OSDP_RUN_PATH}/ospd-openvas.sock --listen=0.0.0.0 --port=9390
+  gvmd -f -v --osp-vt-update=${OSDP_RUN_PATH}/ospd.sock --listen=0.0.0.0 --port=9390
 else
   exec "$@"
 fi

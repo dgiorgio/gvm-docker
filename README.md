@@ -1,4 +1,6 @@
-# Greenbone Vulnerability Management in Docker
+# Use the official project: https://greenbone.github.io/docs/latest/22.4/container/index.html
+
+# [DEPRECATED] Greenbone Vulnerability Management in Docker
 https://github.com/dgiorgio/gvm-docker
 ![Dashboard](https://github.com/dgiorgio/gvm-docker/raw/master/images/Dashboard.png)
 
